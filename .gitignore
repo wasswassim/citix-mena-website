@@ -3,6 +3,8 @@
 .env.local
 .env.*.local
 *.key
+# Plain-text Higgsfield key file (kept outside the repo in DOCS\Internship; must never be copied in)
+857b9f1a-55b7-4a06-aef1-873379bb5ef.txt
 857b9f1a-*.txt
 
 # Raw media (not committed)
