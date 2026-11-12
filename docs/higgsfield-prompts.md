@@ -85,3 +85,36 @@ Built by `scripts/hero_cutout.py` from the chosen pair `hero_night_16x9_v1` / `h
 Script: `scripts/prompt1_s5_regen.py`. References: image 1 = `hero_cutout/tom_night_ref.png` (corrected night cut-out on a dark background, main reference), image 2 = ref 02. Changes from round 2's prompt B: Tom described from the corrected front view at 1 : 3.5 overall with near edge-to-edge screens; Tom at about 60% of frame height (55% on 9:16) with open sky above, so the Shot 5 move to the hero frame is small.
 
 Pricing note: Marketing Studio Image charges by prompt length as well as by reference count (about $0.004 per 1,000 characters). Quotes must be taken with the real prompt, not a placeholder.
+
+Round 3 result (12 Nov 2026, $0.372, real-prompt quote): 4 images in `media/generated/drafts/round3_s5_start/`, sheet `media/generated/contact_sheet_s5_start_round3.jpg`. Picked `s5_start_16x9_v1` (screens near edge-to-edge, small corner radius). It came out at about 1 : 3.04 overall and 82% of frame height, so the Shot 5 first frame (`media/generated/clips_input/s5_first_16x9.png`) is that image scaled horizontally by 0.869 to reach 1 : 3.5, with the sides mirror-padded back to 16:9.
+
+## PROMPT 2 — clips (Kling 4.0 image-to-video)
+
+Script: `scripts/prompt2_clips.py`. Rates: $0.1257/s at 720p, $0.1879/s at 1080p, whole seconds from 3 s. Input frames: `media/generated/clips_input/`. Outputs: `media/generated/clips/`.
+
+- **Shot 5** (`s5`): first frame = `s5_first_16x9.png`, end frame = `s5_last_16x9.png` (= `hero_test/intro_end_frame_reference_1920x1080.png`). 5 s, trimmed to 4.5 s in the edit. The edit always finishes with a short dissolve onto the real end-frame still. Step 1 is one 720p test; if Kling warps Tom, Shot 5 becomes a clean dissolve from `s5_start` to the hero frame.
+- **Shot 2** (`s2`): Kling requires a first frame, so the chosen `s2_end` still is the FIRST frame and the clip is a very gentle push-in (about 5% on 16:9, about 3% on 9:16). 3 s, trimmed to 2.5 s. 9:16 uses `s2_first_9x16.png`, the tight reframe of the 16:9 pick (decided by Wassim).
+- Approved: test $0.63; step 2 drafts $4.02 pre-approved only if the test does not warp Tom.
+
+Shot 5 prompt:
+
+> Night. The camera stays centred on the tall black smartboard totem while it slowly lowers toward the ground, eases back slightly and tilts up. The road, buildings, palm trees, street lights and light trails sink smoothly out of the bottom of the frame until only the totem remains, standing against a clear, deep blue-black sky with faint stars. During the move the totem's two screens power on together, rising from black to an even, soft, cool-white glow. [RIGID]
+
+Shot 2 prompt:
+
+> Blue hour. A very slow, gentle push-in of about [5% / 3%] toward the tall black smartboard totem on the roadside. Traffic keeps flowing as motion-blurred white and red light trails; palm fronds move very slightly. The totem's screens keep the same even cool-white glow and its red side strip stays lit. The skyline stays fixed and does not change. [RIGID]
+
+[RIGID]:
+
+> The totem is a rigid, solid object: its shape, proportions, straight edges, two screens, top cap, plinth and red side light strip stay exactly identical throughout. No morphing, no bending, no stretching, no extra parts, no text or logos anywhere. Smooth, steady, cinematic camera motion, one continuous shot, no cuts, no shake.
+
+## Addition to PROMPT 3 (edit) — real screen content on Tom (decided by Wassim, 12 Nov 2026)
+
+In the edit, composite real screen content onto Tom's two screens in **Shot 2 and Shot 5**, tracked to the camera move (corner-pin per frame; both moves are slow, so a planar track of the screen corners is enough).
+
+- **Upper screen:** a CITIX-style weather/time widget, **night variant**, built in code or as a rendered plate in the style of ref 12 (`12_AQI_widget_ui.png`) and `day_night.mp4` (refs 09, 10). Ref 12 is never uploaded to Higgsfield.
+- **Lower screen:** a neutral CITIX brand message: Pulse Red #FD0332, Gilroy, **no third-party brands** (the Emirates and Aurex ads in the refs must not be reproduced).
+- **Shot 5:** the content appears as the screens "power on": black → brief cool-white glow → content fades up, timed to Kling's power-on.
+- **Shot 2:** content is on from the first frame.
+- Cover most of the generated bezel so the screens read near edge-to-edge, as in Prompt 4.
+- The hero end frame must match what Prompt 4 shows on the screens in its night state, so the film's last frame and the hero's first state are identical.

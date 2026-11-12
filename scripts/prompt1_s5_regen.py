@@ -1,4 +1,4 @@
-"""Prompt 1, round 3: regenerate s5_start only (approved by Wassim 2026-11-12, $0.33).
+"""Prompt 1, round 3: regenerate s5_start only (approved by Wassim 2026-11-12, $0.37).
 
 Main reference = the corrected night cut-out of the chosen hero Tom (front view, 1 : 3.5 overall),
 second reference = ref 02 (real Tom at night, for the red side strip and materials).
@@ -18,7 +18,7 @@ import prompt1_drafts as pd  # noqa: E402
 
 pd.OUT = hf.ROOT / "media" / "generated" / "drafts" / "round3_s5_start"
 pd.STATE = pd.OUT / "jobs.json"
-pd.BUDGET_USD = 0.35
+pd.BUDGET_USD = 0.372  # Wassim approved $0.37 on 2026-11-12 (real-prompt quote)
 
 MAIN_REF = hf.ROOT / "media" / "generated" / "hero_cutout" / "tom_night_ref.png"
 NIGHT_REF = hf.ROOT / "media" / "source" / "02_tom_night_photo.jpg"
