@@ -1,4 +1,4 @@
-"""Prompt 1 drafts: 20 key stills with Marketing Studio Image (approved by Wassim 2026-11-12).
+"""Prompt 1 drafts, round 2 (OLD Tom, refs 01 + 02): 20 key stills with Marketing Studio Image.
 
 Usage:
   python scripts/prompt1_drafts.py quote          # free: total quote, no generation
@@ -18,88 +18,97 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import higgsfield as hf  # noqa: E402
 
 MODEL = "marketing-studio/image"
-BUDGET_USD = 2.40  # approved: about $2.15
+BUDGET_USD = 0.0  # set to the approved amount once Wassim OKs the round 2 quote
 OUT = hf.ROOT / "media" / "generated" / "drafts"
 STATE = OUT / "jobs.json"
 SRC = hf.ROOT / "media" / "source"
 BASE = {"resolution": "2k", "quality": "medium", "enhance_prompt": False}
 
 TOM = (
-    'PRODUCT — must match the reference images exactly, do not redesign it: the CITIX "Tom" roadside '
-    "smartboard, a tall, slim vertical totem about 7 m high and 2 m wide with a thin flat profile and a "
-    "matte black / graphite metal body. The front face holds two stacked portrait screens of nearly equal "
-    "height with rounded corners, separated by a thin black gap (upper screen = information zone, lower "
-    "screen = advertising zone). A small, completely plain black cap sits on the top edge toward the "
-    "right, with one round camera lens and no text or logo on it. The totem stands on a narrower plain "
-    "dark rectangular plinth set toward the right under the body. The narrow side panels are matte black "
-    "metal with flowing Arabic calligraphy engraved in low relief, running vertically along the full "
-    "height as in the calligraphy references. There is NO light strip on the sides. No other text, logos, "
-    "stickers, antennas, brackets or added parts."
+    "PRODUCT — reproduce the real object shown in reference images 1 (day) and 2 (night) exactly, do not "
+    'redesign it: the CITIX "Tom" roadside smartboard, a tall, slim vertical totem about 7 m high and 2 m '
+    "wide (body width to height about 1 : 3) with a very thin flat profile and a matte black metal body. "
+    "The front face is almost entirely screen: two stacked portrait screens with rounded corners and very "
+    "thin black bezels, separated by a thin black gap, the upper screen slightly shorter than the lower "
+    "one. A small low black cap sits on the top edge, spanning from the middle to the right edge, with one "
+    "round camera lens at its right end; the cap is completely plain, with no text or logo. The totem "
+    "stands on a plain matte black rectangular plinth, narrower than the body (about 60% of its width), "
+    "short (about one sixth of the body height) and flush with the body's right edge. A single thin "
+    "vertical red LED light strip runs along the right side face of the totem from the cap down to the "
+    "ground, exactly as in reference image 2. No other parts, text, logos, stickers, antennas or "
+    "decoration. Ignore the content shown on the screens in the reference images."
 )
 AVOID = (
     "Avoid: warm, orange or yellow tones; neon, acid or oversaturated colours; sci-fi or futuristic "
     "styling; abstract CGI look; lens flares, fog, digital noise, clutter; mosques, domes, minarets or "
-    "famous landmarks; identifiable people; billboards or other signage; any text, lettering, wordmark or "
-    "logo anywhere in the image, including on the totem's top cap; any light strip on the sides of the "
-    "totem; any content, text or image on the screens."
+    "famous landmarks; identifiable people; billboards or other signage; any text, lettering, wordmark, "
+    "logo or brand anywhere in the image, including on the totem's top cap; any pattern, engraving or "
+    "ornament on the totem; any content, text or image on the screens."
 )
+GLOW = ("an even, cool, medium-white glow like a display at 40% brightness (light grey-white, never pure "
+        "white, not blown out), with no content")
 
 A = (
-    "Photorealistic cinematic photograph, blue hour just after sunset in Sharjah, UAE. Reference image 6 "
-    "is an aerial frame of this exact road at blue hour: keep the same straight dual carriageway with "
-    "palm-lined grass verges, the same cluster of waterfront high-rise towers in the distance and the "
-    "same light and colour, but the camera has now descended to about 3 m above the ground at the "
-    f"roadside, looking along the road toward the skyline. {TOM} It stands on the grass verge beside the "
-    "road, placed right of centre (around the right third of the frame), full height visible from plinth "
-    "to cap with headroom above, seen from a slight three-quarter angle so the front screens and one "
-    "engraved side panel are visible. Both screens are switched ON but blank: an even, soft, neutral "
-    "cool-white glow with no content, spilling faintly onto the verge. Traffic passes as motion-blurred "
-    "streaks with white and red light trails; no readable plates, no people. Cool blue-hour grade: deep "
-    "blue sky, clean high contrast, crisp defined artificial light, neutral-cool white balance. 35 mm "
-    f"lens, shallow depth of field so the skyline is softly out of focus. {AVOID}"
+    "Photorealistic cinematic photograph at street level, blue hour just after sunset, on a wide "
+    "palm-lined road in Sharjah, UAE. Reference image 3 is an aerial view of the same district at the "
+    "same moment: match its cool blue-hour light and colour and show a similar cluster of modern "
+    f"waterfront high-rise towers softly out of focus in the distance. {TOM} It stands on the grass verge "
+    "beside the road, right of centre (around the right third of the frame), full height visible from the "
+    "ground to the cap with clear headroom above the cap, seen from the same slight three-quarter angle "
+    f"as in reference image 1. Both screens are switched ON but blank: {GLOW}. The red side light strip "
+    "is lit. Traffic passes as motion-blurred streaks with white and red light trails; no readable "
+    "plates, no people. Eye-level camera, 35 mm lens, shallow depth of field. Deep blue sky, clean high "
+    f"contrast, crisp defined artificial light, neutral-cool white balance. {AVOID}"
 )
-A_V = " Vertical composition: the totem fills about 70% of the frame height, slightly right of centre, the road receding on the left."
+A_V = " Vertical composition: the totem fills about 65% of the frame height, slightly right of centre, the road receding on the left."
 
 B = (
-    "Photorealistic cinematic photograph at night on a wide, quiet road in Sharjah, UAE: palm trees, "
-    "low-rise modern buildings in the background softly out of focus, clean pavement. Eye-level camera "
-    f"(about 1.7 m), level horizon, 35 mm lens. {TOM} It stands on the roadside, centred in the frame, "
-    "full height visible from plinth to cap, seen almost front-on with a very slight three-quarter turn "
-    "so one engraved side panel catches the light. Both screens are switched OFF: pure black glass with "
-    "only faint reflections of the street lights. Soft, cool white street lighting defines the edges of "
-    "the totem and the engraved calligraphy; behind it, long white and red light trails from passing "
-    "traffic. Deep blue-black sky taking the upper third of the frame. High contrast, clean, neutral-cool "
-    f"white balance. {AVOID}"
+    f"Photorealistic cinematic photograph at night on a wide, quiet road in Sharjah, UAE. {TOM} It stands "
+    "on the roadside, perfectly front-facing, looking straight at the camera, exactly centred "
+    "horizontally, full height visible from the ground to the cap. Eye-level camera, long lens, vertical "
+    "edges parallel. The horizon is low: the road, a few palm trees and low-rise modern buildings stay in "
+    "the lower third of the frame, softly out of focus, with long white and red light trails from passing "
+    "traffic behind the totem. The upper two thirds of the frame are a clear, deep blue-black night sky "
+    "with faint, sparse stars. Both screens are switched OFF: pure black glass with only faint "
+    "reflections. The red side light strip is lit, visible as a thin red line along the totem's right "
+    "edge. Soft, cool white street light defines the edges of the body. High contrast, clean, "
+    f"neutral-cool white balance. {AVOID}"
 )
-B_V = " Vertical composition: the totem centred, filling about 65% of the frame height, sky above."
+B_V = " Vertical composition: the totem centred, filling about 60% of the frame height."
 
 C = (
-    "Photorealistic cinematic photograph at night. Low camera, about 1 m above the ground and well back "
-    "from the subject, tilted slightly upward, long lens so the vertical edges stay almost parallel with "
-    f"minimal perspective distortion. {TOM} It stands alone, exactly centred in the frame, VIEW, against "
-    "a clear, deep blue-black night sky with faint, sparse stars; no buildings, no trees, nothing else in "
-    "the sky. Only a thin strip of dark ground is visible at the very bottom of the frame. Both screens "
-    "are switched ON but blank: an even, soft, neutral cool-white glow with no content. A faint cool rim "
-    "light defines the edges of the body and the engraved calligraphy. Large, clean, empty sky on both "
-    f"sides of the totem, especially on the left, for a headline. High contrast, clean, no noise. {AVOID}"
+    f"Photorealistic cinematic photograph at night. {TOM} It is perfectly front-facing, looking straight "
+    "at the viewer, with no three-quarter view, exactly centred horizontally. The camera is low and looks "
+    "slightly up at it through a long lens, so the vertical edges stay almost parallel. The background is "
+    "sky only: a clear, deep blue-black night sky with faint, sparse stars, completely empty — no street, "
+    "no ground, no horizon, no buildings, no trees, no clouds. The totem's full height is visible: the "
+    "cap near the top with clear sky above it, and the plinth at the bottom, BASE. It must read as a "
+    "real, heavy object standing on the ground just below the frame, never floating. Both screens are "
+    f"switched ON but blank: {GLOW}. The red side light strip is lit, visible only as a thin red line "
+    "along the totem's right edge. A faint cool rim light defines the edges of the matte black body. "
+    f"Wide, clean, empty sky on both sides of the totem. High contrast, clean, no noise. {AVOID}"
 )
-C_VIEW = {
-    1: "seen straight front-on",
-    2: "seen from a slight three-quarter angle (about 20 degrees) so one engraved calligraphy side panel is clearly visible",
+C_BASE = {
+    1: "the bottom of the plinth is cut cleanly by the bottom edge of the frame",
+    2: "the bottom of the plinth dissolves into a soft dark fade in the last few percent of the frame",
 }
-C_V = " Vertical composition: the totem centred in the upper two thirds of the frame; the lower third is dark, empty ground and sky gradient for text."
+C_FRAME = {
+    "16:9": " The totem fills about 82% of the frame height.",
+    "21:9": " The totem fills about 82% of the frame height.",
+    "9:16": " Vertical composition: the totem fills about 68% of the frame height, anchored at the bottom, with a large area of empty sky above it.",
+}
 
 D = (
-    "Edit reference image 1 into the identical scene in daytime. Keep the camera, framing, the totem's "
-    "position, scale, angle and every edge, and the horizon line exactly as they are. Change only the "
-    "light and the sky: a clear blue sky with a few soft white clouds, realistic neutral daylight, soft "
-    "natural shadows, the thin ground strip lit by daylight. The screens stay switched ON and blank with "
-    "the same neutral glow, naturally less bright against daylight. Use reference image 2 only for how "
-    f"the matte black body looks in real daylight. Clean, realistic, minimal noise. {AVOID}"
+    "Edit reference image 1 into the identical scene in daytime. Keep the camera, the framing, the "
+    "totem's position, scale and every edge, and the way its base meets the bottom of the frame exactly "
+    "as they are, pixel for pixel. Change only the light and the sky: a clear blue sky with a few soft "
+    "white clouds, realistic neutral daylight on the matte black body as in reference image 2. Still sky "
+    "only: no ground, no horizon, no buildings. The screens stay switched ON and blank with the same cool "
+    "medium-white glow, naturally less bright against daylight. The red side light strip is switched off "
+    f"and barely visible. Clean, realistic, minimal noise. {AVOID}"
 )
 
-PRODUCT_REFS = ["01_tom_day_photo.jpg", "02_tom_night_photo.jpg", "05_TOM_full_silhouette.png",
-                "04_TOM_calligraphy_side_b.png", "06_JERRY_calligraphy_side.png"]
+PRODUCT_REFS = ["01_tom_day_photo.jpg", "02_tom_night_photo.jpg"]
 
 
 def tag(ar: str) -> str:
@@ -119,7 +128,7 @@ def build_stage1() -> dict:
                                                 "image_urls": refs}
         for ar in ("16:9", "21:9", "9:16"):
             jobs[f"hero_night_{tag(ar)}_v{v}"] = {**BASE, "aspect_ratio": ar, "image_urls": refs,
-                                                  "prompt": C.replace("VIEW", C_VIEW[v]) + (C_V if ar == "9:16" else "")}
+                                                  "prompt": C.replace("BASE", C_BASE[v]) + C_FRAME[ar]}
     return jobs
 
 

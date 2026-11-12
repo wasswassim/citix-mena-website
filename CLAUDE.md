@@ -30,13 +30,15 @@ Planning happens in a claude.ai Project ("CitiX MENA Internship"); copies of the
 ## Products (sales deck — some sizes still to confirm)
 - Street smartboards: **Jerry** (pedestrian, 2.6 × 1 m), **Tom** (roadside, 7 × 2 m vertical totem; screen split: top = info widgets, bottom = ad), **Smart Pillar** (petrol stations).
 - Giant 3D screens: **Baloo** (corner spire, Tejara 1), **Simba**, **Jumbo** (largest corner screen, premium mall). Software: **Citix OS**.
-- **New Tom:** engraved **Arabic calligraphy pattern on the side panels** instead of the side light strip (refs 03, 04, 06). No full view of the new Tom exists yet; the team may send a 3D model. When it arrives, rebuild Tom references from it.
+- **Tom to use NOW (decided 12 Nov 2026): the OLD Tom**, exactly as in the real photos (refs 01 day, 02 night), including its real **red side light strip** (thin vertical red LED line on the right side face, lit at night). All stills and clips use it until the company sends the calligraphy artwork. Only refs 01 and 02 go into Tom prompts. In generated images the top cap stays **plain, with no text or logo**; the real "CITIX MENA" logo is composited onto the finals.
+- **New Tom (LATER):** engraved **Arabic calligraphy pattern on the side panels** instead of the side light strip (refs 03, 04, 06). Generation can't reproduce the real script (round 1 drafts gave pseudo-script), so wait for the company's calligraphy artwork or 3D model, then rebuild the Tom references and regenerate. Don't use refs 03–06 in prompts before that.
 - Smartboard logic: widgets on top catch the eye like a phone notification, the ad sits below. Eye-tracking study: +53% conversion vs standard billboards.
 - Real installations: Yas Island entrances, Abu Dhabi (first 2 Tom); Sharjah (Shurooq partnership: Al Qasba, Al Heera Beach, Flag Island, Khorfakkan…); Jumbo at an Abu Dhabi mall.
 
 ## Current workstream: intro film + hero
 - **Intro gate** (inspired by WOW Media's intro: muted looping film, Enter + Unmute, then the site). We copy the format, not their footage.
-- **15 s loop** → Enter → **hero**: the new Tom alone in the centre under the sky, with a **day/night switch** (inspired by flyshare.design: sky transition, birds by day, opt-in sound). The film's last frame = the hero night frame.
+- **15 s loop** → Enter → **hero**: Tom (old Tom for now) alone, perfectly front-facing and centred against **sky only** (no street, buildings, ground or horizon; base touching the bottom edge), with a **day/night switch** (inspired by flyshare.design: sky transition, birds by day, opt-in sound). The film's last frame = the hero night frame.
+- Shot 2 is a **hard cut** after stock clip S4 to a street-level push-in on Tom (no continuous descent). Shot 5 lowers and tilts up from the street until only Tom and the sky remain (fallback: clean dissolve to the hero frame).
 - Shot list and step-by-step prompts: `/docs/planning/CITIX_intro_ClaudeCode_prompts.md`.
 - Higgsfield via API (discounted models selected on the account): **Marketing Studio Image** (stills, up to 4K, image refs), **Kling 4.0** (first/last frame clips, 1080p), **Seedance 2.0** (up to 4K, backup). Read the docs (https://docs.higgsfield.ai and each model's page on open.higgsfield.ai) before writing API code; don't guess endpoints.
 - Stock: free Pexels clips only (Pexels License: commercial use and modification allowed). Licences logged in `/media/stock/LICENSES.md`.
