@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import higgsfield as hf  # noqa: E402
 
 MODEL = "marketing-studio/image"
-BUDGET_USD = 0.0  # set to the approved amount once Wassim OKs the round 2 quote
+BUDGET_USD = 1.90  # Wassim approved $1.80 for round 2 on 2026-11-12
 OUT = hf.ROOT / "media" / "generated" / "drafts"
 STATE = OUT / "jobs.json"
 SRC = hf.ROOT / "media" / "source"
@@ -93,9 +93,9 @@ C_BASE = {
     2: "the bottom of the plinth dissolves into a soft dark fade in the last few percent of the frame",
 }
 C_FRAME = {
-    "16:9": " The totem fills about 82% of the frame height.",
-    "21:9": " The totem fills about 82% of the frame height.",
-    "9:16": " Vertical composition: the totem fills about 68% of the frame height, anchored at the bottom, with a large area of empty sky above it.",
+    "16:9": " The totem is small in the frame: from the bottom edge up to its cap it fills only about 60% of the frame height, leaving the top 40% of the frame as open, empty sky.",
+    "21:9": " The totem is small in the frame: from the bottom edge up to its cap it fills only about 60% of the frame height, leaving the top 40% of the frame as open, empty sky.",
+    "9:16": " Vertical composition: the totem is small in the frame: from the bottom edge up to its cap it fills only about 55% of the frame height, leaving the top 45% of the frame as open, empty sky.",
 }
 
 D = (

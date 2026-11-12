@@ -48,3 +48,30 @@ Model `marketing-studio/image`, 2k, medium quality. 20 images, total $2.233. Out
 | media/generated/drafts/round1_new_tom/s5_start_16x9_v2.png | `01a1d0f7-a85b-7151-ac14-efb36a611a69` | 16:9 | $0.124 | Shot 5 start frame (Kling first frame) |
 | media/generated/drafts/round1_new_tom/s5_start_9x16_v1.png | `01a1d0f7-9f2b-7c78-b686-61833db376d7` | 9:16 | $0.124 | Shot 5 start frame (Kling first frame) |
 | media/generated/drafts/round1_new_tom/s5_start_9x16_v2.png | `01a1d0f7-abfa-7413-8f1b-2583401002ec` | 9:16 | $0.124 | Shot 5 start frame (Kling first frame) |
+
+## Prompt 1 drafts, round 2 — OLD Tom, refs 01 + 02 (generated 2026-11-12)
+
+Model `marketing-studio/image`, 2k, medium quality. 20 images, total $1.800. Local copies in `media/generated/drafts/` (not committed). Contact sheet: `contact_sheet_round2.jpg`; day/night 50% overlays: `overlays_day_night_50.jpg`. Known issues: Tom is larger in the hero frames than the 60% / 55% asked for; body proportions drift wider than the real 1 : 3; the 21:9 day/night pairs are slightly misaligned.
+
+| Local file | Higgsfield request ID | Ratio | Cost | Intended use |
+|---|---|---|---|---|
+| media/generated/drafts/hero_day_16x9_v1.png | `01a1d10f-bbdc-73ea-a0b8-b83a64eca48f` | 16:9 | $0.086 | Hero day state (edit of matching hero_night) |
+| media/generated/drafts/hero_day_16x9_v2.png | `01a1d10f-c1c1-737e-b88e-aea406c68870` | 16:9 | $0.086 | Hero day state (edit of matching hero_night) |
+| media/generated/drafts/hero_day_21x9_v1.png | `01a1d10f-bdd0-7f93-b4f1-a0a00afd4b3a` | 21:9 | $0.069 | Hero day state (edit of matching hero_night) |
+| media/generated/drafts/hero_day_21x9_v2.png | `01a1d10f-c37d-7764-9a4a-bb16a5e0f2db` | 21:9 | $0.069 | Hero day state (edit of matching hero_night) |
+| media/generated/drafts/hero_day_9x16_v1.png | `01a1d10f-bfe6-7aaf-be24-6a8bf38aba1b` | 9:16 | $0.086 | Hero day state (edit of matching hero_night) |
+| media/generated/drafts/hero_day_9x16_v2.png | `01a1d10f-c56e-71af-8d9d-b3da1e2c57c1` | 9:16 | $0.086 | Hero day state (edit of matching hero_night) |
+| media/generated/drafts/hero_night_16x9_v1.png | `01a1d10e-4ab5-7ede-ac61-8cde1ee5903c` | 16:9 | $0.094 | Shot 5 last frame + hero night state |
+| media/generated/drafts/hero_night_16x9_v2.png | `01a1d10e-570f-7517-a0df-5901abe48654` | 16:9 | $0.094 | Shot 5 last frame + hero night state |
+| media/generated/drafts/hero_night_21x9_v1.png | `01a1d10e-4c88-7221-8ab5-45dd77336757` | 21:9 | $0.077 | Shot 5 last frame + hero night state |
+| media/generated/drafts/hero_night_21x9_v2.png | `01a1d10e-58d1-754a-8820-9aeb059e4e6c` | 21:9 | $0.077 | Shot 5 last frame + hero night state |
+| media/generated/drafts/hero_night_9x16_v1.png | `01a1d10e-4e4b-76b2-b9a5-628be5ae7d2a` | 9:16 | $0.094 | Shot 5 last frame + hero night state |
+| media/generated/drafts/hero_night_9x16_v2.png | `01a1d10e-5aa9-7ad6-8be8-738144eee671` | 9:16 | $0.094 | Shot 5 last frame + hero night state |
+| media/generated/drafts/s2_end_16x9_v1.png | `01a1d10e-42f4-7e34-9c5e-12550de6e38b` | 16:9 | $0.104 | Shot 2 last frame (street push-in after hard cut) |
+| media/generated/drafts/s2_end_16x9_v2.png | `01a1d10e-4ff8-7809-b8ce-5773dd84c7ba` | 16:9 | $0.104 | Shot 2 last frame (street push-in after hard cut) |
+| media/generated/drafts/s2_end_9x16_v1.png | `01a1d10e-46e3-759f-9905-14a67fe7bcaa` | 9:16 | $0.105 | Shot 2 last frame (street push-in after hard cut) |
+| media/generated/drafts/s2_end_9x16_v2.png | `01a1d10e-537f-7368-825c-ab0bcedc6013` | 9:16 | $0.105 | Shot 2 last frame (street push-in after hard cut) |
+| media/generated/drafts/s5_start_16x9_v1.png | `01a1d10e-450b-7ac9-b2d8-b8a0bcd29acf` | 16:9 | $0.092 | Shot 5 first frame |
+| media/generated/drafts/s5_start_16x9_v2.png | `01a1d10e-51be-7c64-821c-a7549142d779` | 16:9 | $0.092 | Shot 5 first frame |
+| media/generated/drafts/s5_start_9x16_v1.png | `01a1d10e-48c2-7253-ba1d-e5a5e5ca503a` | 9:16 | $0.093 | Shot 5 first frame |
+| media/generated/drafts/s5_start_9x16_v2.png | `01a1d10e-553c-7398-9819-84e215befc8b` | 9:16 | $0.093 | Shot 5 first frame |

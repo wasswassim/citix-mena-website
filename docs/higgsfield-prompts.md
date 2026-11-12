@@ -4,7 +4,7 @@ Model: `marketing-studio/image` (2.0 Alpha), 2k, medium quality, `enhance_prompt
 
 ## Round 2 — OLD Tom (current)
 
-Status: **quoted, awaiting Wassim's OK.**
+Status: **approved by Wassim on 2026-11-12 ($1.80), with Tom at about 60% of frame height (16:9, 21:9) and 55% (9:16) in the hero.**
 
 Decisions from Wassim (12 Nov 2026):
 - Use the **old Tom** from the real photos (refs 01, 02) with its real red side light strip, until the company sends the calligraphy artwork. **New Tom later.** Refs 04, 05, 06 dropped.
@@ -42,7 +42,7 @@ Reference images: 1 = `01_tom_day_photo.jpg`, 2 = `02_tom_night_photo.jpg`. A ad
 
 Variation 1 (BASE): *the bottom of the plinth is cut cleanly by the bottom edge of the frame.* Variation 2 (BASE): *the bottom of the plinth dissolves into a soft dark fade in the last few percent of the frame.*
 
-Framing per format: 16:9 and 21:9 — *the totem fills about 82% of the frame height.* 9:16 — *Vertical composition: the totem fills about 68% of the frame height, anchored at the bottom, with a large area of empty sky above it.*
+Framing per format: 16:9 and 21:9 — *the totem fills about 60% of the frame height, base at the bottom edge, the top 40% open sky.* 9:16 — *Vertical composition: the totem fills about 55% of the frame height, base at the bottom edge, the top 45% open sky.*
 
 ### D — `hero_day` (same framing as C, daytime) — 16:9, 21:9, 9:16
 
