@@ -67,3 +67,21 @@ Moderate risk, worth one test. With `s5_start` front-facing and mostly sky, Klin
 ## Round 1 — NEW Tom with calligraphy (archived, 12 Nov 2026)
 
 20 drafts, $2.233, in `media/generated/drafts/round1_new_tom/`. Result: shape close to the refs, but the side calligraphy came out as decorative pseudo-script, not the real pattern; body too slim; screens pure white. This is why the new Tom waits for the company's artwork. The round 1 prompt text is in git history (`scripts/prompt1_drafts.py` before this change).
+
+## Hero Tom cut-outs (local, no API cost) — notes for Prompt 4
+
+Built by `scripts/hero_cutout.py` from the chosen pair `hero_night_16x9_v1` / `hero_day_16x9_v1` (round 2). Files: `media/generated/hero_cutout/tom_night.{png,webp}` and `tom_day.{png,webp}`, transparent, identical canvas, pixel-registered.
+
+- **Proportion (decided 12 Nov 2026): option A.** 7 m × 2 m includes the plinth and cap, so ground-to-cap : width = 3.5 (screen body alone about 1 : 2.85). Option B (body alone 1 : 3.5) was rejected as too narrow; its files are in `hero_cutout/archive_body35/`.
+- Steps applied to both frames identically: mask from the day frame, keystone straightened to a true front view, plinth restored to 0.18 of the body height (from ref 01), uniform horizontal scale 0.95. Day only: the pale-blue sky reflection on the right side face was repainted in the body's black.
+- **Prompt 4 must do in code:**
+  1. **Screens near edge-to-edge.** The generated bezels are thicker than the real Tom's. Draw the screen content slightly larger than the grey screen areas so it covers most of the bezel, like the real product.
+  2. **Red strip glow.** The night cut-out's red side strip is cut at the body edge. Add its glow/halo in code (night state only; the strip is off by day).
+  3. **Logo.** The cap is plain; composite the real "CITIX MENA" logo.
+- Static test renders (`scripts/hero_test_render.py`, placeholder skies): `media/generated/hero_test/`. Tom centred, base on the bottom edge, 60% of frame height on 16:9 and 21:9, 55% on 9:16. `intro_end_frame_reference_1920x1080.png` is the last frame of the intro film (Shot 5 dissolves onto it).
+
+## Round 3 — `s5_start` regeneration
+
+Script: `scripts/prompt1_s5_regen.py`. References: image 1 = `hero_cutout/tom_night_ref.png` (corrected night cut-out on a dark background, main reference), image 2 = ref 02. Changes from round 2's prompt B: Tom described from the corrected front view at 1 : 3.5 overall with near edge-to-edge screens; Tom at about 60% of frame height (55% on 9:16) with open sky above, so the Shot 5 move to the hero frame is small.
+
+Pricing note: Marketing Studio Image charges by prompt length as well as by reference count (about $0.004 per 1,000 characters). Quotes must be taken with the real prompt, not a placeholder.
