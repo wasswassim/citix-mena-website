@@ -1,0 +1,19 @@
+# Secrets — never commit
+.env
+.env.local
+.env.*.local
+*.key
+857b9f1a-*.txt
+
+# Raw media (not committed)
+/media/source/
+/media/stock/
+/media/generated/
+
+# Tooling
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+Thumbs.db
