@@ -75,3 +75,42 @@ Model `marketing-studio/image`, 2k, medium quality. 20 images, total $1.800. Loc
 | media/generated/drafts/s5_start_16x9_v2.png | `01a1d10e-51be-7c64-821c-a7549142d779` | 16:9 | $0.092 | Shot 5 first frame |
 | media/generated/drafts/s5_start_9x16_v1.png | `01a1d10e-48c2-7253-ba1d-e5a5e5ca503a` | 9:16 | $0.093 | Shot 5 first frame |
 | media/generated/drafts/s5_start_9x16_v2.png | `01a1d10e-553c-7398-9819-84e215befc8b` | 9:16 | $0.093 | Shot 5 first frame |
+
+## Prompt 1 drafts, round 3 — `s5_start` regeneration (generated 2026-11-12)
+
+Model `marketing-studio/image`, 2k, medium. 4 images, total $0.372. References: corrected night cut-out (`hero_cutout/tom_night_ref.png`) + ref 02. Sheet: `media/generated/contact_sheet_s5_start_round3.jpg`. Picked: `s5_start_16x9_v1` and `s5_start_9x16_v1`.
+
+| Local file | Higgsfield request ID | Ratio | Cost | Intended use |
+|---|---|---|---|---|
+| media/generated/drafts/round3_s5_start/s5_start_16x9_v1.png | `01a1d131-02c8-79e2-8419-2675888030b1` | 16:9 | $0.093 | Shot 5 first frame candidate |
+| media/generated/drafts/round3_s5_start/s5_start_16x9_v2.png | `01a1d131-0696-7bc9-b189-05e81a63f33a` | 16:9 | $0.093 | Shot 5 first frame candidate |
+| media/generated/drafts/round3_s5_start/s5_start_9x16_v1.png | `01a1d131-04b8-779b-8b73-2fd262a129d9` | 9:16 | $0.093 | Shot 5 first frame candidate |
+| media/generated/drafts/round3_s5_start/s5_start_9x16_v2.png | `01a1d131-085a-799e-819b-129fe019f1bf` | 9:16 | $0.093 | Shot 5 first frame candidate |
+
+## Local derivatives (no API cost)
+
+| Local file | Made from | Intended use |
+|---|---|---|
+| media/generated/hero_cutout/tom_night.png, tom_day.png (+ .webp) | round 2 `hero_night_16x9_v1` / `hero_day_16x9_v1` | Registered transparent Tom cut-outs for the coded hero (Prompt 4), 1 : 3.5 overall |
+| media/generated/hero_test/hero_{night,day}_{16x9,21x9,9x16}.png | cut-outs over placeholder skies | Static hero tests, Tom at 60% / 55% of frame height |
+| media/generated/hero_test/intro_end_frame_reference_1920x1080.png | `hero_night_16x9` test render | Last frame of the intro film |
+| media/generated/clips_input/s2_first_16x9.png | round 2 `s2_end_16x9_v2` | Shot 2 first frame, 16:9 |
+| media/generated/clips_input/s2_first_9x16.png | tight 9:16 crop of `s2_end_16x9_v2` | Shot 2 first frame, 9:16 |
+| media/generated/clips_input/s5_first_16x9.png | round 3 `s5_start_16x9_v1`, x-scale 0.869, sides mirror-padded | Shot 5 first frame, 16:9 |
+| media/generated/clips_input/s5_first_9x16.png | round 3 `s5_start_9x16_v1`, x-scale 1.063, cropped | Shot 5 first frame, 9:16 |
+| media/generated/clips_input/s5_last_16x9.png, s5_last_9x16.png | hero test renders (night) | Shot 5 end frames |
+
+## Prompt 2 clips — Kling 4.0 image-to-video, 720p drafts (2026-11-12 and 2026-11-13)
+
+Total $4.022 (test $0.629 + 7 drafts). Each clip has a 4-fps contact sheet next to it (`*_sheet_4fps.jpg`). Outputs are deleted from Higgsfield after 7 days; local copies in `media/generated/clips/` (not committed).
+
+| Local file | Higgsfield request ID | Length | Cost | Intended use |
+|---|---|---|---|---|
+| media/generated/clips/s2_16x9_v1.mp4 | `01a1d492-95a2-7b55-8bae-3a0733a3d048` | 3 s | $0.377 | Shot 2 push-in, 16:9, variation 1 |
+| media/generated/clips/s2_16x9_v2.mp4 | `01a1d492-97db-734c-ac0a-87ef49b86254` | 3 s | $0.377 | Shot 2 push-in, 16:9, variation 2 |
+| media/generated/clips/s2_9x16_v1.mp4 | `01a1d492-99dd-72d3-a02d-ff671a2d05d1` | 3 s | $0.377 | Shot 2 push-in, 9:16, variation 1 |
+| media/generated/clips/s2_9x16_v2.mp4 | `01a1d492-9bf1-7b1b-8f26-63532267b4b7` | 3 s | $0.377 | Shot 2 push-in, 9:16, variation 2 |
+| media/generated/clips/s5_16x9_v2.mp4 | `01a1d492-9e1d-7e8d-9901-c47b1ba9494b` | 5 s | $0.629 | Shot 5 lower-and-tilt, 16:9, variation 2 |
+| media/generated/clips/s5_9x16_v1.mp4 | `01a1d492-9ffa-7ae7-b6d2-6114dc82ab6f` | 5 s | $0.629 | Shot 5 lower-and-tilt, 9:16, variation 1 |
+| media/generated/clips/s5_9x16_v2.mp4 | `01a1d492-a205-7771-989e-be46352ba9cf` | 5 s | $0.629 | Shot 5 lower-and-tilt, 9:16, variation 2 |
+| media/generated/clips/s5_test_16x9_720p.mp4 | `01a1d133-6f0f-7297-ae73-6a45c24e8880` | 5 s | $0.629 | Shot 5, 16:9, variation 1 (the approved test) |

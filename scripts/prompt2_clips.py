@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import higgsfield as hf  # noqa: E402
 
 MODEL = "kling-video/v4.0/image-to-video"
-BUDGET_USD = 0.63          # step 1 only (Shot 5 test)
+BUDGET_USD = 4.03          # test $0.63 (spent) + step 2 drafts $3.39 = the $4.02 Wassim approved
 IN = hf.ROOT / "media" / "generated" / "clips_input"
 OUT = hf.ROOT / "media" / "generated" / "clips"
 STATE = OUT / "jobs.json"
@@ -46,9 +46,34 @@ S2 = (
     "The skyline stays fixed and does not change. " + RIGID
 )
 
+# Step 2 wording (Wassim, 13 Nov 2026): in the test a palm top lingered bottom-left until about 4.25 s.
+S5_V2 = (
+    "Night. The camera stays centred on the tall black smartboard totem while it slowly lowers toward the "
+    "ground, eases back slightly and tilts up. The road, buildings, palm trees, street lights and light "
+    "trails sink smoothly and completely out of the bottom of the frame early in the shot: by the 3 "
+    "second mark nothing of the street, the palms or the buildings is left anywhere in the frame, "
+    "including the bottom corners. For the last 2 seconds only the totem remains, standing against a "
+    "clear, deep blue-black sky with faint stars, while the camera settles gently. During the move the "
+    "totem's two screens power on together, rising smoothly from black to an even, soft, cool-white "
+    "glow. " + RIGID
+)
+S2_3 = S2.replace("PUSH", "3%")
+
 JOBS = {
+    # step 1 (done, approved by Wassim: smooth power-on, no deformation) = s5 16:9 variation 1
     "s5_test_16x9_720p": {"first": "s5_first_16x9.png", "last": "s5_last_16x9.png", "prompt": S5,
                           "duration": 5, "resolution": "720p", "group": "test"},
+    # step 2 drafts
+    "s2_16x9_v1": {"first": "s2_first_16x9.png", "prompt": S2_3, "duration": 3, "resolution": "720p", "group": "drafts"},
+    "s2_16x9_v2": {"first": "s2_first_16x9.png", "prompt": S2_3, "duration": 3, "resolution": "720p", "group": "drafts"},
+    "s2_9x16_v1": {"first": "s2_first_9x16.png", "prompt": S2_3, "duration": 3, "resolution": "720p", "group": "drafts"},
+    "s2_9x16_v2": {"first": "s2_first_9x16.png", "prompt": S2_3, "duration": 3, "resolution": "720p", "group": "drafts"},
+    "s5_16x9_v2": {"first": "s5_first_16x9.png", "last": "s5_last_16x9.png", "prompt": S5_V2,
+                   "duration": 5, "resolution": "720p", "group": "drafts"},
+    "s5_9x16_v1": {"first": "s5_first_9x16.png", "last": "s5_last_9x16.png", "prompt": S5_V2,
+                   "duration": 5, "resolution": "720p", "group": "drafts"},
+    "s5_9x16_v2": {"first": "s5_first_9x16.png", "last": "s5_last_9x16.png", "prompt": S5_V2,
+                   "duration": 5, "resolution": "720p", "group": "drafts"},
 }
 
 
@@ -73,25 +98,18 @@ def spent(state: dict) -> float:
     return sum(j.get("usd", 0) for j in state.values() if j.get("status") not in ("failed", "nsfw"))
 
 
-def frames_sheet(clip: Path, n: int = 6) -> Path:
-    dur = float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration",
-                                         "-of", "csv=p=0", str(clip)]).decode().strip())
-    stills = []
-    for i in range(n):
-        t = dur * i / (n - 1) if i < n - 1 else max(dur - 0.05, 0)
-        out = clip.with_name(f"{clip.stem}_f{i + 1}.jpg")
-        subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t:.3f}", "-i", str(clip), "-frames:v", "1",
-                        "-q:v", "2", str(out)], check=True)
-        stills.append(out)
-    sheet = clip.with_name(f"{clip.stem}_sheet.jpg")
-    args = ["ffmpeg", "-v", "error", "-y"]
-    for s in stills:
-        args += ["-i", str(s)]
-    lay = "".join(f"[{i}:v]scale=960:-2[v{i}];" for i in range(n))
-    lay += "".join(f"[v{i}]" for i in range(n)) + f"xstack=inputs={n}:layout=0_0|w0_0|w0+w1_0|0_h0|w0_h0|w0+w1_h0"
-    subprocess.run(args + ["-filter_complex", lay, "-frames:v", "1", "-q:v", "3", str(sheet)], check=True)
-    for s in stills:
-        s.unlink()
+def frames_sheet(clip: Path, fps: int = 4) -> Path:
+    """Contact sheet at 4 frames per second, read left to right, top to bottom."""
+    probe = subprocess.check_output(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+                                     "stream=width,height:format=duration", "-of", "csv=p=0", str(clip)]).decode().split()
+    w, h = (int(x) for x in probe[0].split(",")[:2])
+    n = max(1, round(float(probe[1]) * fps))
+    cols, cell = (5, 512) if w >= h else (10, 256)
+    rows = -(-n // cols)
+    sheet = clip.with_name(f"{clip.stem}_sheet_4fps.jpg")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(clip), "-vf",
+                    f"fps={fps},scale={cell}:-2,tile={cols}x{rows}:padding=4:color=0x161616",
+                    "-frames:v", "1", "-q:v", "3", str(sheet)], check=True)
     return sheet
 
 

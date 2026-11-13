@@ -118,3 +118,13 @@ In the edit, composite real screen content onto Tom's two screens in **Shot 2 an
 - **Shot 2:** content is on from the first frame.
 - Cover most of the generated bezel so the screens read near edge-to-edge, as in Prompt 4.
 - The hero end frame must match what Prompt 4 shows on the screens in its night state, so the film's last frame and the hero's first state are identical.
+
+### Prompt 2 progress
+
+- **Step 1, Shot 5 test (12 Nov 2026, $0.629):** `media/generated/clips/s5_test_16x9_720p.mp4`. Approved by Wassim on 13 Nov after a frame-by-frame check: smooth power-on, no deformation of Tom. One flaw: a palm top lingers bottom-left until about 4.25 s. This clip counts as `s5` 16:9 variation 1.
+- **Step 2 drafts (13 Nov 2026, $3.394, 720p):** `s2_16x9_v1/v2`, `s2_9x16_v1/v2` (3 s, push-in of about 3% on both formats), `s5_16x9_v2`, `s5_9x16_v1/v2` (5 s). Each clip has a 4-fps contact sheet next to it (`*_sheet_4fps.jpg`).
+- **Shot 5 prompt for step 2** (change: street fully gone by 3 s):
+
+> Night. The camera stays centred on the tall black smartboard totem while it slowly lowers toward the ground, eases back slightly and tilts up. The road, buildings, palm trees, street lights and light trails sink smoothly and completely out of the bottom of the frame early in the shot: by the 3 second mark nothing of the street, the palms or the buildings is left anywhere in the frame, including the bottom corners. For the last 2 seconds only the totem remains, standing against a clear, deep blue-black sky with faint stars, while the camera settles gently. During the move the totem's two screens power on together, rising smoothly from black to an even, soft, cool-white glow. [RIGID]
+
+- **9:16 Shot 5 first frame:** `clips_input/s5_first_9x16.png` = `round3_s5_start/s5_start_9x16_v1.png`, which measured about 1 : 3.72 overall (slightly too slim), widened horizontally by 1.063 to 1 : 3.5 and cropped back to 9:16 centred on Tom. End frame: `clips_input/s5_last_9x16.png` (= `hero_test/hero_night_9x16.png`, Tom at 55%).
