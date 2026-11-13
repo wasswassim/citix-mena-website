@@ -128,3 +128,21 @@ In the edit, composite real screen content onto Tom's two screens in **Shot 2 an
 > Night. The camera stays centred on the tall black smartboard totem while it slowly lowers toward the ground, eases back slightly and tilts up. The road, buildings, palm trees, street lights and light trails sink smoothly and completely out of the bottom of the frame early in the shot: by the 3 second mark nothing of the street, the palms or the buildings is left anywhere in the frame, including the bottom corners. For the last 2 seconds only the totem remains, standing against a clear, deep blue-black sky with faint stars, while the camera settles gently. During the move the totem's two screens power on together, rising smoothly from black to an even, soft, cool-white glow. [RIGID]
 
 - **9:16 Shot 5 first frame:** `clips_input/s5_first_9x16.png` = `round3_s5_start/s5_start_9x16_v1.png`, which measured about 1 : 3.72 overall (slightly too slim), widened horizontally by 1.063 to 1 : 3.5 and cropped back to 9:16 centred on Tom. End frame: `clips_input/s5_last_9x16.png` (= `hero_test/hero_night_9x16.png`, Tom at 55%).
+
+- **Draft review by Wassim at 24 fps (13 Nov 2026).** Picks: Shot 2 → `s2_16x9_v1` + `s2_9x16_v2`; Shot 5 → `s5_16x9_v2` + `s5_9x16_v1`. `s2_9x16_v1` rejected: the plinth flickers to light grey at about 1.7, 1.75 and 2.1 s. `s2_9x16_v2` has subtle luminance pumping on the plinth (about 1.5 and 1.9 s), and some is visible on 16:9 too.
+- **Finals, 1080p (13 Nov 2026):** one clip each for `s2` 16:9, `s2` 9:16, `s5` 16:9, `s5` 9:16, same inputs and prompts as the picks (`*_final_1080p.mp4`). Kling is not deterministic, so the finals are new takes of the same shot, not upscales of the picked drafts; they are checked again with `scripts/flicker_check.py`.
+
+## Addition to PROMPT 3 (edit) — "Tom lock" and deflicker (decided by Wassim, 13 Nov 2026)
+
+Kling makes Tom's plinth and body pump in luminance from frame to frame. Fix it in the edit, in this order:
+
+**Shot 2**
+1. **Tom lock.** Composite the clean source still of Tom, cut from the Shot 2 first frame (`clips_input/s2_first_16x9.png` / `s2_first_9x16.png`), over the clip. Track it to the push-in with a scale and position per frame, so Tom is perfectly stable while traffic and the city move behind him. The push-in is about 3% and nearly linear, so a similarity transform (scale + translate) per frame is enough; fit it to Tom's edges or his red strip, then smooth the curve.
+2. **Deflicker the background** lightly (e.g. ffmpeg `deflicker`) under the locked Tom.
+3. **Screen content** (weather/time widget on the upper screen, CITIX message on the lower) is composited on top of the locked Tom, so it inherits the same track.
+
+**Shot 5**
+1. Apply the same light deflicker and check the plinth and body with `scripts/flicker_check.py`.
+2. Use the Tom lock only if flicker remains. Tom changes scale and position much more in this shot, and the screens power on, so the lock would need the hero cut-out with a per-frame transform and a screens-off to screens-on blend.
+
+**Checking.** `scripts/flicker_check.py <clip>` measures the plinth and the body band next to the red strip in every frame at 24 fps and lists frames that deviate from the local median: mild above 3 luminance levels, strong above 8. Run it on the finals before the edit and again on the edited shots.

@@ -114,3 +114,14 @@ Total $4.022 (test $0.629 + 7 drafts). Each clip has a 4-fps contact sheet next 
 | media/generated/clips/s5_9x16_v1.mp4 | `01a1d492-9ffa-7ae7-b6d2-6114dc82ab6f` | 5 s | $0.629 | Shot 5 lower-and-tilt, 9:16, variation 1 |
 | media/generated/clips/s5_9x16_v2.mp4 | `01a1d492-a205-7771-989e-be46352ba9cf` | 5 s | $0.629 | Shot 5 lower-and-tilt, 9:16, variation 2 |
 | media/generated/clips/s5_test_16x9_720p.mp4 | `01a1d133-6f0f-7297-ae73-6a45c24e8880` | 5 s | $0.629 | Shot 5, 16:9, variation 1 (the approved test) |
+
+## Prompt 2 finals — Kling 4.0 image-to-video, 1080p (2026-11-13)
+
+Total $3.006. Same inputs and prompts as the picked drafts (`s2_16x9_v1`, `s2_9x16_v2`, `s5_16x9_v2`, `s5_9x16_v1`); new takes, not upscales. Each has a 4-fps sheet (`*_sheet_4fps.jpg`) and a per-frame flicker log (`*_flicker.csv`, from `scripts/flicker_check.py`).
+
+| Local file | Higgsfield request ID | Length | Cost | Flicker check at 24 fps |
+|---|---|---|---|---|
+| media/generated/clips/s2_16x9_final_1080p.mp4 | `01a1d4ac-0051-7def-9de9-ff1f5b791f71` | 3 s | $0.564 | Plinth: 8 strong frames (2, 11, 13, 20, 22, 23, 60, 63), 14 mild. Body stable. Needs Tom lock. |
+| media/generated/clips/s2_9x16_final_1080p.mp4 | `01a1d4ac-0287-74e2-8c2d-dfc7c59f22ca` | 3 s | $0.564 | Plinth: 14 strong frames (7, 10, 11, 14, 19, 23, 27, 31, 37, 42, 43, 52, 63, 70), 20 mild. Body stable. Needs Tom lock. |
+| media/generated/clips/s5_16x9_final_1080p.mp4 | `01a1d4ac-0536-744f-bb1c-10c0a55696a1` | 5 s | $0.940 | Plinth stable (max deviation 1.0). Body band not measurable (Tom too small); frame 49 not tracked. Check by eye. |
+| media/generated/clips/s5_9x16_final_1080p.mp4 | `01a1d4ac-0739-72db-a7b8-9a93ebda9580` | 5 s | $0.940 | Plinth stable (max deviation 0.2). Body band: frames 61 and 70 flagged during the power-on; unconfirmed, check by eye. |

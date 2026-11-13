@@ -3,7 +3,7 @@
 Usage:
   python scripts/prompt2_clips.py quote  <job|group>
   python scripts/prompt2_clips.py run    <job|group> --yes
-Groups: test (Shot 5 test), drafts (step 2 drafts).
+Groups: test (Shot 5 test), drafts (step 2 drafts), finals (1080p finals).
 
 Approved by Wassim 2026-11-12: test $0.63; drafts $4.02 total pre-approved ONLY if the test
 does not warp Tom. BUDGET_USD is raised step by step. State: media/generated/clips/jobs.json
@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import higgsfield as hf  # noqa: E402
 
 MODEL = "kling-video/v4.0/image-to-video"
-BUDGET_USD = 4.03          # test $0.63 (spent) + step 2 drafts $3.39 = the $4.02 Wassim approved
+BUDGET_USD = 7.23          # drafts $4.022 (spent) + 1080p finals up to $3.20 (Wassim, 13 Nov 2026)
 IN = hf.ROOT / "media" / "generated" / "clips_input"
 OUT = hf.ROOT / "media" / "generated" / "clips"
 STATE = OUT / "jobs.json"
@@ -74,6 +74,14 @@ JOBS = {
                    "duration": 5, "resolution": "720p", "group": "drafts"},
     "s5_9x16_v2": {"first": "s5_first_9x16.png", "last": "s5_last_9x16.png", "prompt": S5_V2,
                    "duration": 5, "resolution": "720p", "group": "drafts"},
+    # finals, 1080p (Wassim, 13 Nov 2026): same inputs and prompts as the picked drafts
+    # s2_16x9_v1, s2_9x16_v2, s5_16x9_v2, s5_9x16_v1. Kling is not deterministic, so these are new takes.
+    "s2_16x9_final_1080p": {"first": "s2_first_16x9.png", "prompt": S2_3, "duration": 3, "resolution": "1080p", "group": "finals"},
+    "s2_9x16_final_1080p": {"first": "s2_first_9x16.png", "prompt": S2_3, "duration": 3, "resolution": "1080p", "group": "finals"},
+    "s5_16x9_final_1080p": {"first": "s5_first_16x9.png", "last": "s5_last_16x9.png", "prompt": S5_V2,
+                            "duration": 5, "resolution": "1080p", "group": "finals"},
+    "s5_9x16_final_1080p": {"first": "s5_first_9x16.png", "last": "s5_last_9x16.png", "prompt": S5_V2,
+                            "duration": 5, "resolution": "1080p", "group": "finals"},
 }
 
 
