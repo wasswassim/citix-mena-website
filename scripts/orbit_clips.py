@@ -55,8 +55,8 @@ RULES = (
 )
 OPEN = (
     "The shot starts in complete darkness: the black crest of a sand dune, very close to the lens, fills the "
-    "frame. As the camera orbits, the dark crest slides out of frame and reveals SUBJECT, small in the "
-    "distance, first seen almost edge-on as a thin lit sliver, then opening steadily to a three-quarter "
+    "frame. As the camera orbits, the dark crest slides out of frame and reveals SUBJECT, already at its final "
+    "position and size in the frame, first seen almost edge-on as a thin lit sliver, then opening steadily to a three-quarter "
     "view as the camera keeps travelling. While the subject is still turning: "
 )
 CLOSE = (

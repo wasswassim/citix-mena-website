@@ -170,8 +170,12 @@ def estimate(model: str, params: dict) -> float:
     # Some video models (e.g. Kling 4.0) return a per-second rate table instead:
     # {"type": "description", "pricing_description": "... 720p: $0.1257; 1080p: $0.1879. ..."}
     desc = res.get("pricing_description", "")
-    if "per video second" in desc:
+    if "per video second" in desc or "per second of generated video" in desc:
         import re
+        if "With video input" in desc:
+            # Seedance 2.0 reference-to-video: two rate lines; a video reference uses the higher one
+            want = "With video input" if params.get("video_urls") else "Without video input"
+            desc = next(line for line in desc.splitlines() if want in line)
         rates = {k.lower(): float(v) for k, v in re.findall(r"(\d{3,4}p|4k|2k|1k)\s*:\s*\$(\d+(?:\.\d+)?)", desc, re.I)}
         res_key = str(params.get("resolution", "")).lower()
         if res_key in rates and params.get("duration"):

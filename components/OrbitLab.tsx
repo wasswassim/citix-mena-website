@@ -12,7 +12,7 @@ import * as THREE from "three";
  * Content: the falcon is a generated video plate on black (keyed in the shader); the sand stream is particles.
  * Both leave the lower screen while the orbit runs.
  *
- * URL params:  ?t=3.5  freeze at 3.5 s (for measurements)   ?speed=8  degrees per second   ?debug=1  show numbers
+ * URL params:  ?ref=1  no content, no numbers (camera-motion reference)   ?t=3.5  freeze at 3.5 s (for measurements)   ?speed=8  degrees per second   ?debug=1  show numbers
  */
 
 const LOOP = 8; // seconds per rotation
@@ -32,7 +32,8 @@ export default function OrbitLab() {
     const params = new URLSearchParams(window.location.search);
     const frozen = params.has("t") ? Number(params.get("t")) : null;
     const speedDeg = Number(params.get("speed")) || 8.5; // inspiration: about 65 degrees in 8 s
-    const debug = params.has("debug") || frozen !== null;
+    const refOnly = params.has("ref"); // clean camera-motion reference: product, light and dunes only
+    const debug = !refOnly && (params.has("debug") || frozen !== null);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -174,6 +175,7 @@ export default function OrbitLab() {
     });
     const falcon = new THREE.Mesh(new THREE.PlaneGeometry(5.2, 5.2 * (1080 / 1912)), falconMat);
     scene.add(falcon);
+    falcon.visible = !refOnly;
     if (frozen === null) void falconVideo.play().catch(() => undefined);
     const screenOrigin = new THREE.Vector3(0, TOM.plinthH + TOM.h * 0.27, TOM.d / 2 + 0.05); // lower screen centre
 
@@ -188,6 +190,7 @@ export default function OrbitLab() {
       new THREE.PointsMaterial({ color: 0xb9c8e6, size: 0.07, fog: false, transparent: true, opacity: 0.55, depthWrite: false, blending: THREE.AdditiveBlending }),
     );
     sand.frustumCulled = false;
+    sand.visible = !refOnly;
     scene.add(sand);
 
     const ease = (x: number) => x * x * (3 - 2 * x);
