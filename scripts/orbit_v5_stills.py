@@ -28,7 +28,7 @@ OUT = ORBIT / "v5" / "stills"
 STATE = OUT / "jobs.json"
 R3_STILL = ORBIT / "stills" / "R3_16x9_v3.png"
 SPENT_BEFORE = 19.53          # project spend at the start of v5 (runbook v5, 14 Nov 2026)
-BUDGET_USD = 0.0              # set to the exact quote only after Wassim's OK at GATE 1
+BUDGET_USD = 0.252            # Wassim approved "OK stills $0.252" at GATE 1, 14 Nov 2026
 W, H = 1920, 1080
 BASE = {"resolution": "2k", "quality": "medium", "enhance_prompt": False, "aspect_ratio": "16:9"}
 
