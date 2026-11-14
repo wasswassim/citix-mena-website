@@ -68,6 +68,31 @@ CONTENT = {
 }
 
 
+# Take 2 content (Wassim, 14 Nov 2026): the perfume should look like the bottle in the company's Jumbo 3D video
+# (sales deck slide 20): gold rectangular bottle with a floral label, pink room, blossom tree. "Keep the flower
+# designs on the gold bottle, just remove the Gucci label." So: same shape, colours and set, an original floral
+# label with no text, letters, logo or brand name (described in words only; the ad frame is NOT uploaded).
+CONTENT_T2 = {
+    "S3_perfume": (
+        "Inside the glass: a soft rose-pink room filled with rose-pink light (deep rose pink, not neon), with a pink "
+        "blossom tree in full bloom and slowly falling petals. The pink light stays inside the glass and on the "
+        "sand just in front of it; everything else stays cool slate-blue. Coming out of it: one perfume bottle, "
+        "halfway through the glass surface: its cap and upper half already in the open air in front of the "
+        "panel, its lower half still inside the pink room. The bottle: a rectangular, gold-tinted glass bottle "
+        "with softly rounded shoulders and a short, polished gold cylindrical cap; on its front, a cream label "
+        "panel with a thin dark border, printed all over with a painted pattern of pink and red flowers and green "
+        "leaves. The label has no text, no letters, no logo and no brand name anywhere. Rose petals and soft pink "
+        "mist spill out with it and drift low over the sand. Exactly one bottle. One colour family: rose pink and "
+        "soft gold inside the glass and on the bottle, slate blue everywhere else."
+    ),
+}
+# The generic avoid line bans golden tones; for the gold bottle only the light and grading must stay cool.
+AVOID_T2 = os3.AVOID.replace("warm, orange, yellow or golden tones",
+                             "warm, orange or yellow light or colour grading (the gold bottle is the only gold "
+                             "element in the frame)")
+assert AVOID_T2 != os3.AVOID
+
+
 def _arg(flag: str) -> str:
     return sys.argv[sys.argv.index(flag) + 1] if flag in sys.argv and sys.argv.index(flag) + 1 < len(sys.argv) else ""
 
@@ -77,6 +102,8 @@ TAKE = _arg("--take")
 
 
 def prompt(s: str) -> str:
+    if TAKE == "2" and s in CONTENT_T2:
+        return f"{REF} {os3.WORLD3} {os3.GLASS} {CONTENT_T2[s]}{os3.FRAME3['16:9']} {AVOID_T2}"
     return f"{REF} {os3.WORLD3} {os3.GLASS} {CONTENT[s]}{os3.FRAME3['16:9']} {os3.AVOID}"
 
 

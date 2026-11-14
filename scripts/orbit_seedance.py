@@ -128,6 +128,21 @@ V5_SCENES = {
         "fragments. The SUV clearly comes from inside the glass."),
 }
 
+# Perfume take 2 (Wassim, 14 Nov 2026): the gold floral bottle from the company's Jumbo 3D video, without the
+# brand: "Keep the flower designs on the gold bottle, just remove the Gucci label."
+V5_SCENES["s3_perfume_t2"] = (
+    "S3_perfume_t2.png",
+    "Inside the glass is a soft rose-pink room with a pink blossom tree in full bloom and slowly falling petals; "
+    "the pink light stays inside the glass, everything outside stays cool slate-blue;",
+    "Action, happening WHILE the camera orbits, never after it: one rectangular gold-tinted glass perfume bottle "
+    "with softly rounded shoulders and a short polished gold cylindrical cap, with a cream front label printed "
+    "with pink and red flowers and green leaves and no text, no letters, no logo, is first seen small and far "
+    "away deep inside the pink room, floats forward toward the glass, passes through the glass surface cap "
+    "first, comes fully out and hovers just in front of the panel, turning slowly, catching the light. A soft "
+    "burst of rose petals and pink mist follows it out through the glass and drifts low over the sand. Exactly "
+    "one bottle; it is rigid, keeps its shape, and its label never shows any writing. The bottle clearly comes "
+    "from inside the glass.")
+
 
 def v5_prompt(job: str) -> str:
     _, inside, action = V5_SCENES[job]
