@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import IntroGate from "@/components/IntroGate";
-import { dictionaries, introTimings, isLocale } from "@/lib/i18n";
+import { dictionaries, isLocale } from "@/lib/i18n";
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -11,18 +10,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
-      <IntroGate
-        label={t.gate.label}
-        siteName={t.siteName}
-        lines={introTimings.map((l) => ({ text: t.gate[l.key], from: l.from, to: l.to }))}
-        enterLabel={t.gate.enter}
-        skipLabel={t.gate.skip}
-        unmuteLabel={t.gate.unmute}
-        muteLabel={t.gate.mute}
-        soundUnavailableLabel={t.gate.soundUnavailable}
-        returnFocusId="main"
-        /* audioSrc="/media/intro-music.mp3"  -> add once Wassim has chosen the track */
-      />
+      {/* Intro gate disconnected 14 Nov 2026 (plan v4.2: intro film dropped). components/IntroGate.tsx is kept. */}
 
       <header className="site-header" data-site-header>
         <Link href={`/${lang}`} className="site-name">

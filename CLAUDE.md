@@ -38,16 +38,17 @@ Planning happens in a claude.ai Project ("CitiX MENA Internship"); copies of the
 - Smartboard logic: widgets on top catch the eye like a phone notification, the ad sits below. Eye-tracking study: +53% conversion vs standard billboards.
 - Real installations: Yas Island entrances, Abu Dhabi (first 2 Tom); Sharjah (Shurooq partnership: Al Qasba, Al Heera Beach, Flag Island, Khorfakkan…); Jumbo at an Abu Dhabi mall.
 
-## Current workstream: homepage v4.2 + hero "The Orbit"
+## Current plan: v4.2 (BlueSquareX model) — homepage + hero "The Orbit"
 - Homepage modelled on bluesqx.com (structure and motion only; no copying of their code, video, images or text). Sections: 1 Hero "The Orbit" · 2 Install / Operate / Create / Measure · 3 Who we serve · 4 Our Smartboards · 5 About + numbers · 6 Projects tabs · 7 Trusted by · 8 Newsletter · 9 Footer. EN + AR (RTL); inner pages "Coming soon".
 - **Hero rotations (approved)**, a ~40 s seamless loop; each rotation = clip A (black → still) + clip B (still → black), same clockwise orbit throughout:
   - **R1 Tom** (old Tom, real refs, 1:3.5, red side strip): a falcon flies out toward the camera, sand swirling.
   - **R2 Jerry**: an oasis, palm fronds and water spilling onto the dunes.
-  - **R3 Plain glass square** (original frameless clear panel, faint cool-white edge glow, no cyan outline): an Arabian oryx steps out; mist off Hajar-style mountains.
-  - **R4 Baloo** (tall spire): a tall unbranded perfume bottle rises, pink-red light.
+  - **R3 Plain glass square** (original frameless clear panel, faint cool-white edge glow, no cyan outline): a **camel** steps out (Wassim, 14 Nov: camel instead of the runbook's oryx); mist off Hajar-style mountains.
+  - **R4 Corner glass pair** (14 Nov: Baloo dropped from the hero, the model kept turning it into a white box): TWO of the R3 frameless glass panels joined edge to edge at ~90°, like a screen wrapping a building corner; no tower/spire, white borders, bezel, building or box body. A tall unbranded perfume bottle rises out of the corner seam toward the camera; pink-red light, rose petals and mist.
   - **R5 Jumbo** (corner screen, two faces): an unbranded luxury SUV drifts out; sand hits the lens; the dust hits the hero frame (code overlay), then black, then the loop restarts.
 - **Trusted by / logo marquee:** exactly these 35 brands from citixmena.com's "Trusted by leading global brands": Sony, Kia, Panasonic, Yokohama, Apple, L'Oréal, Rolex, McDonald's, Tiffany & Co., Coca-Cola, Lenovo, Lexus, Lufthansa, Bridgestone, Ülker, Mondelēz International, BMW, Red Bull, Kinder, Michelin, Volvo, H&M, Kenzo, Sprite, Audi, Hyundai, Samsung, Xiaomi, Bosch, Pandora, KFC, Unilever, Lancôme, Visa, P&G. Do NOT add Porsche, Ferrari or Mercedes. Official SVGs only (citixmena.com assets or brand press kits), white monochrome; never trace or redraw; if unobtainable, use a labelled placeholder and list it.
 - Hero budget ≈ $22–26; spend to date before the orbit $11.43.
+- Reference study of the bluesqx.com hero loop: `/docs/planning/bluesqx_motion_study.md` (frames stay outside the repo in `C:\Users\wassi\scratch\bluesqx_study\`, never committed or reused).
 - Higgsfield via API (discounted models selected on the account): **Marketing Studio Image** (stills, up to 4K, image refs), **Kling 4.0** (first/last frame clips, 1080p), **Seedance 2.0** (up to 4K, backup). Read the docs (https://docs.higgsfield.ai and each model's page on open.higgsfield.ai) before writing API code; don't guess endpoints.
 - Hero code stack: GSAP 3 + ScrollTrigger, Lenis, SplitType.
 - Reusable scripts and assets: see "Reusable assets" at the end of the runbook copy.
@@ -64,7 +65,7 @@ You may rewrite and improve any Higgsfield prompt, parameter or approach (camera
 
 ## Archived (intro film, dropped 14 Nov 2026 by plan v4.2 — kept for reference and asset reuse)
 The intro film and gate are no longer built. All their assets stay (tag: reusable for products/about/projects sections + inner pages); delete nothing. Decisions as they stood:
-- **Intro gate** (inspired by WOW Media's intro: muted looping film, Enter + Unmute, then the site). We copied the format, not their footage. Built in `components/IntroGate.tsx` (Enter / Unmute / Skip, once per session, reduced-motion → straight to hero).
+- **Intro gate** (inspired by WOW Media's intro: muted looping film, Enter + Unmute, then the site). We copied the format, not their footage. Built in `components/IntroGate.tsx`, kept in the code but disconnected from the homepage route (Enter / Unmute / Skip, once per session, reduced-motion → straight to hero).
 - **15 s loop** → Enter → **hero**: Tom (old Tom) alone, perfectly front-facing and centred against **sky only** (no street, buildings, ground or horizon; base touching the bottom edge), with a **day/night switch** (inspired by flyshare.design: sky transition, birds by day, opt-in sound). The film's last frame = the hero night frame (`media/generated/hero_test/intro_end_frame_reference_1920x1080.png`).
 - Shot 2 is a **hard cut** after stock clip S4 to a street-level push-in on Tom (no continuous descent). Shot 5 lowers and tilts up from the street until only Tom and the sky remain (fallback: clean dissolve to the hero frame).
 - Shot list and step-by-step prompts: `/docs/planning/CITIX_intro_ClaudeCode_prompts.md` and `CITIX_prompts_part2.md`; results in `docs/higgsfield-prompts.md` and `docs/higgsfield-map.md`; edit in `scripts/prompt3_edit.py`; exports in `media/web/intro-*`.

@@ -47,7 +47,7 @@ This file is the single source of truth for the hero build. It replaces the "doc
 | R1 | Tom (old version, real refs, 1:3.5, red side strip) | Falcon flies out toward the camera, sand swirling |
 | R2 | Jerry | Oasis: palm fronds and water spill onto the dunes |
 | R3 | Plain glass square (ORIGINAL frameless clear panel, faint cool-white edge glow, no cyan outline) | Arabian oryx steps out; mist off Hajar-style mountains |
-| R4 | Baloo (tall spire) | Tall unbranded perfume bottle rises, pink-red light |
+| R4 | Corner glass pair: TWO of the R3 frameless glass panels joined edge to edge at ~90°, like a screen wrapping a building corner. No tower/spire, no white borders or bezel, no building, no box body | Tall unbranded perfume bottle rises out of the corner seam toward the camera, pink-red light, rose petals and mist |
 | R5 | Jumbo (corner screen, two faces) | Unbranded luxury SUV drifts out; sand hits the lens; the dust hits the hero frame (code overlay), then black, then the loop restarts |
 
 - **World:** dark void over moonlit desert dunes, cool blue grading, volumetric light from the screen.
@@ -67,12 +67,14 @@ This file is the single source of truth for the hero build. It replaces the "doc
 
 ## H0 — Setup (no credits)
 1. Copy this runbook into the repo as `docs/planning/HERO_ORBIT_RUNBOOK.md`.
-2. Update `CLAUDE.md`:
-   - If `C:\Users\wassi\Desktop\DOCS\Internship\claude_code_kit\CLAUDE.md` (v2) is newer than the repo's copy, use it as the base.
-   - Then apply the "Plan summary (v4.2)" above: intro dropped, hero rotations, logo list.
+2. Update the **repo's own** `CLAUDE.md` (do NOT use `claude_code_kit\CLAUDE.md`, which is the outdated original kit version). Edit it in place:
+   - Add a "Current plan: v4.2 (BlueSquareX model)" section at the top with the Plan summary above.
+   - **Keep as still valid:** old Tom (refs 01 and 02, red side strip, plain cap; the new calligraphy Tom, refs 03–06, stays on hold), brand rules, hard rules, model routing, scripts, and build standards.
+   - **Move to an "Archived: intro film (dropped 14 Nov)" section, not deleted:** the sky-only front-facing end frame, the Shot 2 hard cut, the Shot 5 lower-and-tilt, the intro gate, and the intro budgets. Note that their assets are reusable.
+   - Leave `components/IntroGate.tsx` in the code but disconnected from the homepage route. Don't delete it.
 3. In `.env`, set `HIGGSFIELD_MAX_SPEND_USD=40`. Do it with a script that edits only that line and prints only "cap updated: 40". Confirm `.env` is still in `.gitignore`.
 4. Build `media/hero_orbit/refs/` (copies only):
-   - **Tom:** `media/hero_cutout` (old Tom night/day, option A 1:3.5) plus the clean Tom stills used before.
+   - **Tom:** `media/generated/hero_cutout/tom_night.png` and `tom_day.png` (old Tom, option A 1:3.5), plus Tom refs 01 and 02 from `media/source/`. Do not use refs 03–06.
    - **Jerry:** the best 2 Jerry images from `C:\Users\wassi\Desktop\DOCS\Internship\Citix_sales_ver2_comments_maria_last.pdf`.
    - **Baloo:** 3 sharp frames from `C:\Users\wassi\Desktop\DOCS\Internship\Média1pptx_s18_baloo_3d_video.mp4`, with the spire fully visible.
    - **Jumbo:** 3 sharp frames from `C:\Users\wassi\Desktop\DOCS\Internship\Média1pptx_s20_jumbo_3d_video.mp4`, with both corner faces visible.

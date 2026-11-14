@@ -5,6 +5,7 @@ Usage:
   python scripts/orbit_stills.py quote [--q high] # free: exact quote, no generation
   python scripts/orbit_stills.py run --yes        # submit, wait, download, resize (resumable)
   python scripts/orbit_stills.py quote --v2 / run --v2 --yes   # Gate 1b rerolls (R3, R4, R5)
+  python scripts/orbit_stills.py quote --v3 [--only R1,R4] / run --v3 [--only ...] --yes   # after the motion study
   python scripts/orbit_stills.py sheet            # contact sheet media/hero_orbit/stills/_stills_sheet.jpg
 
 State lives in media/hero_orbit/stills/jobs.json, so a re-run never pays twice.
@@ -154,12 +155,90 @@ PRODUCT = {
     "R5": (JUMBO, ["jumbo/jumbo_01_two_faces_t3.75.png", "jumbo/jumbo_03_two_faces_t9.25.png"]),
 }
 
+# ---------------------------------------------------------------- v3 (after the bluesqx motion study)
+# docs/planning/bluesqx_motion_study.md: small subject, lots of black, the screen is the only light,
+# content leaks out at the base and spreads on the sand, light shaft with motes, ~40 deg off-front view.
+V3_BUDGET_USD = 0.0   # set to the approved Gate 1a (v3) quote before `run --v3 --yes`
+WORLD3 = (
+    "Photorealistic cinematic night photograph, very low-key. A black void over desert sand dunes at night: "
+    "the sky is pure blue-black with no horizon glow, no moon disc and no stars; the dunes are almost invisible, "
+    "picked out only by a faint cool moonlight rim on their crests and by the light that falls from the screen. "
+    "The product stands alone on the sand, the only man-made object. Its screen is the only real light source: "
+    "a soft volumetric shaft of light pours out of the screen through thin haze and lands as a pool on the sand "
+    "in front of it, with a few fine sand motes floating in the beam, then falls off quickly into darkness. "
+    "More than half of the frame is near-black. Deep clean blacks, high contrast, natural vignette, cool blue "
+    "grading, minimal noise. Camera low, at a strong three-quarter angle about 40 degrees off the screen's "
+    "front, mid-orbit, so the screen face is foreshortened and the product's thin side edge is visible; "
+    "cinematic 35 mm lens, shallow depth of field. The screen is a doorway into a deep scene with real depth "
+    "inside it, and the content BREAKS OUT of the flat screen plane: it crosses the screen surface and "
+    "continues as real 3D matter outside, spreading from the foot of the screen across the sand toward the "
+    "camera, lit by the screen and casting real shadows."
+)
+FRAME3 = {
+    "16:9": " Wide composition with a lot of darkness: the product is small, standing right of centre (about "
+            "two-thirds of the way across the frame), its full height only about half of the frame height; the "
+            "left half of the frame is near-black, empty dunes.",
+    "9:16": " Vertical composition, composed for portrait (not a crop of a wide shot): the product centred, its "
+            "full height about 45% of the frame height, the content bursting upward and toward the camera, black "
+            "sky above and dark sand below.",
+}
+CORNER_GLASS = (
+    "PRODUCT: two identical, original, frameless, perfectly clear glass square panels, each about 3 m by 3 m "
+    "and a few centimetres thick, standing upright on the sand and joined along one vertical edge at about 90 "
+    "degrees, the way a screen wraps around the corner of a building. Seen from above they form an L; the "
+    "camera looks at the outer corner seam, so both glass faces are visible, each foreshortened. No frame, no "
+    "bezel, no white border, no base, no stand, no tower, no box body, no building: only the two sheets of "
+    "glass, with a faint cool-white glow along their thin edges (white, not cyan, no coloured outline)."
+)
+V3 = {
+    "R1": (TOM, PRODUCT["R1"][1],
+           "The upper screen shows only a soft cool glow. Bursting out of the lower screen: a single saker falcon, "
+           "wings fully spread, flying out toward the camera, head and wingtips already past the bezel in 3D space, "
+           "sharp feathers lit by the screen. A spiral of fine sand pours out of the lower screen with it and fans "
+           "out low across the sand toward the camera. One colour family: cool white-blue (plus the thin red side "
+           "strip)."),
+    "R2": (JERRY, PRODUCT["R2"][1],
+           "The upper screen shows only a soft cool glow. Spilling out of the lower screen: an oasis. Real date-palm "
+           "fronds (long feather-shaped leaves) reach out past the bezel, and clear water pours over the bottom edge "
+           "of the screen onto the sand, forming a small pool that spreads toward the camera; small green shoots and "
+           "reeds have taken root in the wet sand around the foot of the product. One colour family: cool "
+           "teal-green and blue."),
+    "R3": (GLASS, [], REROLL["R3"] + " One colour family: slate blue and cool white mist."),
+    "R4": (CORNER_GLASS, [],
+           "Inside the two glass panels, one continuous deep scene of soft crimson mist. A tall, slender, unbranded "
+           "glass perfume bottle (softly tapered cylindrical body, small round cap, no label, no square or faceted "
+           "shapes) rises out of the corner seam toward the camera, its upper half already in the open air in front "
+           "of the glass. Dark red rose petals drift out of the glass with it and lie scattered on the sand; low "
+           "mist flows out from the foot of the corner. Soft pink-red light (deep crimson, not neon) spills from "
+           "the glass onto the sand. One colour family: crimson on blue-black."),
+    "R5": (JUMBO, REROLL_PRODUCT["R5"][1],
+           "The reference screen shows a neutral grey room: do not add any bottle, tree, petals or pink light. Here "
+           "the corner screen plays a car advert: inside it, a deep, bare 3D showroom room with cool white-grey "
+           "walls and a row of small ceiling lights, wrapping around the corner. A generic modern luxury SUV (dark "
+           "graphite paint, of no real make or model, plain body-colour grille with no emblem, no badges, no number "
+           "plates) is driving OUT of that screen: its rear half is still inside the screen room, crossing the "
+           "screen surface, and its front wheels have hit the sand and are turning into a drift, throwing a low "
+           "wave of fine sand toward the lens and leaving curved tyre tracks. The scene must read as the car "
+           "leaving the screen, proving the screen's 3D depth. One colour family: cool white on blue-black."),
+}
+
+
+def _arg(flag: str) -> str:
+    return sys.argv[sys.argv.index(flag) + 1] if flag in sys.argv and sys.argv.index(flag) + 1 < len(sys.argv) else ""
+
+
+ONLY = [r for r in _arg("--only").split(",") if r]          # e.g. --only R1,R4
+VERSION = 3 if "--v3" in sys.argv else 2 if "--v2" in sys.argv else 1
+BUDGETS = {1: BUDGET_USD, 2: REROLL_BUDGET_USD, 3: V3_BUDGET_USD}
+
 
 def tag(ar: str) -> str:
     return ar.replace(":", "x")
 
 
 def prompt(r: str, ar: str, v: int = 1) -> str:
+    if v == 3:
+        return f"{WORLD3} {V3[r][0]} {V3[r][2]}{FRAME3[ar]} {AVOID}"
     content = REROLL[r] if v == 2 else CONTENT[r]
     product = REROLL_PRODUCT[r][0] if v == 2 and r in REROLL_PRODUCT else PRODUCT[r][0]
     return f"{WORLD} {product} {content}{FRAME[ar]} {AVOID}"
@@ -167,8 +246,8 @@ def prompt(r: str, ar: str, v: int = 1) -> str:
 
 def jobs(upload: bool = True, v: int = 1) -> dict:
     out = {}
-    for r in (REROLL if v == 2 else PRODUCT):
-        names = REROLL_PRODUCT[r][1] if v == 2 and r in REROLL_PRODUCT else PRODUCT[r][1]
+    for r in (ONLY or (V3 if v == 3 else REROLL if v == 2 else PRODUCT)):
+        names = V3[r][1] if v == 3 else REROLL_PRODUCT[r][1] if v == 2 and r in REROLL_PRODUCT else PRODUCT[r][1]
         refs = [hf.upload(REFS / p) if upload else str(p) for p in names]
         for ar in SIZES:
             params = {**BASE, "aspect_ratio": ar, "prompt": prompt(r, ar, v)}
@@ -219,11 +298,11 @@ def run(confirm: bool, v: int = 1) -> None:
     q = quote(todo)
     total = sum(q.values())
     cap = hf.max_spend()
-    print(f"{len(todo)} jobs, quote ${total:.3f}; this run budget ${(REROLL_BUDGET_USD if v == 2 else BUDGET_USD):.2f}; "
+    print(f"{len(todo)} jobs, quote ${total:.3f}; this run budget ${BUDGETS[v]:.2f}; "
           f"project ${SPENT_BEFORE + spent(state) + total:.2f} of cap ${cap:.2f}")
     phase = sum(j.get("usd", 0) for k, j in state.items() if k.endswith(f"_v{v}") and j.get("request_id")
                 and j.get("status") not in ("failed", "nsfw"))
-    if phase + total > (REROLL_BUDGET_USD if v == 2 else BUDGET_USD) + 1e-9:
+    if phase + total > BUDGETS[v] + 1e-9:
         raise hf.HiggsfieldError("Refused: above the approved budget for this run")
     if SPENT_BEFORE + spent(state) + total > cap:
         raise hf.HiggsfieldError("Refused: total project spend would exceed HIGGSFIELD_MAX_SPEND_USD")
@@ -279,16 +358,16 @@ def main(argv: list[str]) -> int:
     cmd = argv[0] if argv else ""
     try:
         if cmd == "prompts":
-            for k, p in jobs(upload=False, v=2 if "--v2" in argv else 1).items():
+            for k, p in jobs(upload=False, v=VERSION).items():
                 refs = ", ".join(f"`{u}`" for u in p.get("image_urls", [])) or "none (original design)"
                 print(f"#### {k}\n- {MODEL}, {p['aspect_ratio']}, {p['resolution']}, quality {p['quality']}; refs: {refs}\n\n> {p['prompt']}\n")
         elif cmd == "quote":
-            q = quote(jobs(v=2 if "--v2" in argv else 1))
+            q = quote(jobs(v=VERSION))
             for k, usd in q.items():
                 print(f"{k:12} ${usd:.4f}")
             print(f"TOTAL ${sum(q.values()):.4f} ({len(q)} images, quality {QUALITY})")
         elif cmd == "run":
-            run("--yes" in argv, 2 if "--v2" in argv else 1)
+            run("--yes" in argv, VERSION)
         elif cmd == "sheet":
             sheet()
         else:
