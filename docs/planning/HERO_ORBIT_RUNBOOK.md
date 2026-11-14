@@ -1,178 +1,134 @@
-# CITIX MENA — Hero "The Orbit" RUNBOOK (for Claude Code)
+# CITIX MENA — Hero "The Orbit" RUNBOOK v5 (for Claude Code)
 
-Written 14 Nov 2026 by Claude (claude.ai project "CitiX MENA Internship").
-This file is the single source of truth for the hero build. It replaces the "docs: v4.1" prompt and the intro-film prompts, which are dropped.
+Updated 14 Nov 2026, 18:30, by Claude (claude.ai project "CitiX MENA Internship").
+This file is the single source of truth for the hero build. It **replaces runbook v4.2**: the Tom, Jerry, Baloo and Jumbo rotations and the Kling first/last-frame method are dropped.
 
-## How to run this file
-- Execute the phases H0 → H5 **in order**, autonomously.
-- Stop **only** at the gates marked **⛔ GATE**. At a gate, show Wassim what he needs to see (open files on his screen + give local paths), then wait for his reply.
-- Do everything on the computer yourself (files, folders, git, ffmpeg, `.env` edits, opening previews). Never ask Wassim to do a manual step that you can do.
+## Decision (Wassim, 14 Nov evening)
+The R3 camel clip is the model for the whole hero:
+- clip: `media/hero_orbit/seedance/R3_ref.mp4`
+- method: `docs/planning/R3_camel_method.md`
+
+The hero becomes **4 scenes, all made exactly like R3**:
+- the same frameless glass panel;
+- the same camera reference video (identical orbit);
+- the same look (night dunes, slate-blue grade, cool-white edge glow);
+- the same Seedance 2.0 reference-to-video call;
+- the same prompt structure.
+
+Only the content inside and coming out of the glass changes.
+
+| Order in loop | Scene | Content | Status |
+|---|---|---|---|
+| 1 | Oasis | Water and palms spill out of the glass | to make |
+| 2 | Camel (current R3) | Mountains inside, a dromedary walks out | **DONE, approved** (`R3_ref.mp4`) |
+| 3 | Perfume (CITIX promo style) | An unbranded bottle floats out with rose petals | to make |
+| 4 | SUV (finale) | An unbranded SUV bursts out and drifts; dust hits the lens | to make |
+
+**Loop:** 4 × 8 s = **32 s**. Every scene starts and ends on black (the dune wipe), so the joins are invisible and the loop restarts at scene 1. This matches bluesqx (31.2 s).
+
+The products (Tom, Jerry, Baloo, Jumbo) leave the hero. They will be shown in the Smartboards section (S4) with real assets. Keep all earlier stills and clips; archive them and delete nothing.
+
+## How to run
+- Run the phases P0 → P5 in order, autonomously.
+- Stop **only** at the gates marked **⛔ GATE**. At a gate, open what Wassim needs to see on his screen, give him the local paths and the exact cost, then wait for his reply.
+- Do every step yourself (files, git, ffmpeg, the OrbitLab renders, opening previews). Never ask Wassim to do a manual step you can do.
 - After each phase: commit, then print a 5-line status: phase done · spend so far · cap · next gate · anything blocked.
 
 ## Hard rules (always)
-- **Secrets:** never print, echo, log or commit the Higgsfield key or `.env` contents.
-  - When editing `.env`, change only the target line, using a script that does not print the file.
-  - The key file `C:\Users\wassi\Desktop\DOCS\Internship\857b9f1a-...txt` must not be read again or copied into the repo.
-- **Spending:** spend Higgsfield credits **only** after an explicit "OK" for an exact quote. Never exceed `HIGGSFIELD_MAX_SPEND_USD`.
-- **Deleting:** don't delete or overwrite existing files. Archive into a new folder instead. Don't move originals; copy them.
+- **Secrets:** never print, log or commit the Higgsfield key or `.env`. Spend credits only after an explicit "OK" on an exact quote (use the free `/estimate` first). Never exceed `HIGGSFIELD_MAX_SPEND_USD` ($40). Spend to date: **$19.53**.
+- **Files:** delete or overwrite nothing; archive instead. Copy originals, never move them.
 - **Brand:**
-  - Colours: black #000/#161616, white #FFF/#E0E0E0, Pulse Red #FD0332 (gradient to #990332). Fonts: Gilroy ExtraBold / Light.
-  - No sci-fi, neon or warm/yellow casts; deserts only under moonlight / blue hour. Logo never bottom-right.
-  - No owned landmarks (Burj Khalifa etc.), no mosques as subjects, no identifiable people, no third-party logos in generated media.
-  - Vehicles unbranded; no Range Rover or other real-model replica.
+  - No warm/yellow cast outside the glass, no neon, no sci-fi.
+  - No landmarks, people, text, or third-party logos/brands.
+  - Vehicles and products unbranded; no real car-model replica.
+- **bluesqx.com** is for study only. Never upload, copy or reuse their frames or video.
 - **Model routing:**
-  - Fable 5.2: writing Higgsfield prompts and hard creative/technical decisions.
-  - Opus: everything else.
-  - Sonnet sub-agents are allowed for boilerplate, but they never touch `.env` or Higgsfield.
-- **Creative freedom:** you may improve prompt wording and technical choices, as long as you keep every rule above.
-
-## Plan summary (v4.2)
-- Homepage modelled on bluesqx.com (structure and motion only; no copying of their code, video, images or text).
-- Sections:
-  1. Hero "The Orbit"
-  2. Install / Operate / Create / Measure
-  3. Who we serve
-  4. Our Smartboards
-  5. About + numbers
-  6. Projects tabs
-  7. Trusted by
-  8. Newsletter
-  9. Footer
-- EN + AR (RTL); inner pages are "Coming soon".
-- **Intro film is DROPPED.** Keep all its assets (`media/clips`, `media/hero_cutout`, `media/hero_test`, `media/generated/drafts`), tagged "reusable: products/about/projects sections + inner pages". Delete nothing.
-- **Hero rotations (approved):**
-
-| R | Screen | Content bursting out of the screen |
-|---|---|---|
-| R1 | Tom (old version, real refs, 1:3.5, red side strip) | Falcon flies out toward the camera, sand swirling |
-| R2 | Jerry | Oasis: palm fronds and water spill onto the dunes |
-| R3 | Plain glass square (ORIGINAL frameless clear panel, faint cool-white edge glow, no cyan outline) | Arabian oryx steps out; mist off Hajar-style mountains |
-| R4 | Corner glass pair: TWO of the R3 frameless glass panels joined edge to edge at ~90°, like a screen wrapping a building corner. No tower/spire, no white borders or bezel, no building, no box body | Tall unbranded perfume bottle rises out of the corner seam toward the camera, pink-red light, rose petals and mist |
-| R5 | Jumbo (corner screen, two faces) | Unbranded luxury SUV drifts out; sand hits the lens; the dust hits the hero frame (code overlay), then black, then the loop restarts |
-
-- **World:** dark void over moonlit desert dunes, cool blue grading, volumetric light from the screen.
-- **Logo marquee + "Trusted by" wall:** use exactly these 35 brands from the citixmena.com "Trusted by leading global brands" section:
-  - Sony, Kia, Panasonic, Yokohama, Apple, L'Oréal, Rolex
-  - McDonald's, Tiffany & Co., Coca-Cola, Lenovo, Lexus, Lufthansa, Bridgestone
-  - Ülker, Mondelēz International, BMW, Red Bull, Kinder, Michelin, Volvo
-  - H&M, Kenzo, Sprite, Audi, Hyundai, Samsung, Xiaomi
-  - Bosch, Pandora, KFC, Unilever, Lancôme, Visa, P&G
-- **Logo rules:**
-  - Do NOT add Porsche, Ferrari or Mercedes.
-  - Use official SVGs only (citixmena.com's own assets or brand press kits), white monochrome.
-  - Never trace or redraw a logo. If a file is unobtainable, use a labelled placeholder and list it.
-- **Budget for the hero:** ≈ $22–26. Spend to date: $11.43.
+  - Fable 5: prompts and creative/technical decisions.
+  - Sonnet sub-agents: boilerplate only. They never touch `.env` or Higgsfield.
+- **Creative freedom:** you may improve wording and technical details if a test shows it helps. You may not change the approved content, the R3 look, or these rules.
+- **What "exactly like R3" means:**
+  - the same camera reference file: `media/hero_orbit/lab/orbit_reference_R3_8s.mp4`;
+  - the same panel, look and grading as `R3_16x9_v3.png`;
+  - the same parameters: 8 s, 720p, 16:9, no audio;
+  - the same prompt structure: camera block, then look block, then content block, then the action WHILE the camera orbits, then the forbidden errors by name.
+  - Run no lock script and no grading on the raw clips unless Wassim asks.
 
 ---
 
-## H0 — Setup (no credits)
-1. Copy this runbook into the repo as `docs/planning/HERO_ORBIT_RUNBOOK.md`.
-2. Update the **repo's own** `CLAUDE.md` (do NOT use `claude_code_kit\CLAUDE.md`, which is the outdated original kit version). Edit it in place:
-   - Add a "Current plan: v4.2 (BlueSquareX model)" section at the top with the Plan summary above.
-   - **Keep as still valid:** old Tom (refs 01 and 02, red side strip, plain cap; the new calligraphy Tom, refs 03–06, stays on hold), brand rules, hard rules, model routing, scripts, and build standards.
-   - **Move to an "Archived: intro film (dropped 14 Nov)" section, not deleted:** the sky-only front-facing end frame, the Shot 2 hard cut, the Shot 5 lower-and-tilt, the intro gate, and the intro budgets. Note that their assets are reusable.
-   - Leave `components/IntroGate.tsx` in the code but disconnected from the homepage route. Don't delete it.
-3. In `.env`, set `HIGGSFIELD_MAX_SPEND_USD=40`. Do it with a script that edits only that line and prints only "cap updated: 40". Confirm `.env` is still in `.gitignore`.
-4. Build `media/hero_orbit/refs/` (copies only):
-   - **Tom:** `media/generated/hero_cutout/tom_night.png` and `tom_day.png` (old Tom, option A 1:3.5), plus Tom refs 01 and 02 from `media/source/`. Do not use refs 03–06.
-   - **Jerry:** the best 2 Jerry images from `C:\Users\wassi\Desktop\DOCS\Internship\Citix_sales_ver2_comments_maria_last.pdf`.
-   - **Baloo:** 3 sharp frames from `C:\Users\wassi\Desktop\DOCS\Internship\Média1pptx_s18_baloo_3d_video.mp4`, with the spire fully visible.
-   - **Jumbo:** 3 sharp frames from `C:\Users\wassi\Desktop\DOCS\Internship\Média1pptx_s20_jumbo_3d_video.mp4`, with both corner faces visible.
-   - Exclude anything showing the Burj Khalifa, identifiable people, or third-party logos.
-5. Make a labelled contact sheet `media/hero_orbit/refs/_refs_sheet.jpg` and open it on Wassim's screen.
-6. Commit "hero-orbit: runbook, CLAUDE.md v4.2, spend cap, product refs" (no `.env`).
+## P0 — Sync (no credits)
+1. Copy this runbook to `docs/planning/HERO_ORBIT_RUNBOOK.md`, keeping the old version as `HERO_ORBIT_RUNBOOK_v4.2_archived.md`.
+2. Update `CLAUDE.md`:
+   - Add "Current hero plan: v5, 4 glass-panel scenes".
+   - Move the v4.2 rotations to the Archived section.
+3. Move nothing. Create `media/hero_orbit/v5/` for all new outputs.
+4. Commit "hero v5: 4 glass-panel scenes on the R3 method".
 
-⛔ **GATE 0:** ask Wassim to approve the references (or swap any).
+## P1 — 3 look stills (Marketing Studio Image, 16:9 1920×1080)
+- Use `media/hero_orbit/stills/R3_16x9_v3.png` as the image reference in all three. The panel, its size and position, the camera angle, the dunes, the darkness and the grading must match R3. Only the content changes.
+- Show the content at its most striking moment, partly through the glass.
 
-## H1 — Reveal stills (Marketing Studio Image)
-- **Output:** 10 stills, 5 rotations × 16:9 (1920×1080) and 9:16 (1080×1920), 1 variation each, using refs from `media/hero_orbit/refs/`.
-- **Shared look:** dark void above moonlit dunes, cool blue night grading, soft volumetric light from the screen onto the sand; camera at a 3/4 angle mid-orbit, cinematic 35 mm, light haze. The product stands alone, its screen is the light source, and the content BREAKS OUT of the screen plane into 3D space.
-- **Negatives:** no warm/orange/yellow, neon, sci-fi, landmarks, buildings, people, text, logos or watermarks.
-- **Rotation content:** as in the table. R5 SUV is generic: no badges, no grille logo, no plates, not a real model.
-- **9:16:** recompose with the product centred and the burst going up and toward the camera. Don't crop the 16:9 version.
+| Still | Inside the glass | What is coming out |
+|---|---|---|
+| **S1 oasis** | A moonlit desert oasis: a dark, still pool fringed by date palms. | A smooth sheet of water pours forward through the glass surface onto the sand. Date palm fronds push out through the glass. Low mist. |
+| **S3 perfume** | A deep pink-red haze with drifting rose petals. Only the inside of the glass is pink-red; the outside world stays cool slate-blue. | A tall, faceted clear-glass perfume bottle with a heavy glass stopper, no label, logo or text, halfway through the glass surface. Rose petals and pink mist spill out with it. |
+| **S4 SUV** | A dark desert track between dunes at night. | A dark, generic luxury full-size SUV bursts out of the glass front-first, headlights on, sand spraying. It is not any real model: no badges, no grille emblem, no plates. The glass is intact, with no shattering or cracks. |
 
 Steps:
-1. Write the 10 prompts in `docs/higgsfield-map.md` (hero-orbit section).
-2. ⛔ **GATE 1a:** quote the exact cost, then wait for "OK".
-3. Generate into `media/hero_orbit/stills/R{n}_{16x9|9x16}_v{k}.png`. Check each product against its refs (shape, proportions, colours).
-4. Build `_stills_sheet.jpg`, open it on screen, and give the paths.
-5. ⛔ **GATE 1b:** Wassim picks or approves stills. Propose rerolls with reason and cost; reroll only after "OK".
-6. Commit.
+1. Write the 3 prompts in `docs/higgsfield-map.md` (v5 section).
+2. ⛔ **GATE 1:** quote the cost (1 variation each), wait for "OK", then generate into `media/hero_orbit/v5/stills/`.
+3. Build a sheet with R3 v3 next to the 3 new stills and open it on screen.
+4. Wassim approves or asks for rerolls. Show the cost of each reroll first.
 
-## H2 — Clips 16:9 (Kling 4.0 first/last frame, 1080p, 4 s, no audio)
-- Create `media/hero_orbit/wipe/black_16x9.png`: near-black #050608 with a faint dark-blue gradient.
-- For each rotation n, make two clips:
-  - **Rn_A:** black → approved still. The camera orbits clockwise as the panel's dark edge sweeps off the lens, and the content starts bursting out, reaching the still's pose at the end.
-  - **Rn_B:** still → black. The orbit continues clockwise while the content completes its exit (falcon past the lens, water lands, oryx walks out, bottle rises, SUV drifts toward the lens throwing sand). Then the product's dark body sweeps the lens to black.
-- **R5_B:** the sand hits the lens, then black.
-- Keep the same orbit direction and speed in every clip.
+## P2 — 3 Seedance clips (exactly the R3 call)
+- **Model:** `bytedance/seedance-2.0/reference-to-video`, via `scripts/orbit_seedance.py`, with new jobs `s1_oasis`, `s3_perfume` and `s4_suv`.
+- **Inputs:** `image_urls` = [the approved still], `video_urls` = [`orbit_reference_R3_8s.mp4`].
+- **Parameters:** 8 s, 720p, 16:9, `generate_audio` false.
+- **Expected cost:** ≈ $0.2128/s × 8 s × 3 = **$5.11**.
+- **Prompt:** keep the R3 prompt word for word up to and including "…a soft shaft of cool light and low mist spill from it onto the sand." Make one change inside that part: replace the sentence "Inside the glass is a deep, misty night view of jagged rocky mountains;" with the scene's "Inside the glass" line below. Then append the scene's action block and the closing line.
+
+**S1 oasis**
+- *Inside the glass:* "Inside the glass is a moonlit desert oasis: a dark, still pool of water fringed by date palms, seen from inside the scene;"
+- *Action:* "Action, happening WHILE the camera orbits, never after it: the pool starts to ripple, then a smooth sheet of clear water flows forward and pours out through the glass surface as if the glass were the edge of the pool, spilling onto the sand in a low wave that spreads across the dunes and darkens the sand, catching the cool light. Date palm fronds push out through the glass and sway gently outward. Fine mist and a few drops follow the water. The water clearly comes from inside the glass."
+
+**S3 perfume**
+- *Inside the glass:* "Inside the glass is a deep pink-red haze with slowly drifting rose petals; the pink-red light stays inside the glass, everything outside stays cool slate-blue;"
+- *Action:* "Action, happening WHILE the camera orbits, never after it: one tall faceted clear-glass perfume bottle with a heavy glass stopper, no label, no logo, no text, is first seen small and far away deep inside the pink haze, floats forward toward the glass, passes through the glass surface stopper first, comes fully out and hovers just in front of the panel, turning slowly, catching the light. A soft burst of rose petals and pink mist follows it out through the glass and drifts low over the sand. Exactly one bottle; it is rigid and keeps its shape. The bottle clearly comes from inside the glass."
+
+**S4 SUV (finale)**
+- *Inside the glass:* "Inside the glass is a dark desert track between dunes at night;"
+- *Action:* "Action, happening WHILE the camera orbits, never after it: a dark luxury full-size SUV with its headlights on is first seen small and far away inside the glass, drives fast toward the glass, bursts out through the glass surface front first, lands on the sand outside, and swings into a controlled sideways drift across the frame toward the camera; its four wheels throw a big spray of sand and dust toward the lens, and the dust cloud fills the lens just before the black dune slides across it. The SUV is a generic design, not any real model: no badges, no logos, no grille emblem, no number plates, exactly four wheels, a consistent body. The glass panel stays intact: no shattering, no cracks, no fragments. The SUV clearly comes from inside the glass."
+
+**Closing line for all three:** "The glass panel is a rigid, flat sheet that never changes shape and never gets a frame. No slow-down, no pause. No text, logos, people or buildings."
 
 Steps:
-1. Write the 10 clip prompts in `docs/higgsfield-map.md`.
-2. ⛔ **GATE 2a:** quote the exact cost (10 × 4 s @ 1080p), then wait for "OK".
-3. Generate into `media/hero_orbit/clips/16x9/`. Run `scripts/flicker_check.py`. Where a product screen flickers, apply the Tom-lock (composite the clean still over the screen area) plus ffmpeg deflicker.
-4. Make a rough 40 s preview `media/hero_orbit/preview/orbit_16x9_preview.mp4` and open it on screen.
-5. ⛔ **GATE 2b:** list proposed rerolls with reason and cost; reroll only after "OK".
-6. Commit.
+1. ⛔ **GATE 2:** show the 3 final prompts and the `/estimate` total, then wait for "OK".
+2. Generate into `media/hero_orbit/v5/clips/`.
+3. Make a 3-up review sheet (frames every 1 s) and open each clip on screen.
+4. Wassim approves or asks for rerolls. Show the cost of each reroll first.
 
-## H3 — Clips 9:16
-- Same as H2, using the approved 9:16 stills and `black_9x16.png`.
-- Output to `media/hero_orbit/clips/9x16/`, preview `orbit_9x16_preview.mp4`.
-- Reuse the H2 prompts adapted for vertical framing.
-- ⛔ **GATE 3a** (quote) and ⛔ **GATE 3b** (rerolls), then commit.
-
-## H4 — Loop assembly + web encodes (no credits)
-For each format (16x9, 9x16):
-1. Assemble the 40 s loop R1_A → … → R5_B. Joins fall on black; add a 2–4 frame crossfade only where a cut is visible.
+## P3 — Loop assembly (no credits)
+1. Order: S1 oasis → S2 camel (`R3_ref.mp4`) → S3 perfume → S4 SUV. Hard cuts on black; add a 2–4 frame crossfade only where a flash is visible.
 2. Check the loop is seamless: run a pixel diff between the first and last frames and report the value.
 3. Export to `media/web/hero/`:
-   - `orbit_{fmt}.mp4`: H.264, CRF tuned to ≤ 8 MB desktop / ≤ 5 MB mobile, preset veryfast, faststart, no audio.
-   - `orbit_{fmt}.webm`: VP9, same size targets.
-   - `orbit_{fmt}_poster.webp`: the R1 reveal frame, ≤ 150 KB.
-4. Write `timing.json` with the start/end of each rotation and the exact second the R5 dust hits the lens.
-5. Open both MP4s on screen. Commit.
+   - `orbit_16x9.mp4`: H.264, preset veryfast, faststart, no audio, ≤ 8 MB.
+   - `orbit_16x9.webm`: VP9.
+   - `orbit_16x9_poster.webp`: the S1 oasis still, ≤ 150 KB.
+4. Write `timing.json` with each scene's start/end and the exact second the S4 dust fills the lens. The code dust overlay syncs to this moment.
+5. Open the loop on screen. ⛔ **GATE 3:** Wassim approves.
 
-⛔ **GATE 4:** Wassim approves the final loops.
+## P4 — Mobile 9:16 (decide at the gate)
+- **Option A (free):** centre-crop the 16:9 loop for mobile, as bluesqx does. Check that the panel and the content stay in frame.
+- **Option B (≈ $7 for 4 clips, plus stills):** render a 9:16 camera reference in OrbitLab and re-run the 4 scenes at 9:16 with the same prompts.
+- Build Option A first, open it on screen, then ⛔ **GATE 4:** Wassim chooses A or B.
 
-## H5 — Hero section code (no credits)
-Use the stack GSAP 3 + ScrollTrigger, Lenis and SplitType, with EN + AR (RTL).
-- **Video:** muted, playsinline, loop, autoplay; WebM then MP4. Use the 9:16 file under 768 px wide or in portrait. Show the poster first for LCP and load the video after first paint. With `prefers-reduced-motion`, show the poster only.
-- **H1:** two lines in Gilroy ExtraBold / Light, "Smarter Cities." / "Stronger Brands.", plus the Arabic version. SplitType letter reveal.
-- **Header:** CITIX logo top-left, "Get in touch", menu button.
-- **CTAs:** "Our Solutions" and "Latest Project", bottom-right (bottom-left in RTL). Outline style, white, Pulse Red on hover.
-- **Logo marquee:** the 35 brands above as white monochrome SVGs, ~70% opacity (100% on hover), alt text on each. Infinite scroll that pauses on hover; static with reduced motion.
-- **Dust overlay:** a canvas/WebGL particle burst over the WHOLE hero, including the text.
-  - Triggered by `timing.json` via `requestVideoFrameCallback`, with `timeupdate` as fallback.
-  - About 1.2 s burst, then fade; cool-graded sand particles.
-  - Off with reduced motion; paused when the hero is off-screen.
-- **Quality:** all text is real HTML. Lighthouse mobile targets LCP < 2.5 s and CLS < 0.05; report the scores.
-- Serve locally and open desktop and mobile viewports on Wassim's screen. Commit and push to GitHub.
+## P5 — Hero code
+- Update the hero to use the new loop, `timing.json` and the SUV dust overlay (synced to S4).
+- Keep the H1, CTAs, 35-logo marquee, EN/AR, reduced motion, LCP rules and everything else already built.
+- Serve locally, open it on screen, commit and push. ⛔ **GATE 5.**
 
-⛔ **GATE 5:** Wassim reviews the hero.
-
----
-
-## Reusable assets (added in the repo copy, 14 Nov 2026)
-The runbook's short paths map to the real folders below. Everything is kept; nothing is deleted. Tag: **reusable: products/about/projects sections + inner pages**.
-
-**Scripts (reuse for the hero orbit)**
-- `scripts/higgsfield.py`: API client (upload with cache, free estimate, quote → cap → confirm, status/wait/download). Every hero job goes through it.
-- `scripts/flicker_check.py`: luminance stability on a tracked product area. H2/H3 screen-flicker check (box and track logic need adapting per product).
-- `scripts/prompt3_edit.py`: ffmpeg/NumPy toolkit: Tom lock (clean still tracked over the clip), deflicker, paint-out, eased scale/position match, dissolves, concat, MP4/WebM/poster exports with size targets. Base for the H2 screen lock and the H4 loop assembly and encodes.
-- `scripts/hero_cutout.py`, `scripts/hero_test_render.py`: product cut-outs (transparent PNG/WebP), restores and composite test renders in 16:9 / 21:9 / 9:16.
-- `scripts/prompt1_drafts.py`, `scripts/prompt1_s5_regen.py`, `scripts/prompt2_clips.py`: job-runner pattern (job list, budget guard, `--yes`, contact/4-fps sheets) to copy for the H1–H3 runners.
-- `scripts/sync-media.mjs` + the Next.js app (`app/`, `components/`, `lib/`): EN/AR routes, RTL, hreflang, video and reduced-motion patterns. The intro gate is archived; the H5 hero replaces it.
-
-**Product references**
-- `media/source/01_tom_day_photo.jpg`, `02_tom_night_photo.jpg`: the only Tom refs (old Tom, red side strip).
-- `media/generated/hero_cutout/tom_day|tom_night.png/.webp` (option A, 1:3.5), `tom_night_ref.png`: clean old-Tom cut-outs. `archive_body35/` = rejected option B.
-- `media/source/baloo_3d_real_4k.mp4`, `jumbo_3d_real.mp4`: same files as the DOCS `Média1pptx_s18/s20` videos.
-- `media/source/03–06` (new-Tom calligraphy): **not** for prompts until the company artwork arrives.
-
-**Intro-film media (dropped film, reusable elsewhere)**
-- `media/generated/clips/`: Kling Shot 2 / Shot 5 finals (1080p) and drafts with flicker CSVs and 4-fps sheets.
-- `media/generated/drafts/`: Marketing Studio stills (hero day/night 16:9 / 21:9 / 9:16, s2_end, s5_start, overlays).
-- `media/generated/hero_test/`: hero test renders + `intro_end_frame_reference_1920x1080.png`.
-- `media/generated/edit/{16x9,9x16}/`: per-shot renders of the 15 s film.
-- `media/web/intro-*.mp4/.webm`, `poster*.jpg`, `end*.jpg`: the finished intro exports.
-- `media/stock/`: Pexels clips (Flag Island, etc.) with `LICENSES.md`.
+**Budget for v5:**
+- Stills ≈ $1–1.5.
+- Clips ≈ $5.11.
+- Rerolls ≈ $3–5.
+- Total ≈ **$9–12**, giving a project total of ≈ $29–32 of the $40 cap.
+- Option B mobile adds about $7–8.

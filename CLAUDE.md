@@ -4,7 +4,7 @@ Owner: Wassim Gatri (intern, CITIX MENA). Goal: a **homepage pitch** for the new
 
 Planning happens in a claude.ai Project ("CitiX MENA Internship"); copies of the key docs are in `/docs/planning/`. If something here conflicts with a newer instruction from Wassim, follow Wassim.
 
-**Plan v4.2 (14 Nov 2026):** the single source of truth for the hero build is `/docs/planning/HERO_ORBIT_RUNBOOK.md` (phases H0 → H5, stop only at the ⛔ gates). Where this file and the runbook disagree, the runbook wins.
+**Current hero plan: v5, 4 glass-panel scenes (14 Nov 2026, evening).** The single source of truth for the hero build is `/docs/planning/HERO_ORBIT_RUNBOOK.md` (v5, phases P0 → P5, stop only at the ⛔ gates; v4.2 kept as `HERO_ORBIT_RUNBOOK_v4.2_archived.md`). Where this file and the runbook disagree, the runbook wins.
 
 ## Model routing
 - **Fable 5.2**: writing and refining Higgsfield prompts, and the hardest creative-technical parts (hero orbit stills and clips, loop assembly, 3D/WebGL, dust overlay, scroll choreography).
@@ -38,16 +38,18 @@ Planning happens in a claude.ai Project ("CitiX MENA Internship"); copies of the
 - Smartboard logic: widgets on top catch the eye like a phone notification, the ad sits below. Eye-tracking study: +53% conversion vs standard billboards.
 - Real installations: Yas Island entrances, Abu Dhabi (first 2 Tom); Sharjah (Shurooq partnership: Al Qasba, Al Heera Beach, Flag Island, Khorfakkan…); Jumbo at an Abu Dhabi mall.
 
-## Current plan: v4.2 (BlueSquareX model) — homepage + hero "The Orbit"
+## Current plan: v5 (BlueSquareX model) — homepage + hero "The Orbit", 4 glass-panel scenes
 - Homepage modelled on bluesqx.com (structure and motion only; no copying of their code, video, images or text). Sections: 1 Hero "The Orbit" · 2 Install / Operate / Create / Measure · 3 Who we serve · 4 Our Smartboards · 5 About + numbers · 6 Projects tabs · 7 Trusted by · 8 Newsletter · 9 Footer. EN + AR (RTL); inner pages "Coming soon".
-- **Hero rotations (approved)**, a ~40 s seamless loop; each rotation = clip A (black → still) + clip B (still → black), same clockwise orbit throughout:
-  - **R1 Tom** (old Tom, real refs, 1:3.5, red side strip): a falcon flies out toward the camera, sand swirling.
-  - **R2 Jerry**: an oasis, palm fronds and water spilling onto the dunes.
-  - **R3 Plain glass square** (original frameless clear panel, faint cool-white edge glow, no cyan outline): a **camel** steps out (Wassim, 14 Nov: camel instead of the runbook's oryx); mist off Hajar-style mountains.
-  - **R4 Corner glass pair** (14 Nov: Baloo dropped from the hero, the model kept turning it into a white box): TWO of the R3 frameless glass panels joined edge to edge at ~90°, like a screen wrapping a building corner; no tower/spire, white borders, bezel, building or box body. A tall unbranded perfume bottle rises out of the corner seam toward the camera; pink-red light, rose petals and mist.
-  - **R5 Jumbo** (corner screen, two faces): an unbranded luxury SUV drifts out; sand hits the lens; the dust hits the hero frame (code overlay), then black, then the loop restarts.
+- **Hero (v5):** 4 scenes × 8 s = 32 s loop, joined on black (dune wipes). Every scene is made **exactly like the approved R3 camel clip** (`media/hero_orbit/seedance/R3_ref.mp4`, method `docs/planning/R3_camel_method.md`): the same frameless glass panel, the same camera reference `media/hero_orbit/lab/orbit_reference_R3_8s.mp4`, the same look (`R3_16x9_v3.png` as image ref), Seedance 2.0 reference-to-video at 8 s / 720p / 16:9 / no audio, the same prompt structure. Only the content changes:
+  - **Oasis:** water and date palms spill out of the glass.
+  - **Camel:** done and approved; reuse `R3_ref.mp4` as is.
+  - **Perfume:** an unbranded faceted bottle floats out with rose petals; pink-red only inside the glass.
+  - **SUV (finale):** an unbranded generic SUV bursts out and drifts; dust hits the lens (code dust overlay synced via `timing.json`); the glass stays intact.
+  - Loop order: the runbook says oasis → camel → perfume → SUV; Wassim's chat message (14 Nov) said oasis → perfume → camel → SUV. Confirm at GATE 3.
+  - New outputs go in `media/hero_orbit/v5/`. No lock script or grading on raw clips unless Wassim asks.
+  - The products (Tom, Jerry, Baloo, Jumbo) leave the hero and are shown in the Smartboards section with real assets.
 - **Trusted by / logo marquee:** exactly these 35 brands from citixmena.com's "Trusted by leading global brands": Sony, Kia, Panasonic, Yokohama, Apple, L'Oréal, Rolex, McDonald's, Tiffany & Co., Coca-Cola, Lenovo, Lexus, Lufthansa, Bridgestone, Ülker, Mondelēz International, BMW, Red Bull, Kinder, Michelin, Volvo, H&M, Kenzo, Sprite, Audi, Hyundai, Samsung, Xiaomi, Bosch, Pandora, KFC, Unilever, Lancôme, Visa, P&G. Do NOT add Porsche, Ferrari or Mercedes. Official SVGs only (citixmena.com assets or brand press kits), white monochrome; never trace or redraw; if unobtainable, use a labelled placeholder and list it.
-- Hero budget ≈ $22–26; spend to date before the orbit $11.43.
+- Hero budget v5 ≈ $9–12 on top of $19.53 already spent (project ≈ $29–32 of the $40 cap).
 - Reference study of the bluesqx.com hero loop: `/docs/planning/bluesqx_motion_study.md` (frames stay outside the repo in `C:\Users\wassi\scratch\bluesqx_study\`, never committed or reused).
 - Higgsfield via API (discounted models selected on the account): **Marketing Studio Image** (stills, up to 4K, image refs), **Kling 4.0** (first/last frame clips, 1080p), **Seedance 2.0** (up to 4K, backup). Read the docs (https://docs.higgsfield.ai and each model's page on open.higgsfield.ai) before writing API code; don't guess endpoints.
 - Hero code stack: GSAP 3 + ScrollTrigger, Lenis, SplitType.
@@ -62,6 +64,15 @@ You may rewrite and improve any Higgsfield prompt, parameter or approach (camera
 - Video: MP4 (H.264) + WebM, poster image, end-frame still, lazy-loading, mobile-specific assets, `prefers-reduced-motion` fallback, sound off by default.
 - Performance target: LCP < 2.5 s, CLS < 0.05; hero scripts paused when off-screen.
 - 21st.dev components allowed if the licence permits; re-theme to the brand; avoid heavy dependencies for small effects.
+
+## Archived (hero v4.2 rotations, replaced 14 Nov 2026 evening by plan v5 — kept for reference and asset reuse)
+All stills and clips stay (`media/hero_orbit/stills/`, `clips/`, `seedance/`, `preview/`); delete nothing. Decisions as they stood:
+- ~40 s loop of 5 product rotations, each = clip A (black → still) + clip B (still → black), same clockwise orbit (Kling first/last-frame method, later Seedance reference mode).
+  - **R1 Tom** (old Tom, real refs, 1:3.5, red side strip): a falcon flies out toward the camera, sand swirling. Seedance R1 ref test + `orbit_lock.py` = `preview/seedance_R1_locked.mp4` (small residual wobble).
+  - **R2 Jerry**: an oasis, palm fronds and water spilling onto the dunes.
+  - **R3 Plain glass square**: a camel steps out; mist off Hajar-style mountains. Became the v5 model.
+  - **R4 Corner glass pair**: two R3 panels joined at ~90° (convex, like a building corner); a perfume bottle rises from the seam.
+  - **R5 Jumbo** (corner screen, two faces): an unbranded luxury SUV drifts out; the dust hits the hero frame (code overlay).
 
 ## Archived (intro film, dropped 14 Nov 2026 by plan v4.2 — kept for reference and asset reuse)
 The intro film and gate are no longer built. All their assets stay (tag: reusable for products/about/projects sections + inner pages); delete nothing. Decisions as they stood:
