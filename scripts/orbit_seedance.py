@@ -134,6 +134,7 @@ def v5_prompt(job: str) -> str:
     return f"{R3_HEAD.replace(R3_INSIDE, inside)} {action} {CLOSING}"
 
 
+BUDGET_USD["s1_oasis"] = 1.7024   # Wassim: "let's do it clip by clip, start with the oasis" at GATE 2 ($1.7024 each), 14 Nov 2026
 for _j in V5_SCENES:
     BUDGET_USD.setdefault(_j, 0.0)      # set to the exact quote only after Wassim's OK at GATE 2
     KEYS[_j] = _j
