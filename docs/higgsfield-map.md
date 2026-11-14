@@ -674,3 +674,4 @@ Wassim, 14 Nov 2026 (screenshots at ~5 s): while the SUV is still "inside", it s
 
 
 Run after "OK SUV fix $1.7024": **failed, not charged**. Higgsfield: "Your credit balance is too low to complete this request." Project stays **$26.68**. Re-run `python scripts/orbit_seedance.py run s4_suv_t2 --yes` after the account is topped up (the script allows a re-run of a failed job).
+Re-run after "Topped up, re-run": **failed again, not charged**, same message (balance too low). Project stays **$26.68**.
