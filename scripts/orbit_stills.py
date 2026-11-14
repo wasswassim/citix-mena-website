@@ -23,7 +23,7 @@ import higgsfield as hf  # noqa: E402
 
 MODEL = "marketing-studio/image"
 BUDGET_USD = 0.908        # Wassim approved "OK medium $0.908" at Gate 1a, 14 Nov 2026
-REROLL_BUDGET_USD = 0.0   # set to the approved Gate 1b reroll quote before `run --v2 --yes`
+REROLL_BUDGET_USD = 0.480  # Wassim approved "OK $0.480" at Gate 1b, 14 Nov 2026
 SPENT_BEFORE = 11.43      # project spend before the hero orbit (runbook)
 REFS = hf.ROOT / "media" / "hero_orbit" / "refs"
 OUT = hf.ROOT / "media" / "hero_orbit" / "stills"
@@ -266,7 +266,8 @@ def sheet() -> None:
     for i, r in enumerate(PRODUCT):
         y = 70 + i * (th + 50)
         for ar, x, w in (("16:9", 40, tw), ("9:16", 60 + tw, vw)):
-            f = OUT / f"{r}_{tag(ar)}_v1.png"
+            vs = sorted(OUT.glob(f"{r}_{tag(ar)}_v[0-9].png"))  # latest version of each still
+            f = vs[-1] if vs else OUT / f"{r}_{tag(ar)}_v1.png"
             if f.exists():
                 S.paste(Image.open(f).convert("RGB").resize((w, th), Image.LANCZOS), (x, y))
             d.text((x, y + th + 6), f.name, font=F, fill=(253, 3, 50) if not f.exists() else (224, 224, 224))

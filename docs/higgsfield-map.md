@@ -204,3 +204,12 @@ Wassim: R3 oryx → **camel**; R5 = the car is advertised **inside** the screen,
 - R4 v2: new product text `BALOO_SCREEN` (screen unit only: rounded white frame, indicator light, black band resting on the sand; no tower/spire/tiles). Slender tapered round bottle (no square/faceted shapes). Refs: `baloo_02`, `baloo_03`.
 - R5 v2: screen plays a car advert (bare cool-grey 3D showroom wrapping the corner); SUV mid-exit, rear wheels inside, front wheels drifting on the sand. Ref: new `jumbo/jumbo_03_two_faces_t9.25_screen_neutral.png` (pink room desaturated to grey; bottle, tree and the **Gucci floor logos** blurred; the v1 refs still carried that ad, which is why it leaked).
 - Exact quote: R3 $0.136 + R4 $0.182 + R5 $0.162 = **$0.480** (6 images, medium). Not generated yet.
+
+#### v2 results (14 Nov 2026) — Wassim approved "OK $0.480"
+Generated 6/6 for **$0.480** (H1 total $1.388; project **$12.82**, cap $40). Sheet now shows the latest version of each still.
+| Still | Check |
+|---|---|
+| R3 16:9 / 9:16 v2 | Dromedary camel, no saddle/harness/rider, stepping out of the glass; mountains + mist kept. White edge glow, no cyan. |
+| R4 16:9 / 9:16 v2 | Screen unit alone on the sand: white rounded frame, indicator light top right, black band at the base; no tower. Bottle tall and tapered with a round cap (no iconic square bottle), crimson light + petals. |
+| R5 16:9 / 9:16 v2 | No perfume ad. The screen reads as a bare cool-grey 3D showroom; SUV is out on the sand drifting, but fully in front of the opening (the clips will show it leaving the screen). Grille has vertical slats with a faint centre mark: no readable badge, no plates; paint out in post if it reads as a logo. |
+Proposed picks: R1 v1, R2 v1, R3 v2, R4 v2, R5 v2.
