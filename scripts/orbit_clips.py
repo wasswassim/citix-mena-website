@@ -24,7 +24,7 @@ import higgsfield as hf  # noqa: E402
 
 MODEL = "kling-video/v4.0/image-to-video"
 DURATION, RESOLUTION = 4, "1080p"
-BUDGET_USD = {"16x9": 0.0, "9x16": 0.0}   # set to the approved Gate 2a / 3a quotes
+BUDGET_USD = {"16x9": 0.752, "9x16": 0.0}   # 16x9: Wassim approved "Test R1_A $0.752" (14 Nov 2026); raise at Gate 2a/3a
 SPENT_BEFORE = 13.82                      # project spend after H1 (stills), 14 Nov 2026
 ORBIT = hf.ROOT / "media" / "hero_orbit"
 STILLS = ORBIT / "stills"
