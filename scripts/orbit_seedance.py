@@ -145,6 +145,18 @@ V5_SCENES["s3_perfume_t2"] = (
 BUDGET_USD["s3_perfume_t2"] = 1.7024   # Wassim: "OK clip $1.7024" (perfume take 2), 14 Nov 2026
 BUDGET_USD["s4_suv"] = 1.7024   # Wassim: "OK SUV $1.7024", 14 Nov 2026
 
+# SUV take 2 (Wassim, 14 Nov 2026): in take 1 the SUV, while still "inside", showed up past the panel's edges
+# (it read as a car parked BEHIND a clear sheet). The glass must act as a portal: the inner scene exists only
+# within the glass borders, so the car is cropped by the edges until it crosses the surface.
+PORTAL = ("The glass is a portal, not a window: the scene inside it exists ONLY within the glass borders. Past "
+          "the panel's edges, and behind it, there is only our own empty dark dunes, never the inner track. While "
+          "the SUV is inside, it is seen only through the glass and is cut off exactly by the glass edges, like a "
+          "picture in a frame; no part of it ever appears beside, above, below or behind the panel. It only "
+          "becomes visible outside the panel once it has crossed the glass surface toward the camera.")
+V5_SCENES["s4_suv_t2"] = ("S4_suv.png", V5_SCENES["s4_suv"][1], V5_SCENES["s4_suv"][2].replace(
+    "The SUV clearly comes from inside the glass.", PORTAL + " The SUV clearly comes from inside the glass."))
+assert V5_SCENES["s4_suv_t2"][2] != V5_SCENES["s4_suv"][2]
+
 
 def v5_prompt(job: str) -> str:
     _, inside, action = V5_SCENES[job]
