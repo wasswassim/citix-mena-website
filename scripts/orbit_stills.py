@@ -4,6 +4,7 @@ Usage:
   python scripts/orbit_stills.py prompts          # print the prompts as Markdown (for docs/higgsfield-map.md)
   python scripts/orbit_stills.py quote [--q high] # free: exact quote, no generation
   python scripts/orbit_stills.py run --yes        # submit, wait, download, resize (resumable)
+  python scripts/orbit_stills.py quote --v2 / run --v2 --yes   # Gate 1b rerolls (R4, R5)
   python scripts/orbit_stills.py sheet            # contact sheet media/hero_orbit/stills/_stills_sheet.jpg
 
 State lives in media/hero_orbit/stills/jobs.json, so a re-run never pays twice.
@@ -21,7 +22,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import higgsfield as hf  # noqa: E402
 
 MODEL = "marketing-studio/image"
-BUDGET_USD = 0.0          # set to the approved Gate 1a quote before `run --yes`
+BUDGET_USD = 0.908        # Wassim approved "OK medium $0.908" at Gate 1a, 14 Nov 2026
+REROLL_BUDGET_USD = 0.0   # set to the approved Gate 1b reroll quote before `run --v2 --yes`
 SPENT_BEFORE = 11.43      # project spend before the hero orbit (runbook)
 REFS = hf.ROOT / "media" / "hero_orbit" / "refs"
 OUT = hf.ROOT / "media" / "hero_orbit" / "stills"
@@ -110,6 +112,20 @@ CONTENT = {
            "of no real make or model, no badges, no grille logo, no number plates. Its front wheels are already "
            "on the sand and it throws up a wave of fine sand that sprays toward the lens."),
 }
+# Gate 1b reroll proposals (v2). Only these rotations get a v2 job.
+REROLL = {
+    "R4": ("Rising out of the screen: a tall, slender, unbranded glass perfume bottle with a softly tapered "
+           "cylindrical body and a small round cap, no label, no square or faceted shapes, clearly emerging from "
+           "the screen's 3D depth and lifting above the top of the frame into open air, bathed in a soft "
+           "pink-red light (deep crimson, not neon) that spills onto the white frame and the sand."),
+    "R5": ("The reference screens show a third-party advert: do NOT reproduce it (no bottle, no tree, no pink or "
+           "red light, no room interior). Here the corner screen shows a deep, dark, cool-blue moonlit dune "
+           "landscape receding into the block, lit only by cool white light. Drifting out of that screen toward "
+           "the camera: a generic modern luxury SUV, dark graphite paint, of no real make or model, no badges, no "
+           "grille logo, no number plates. Its rear is still inside the screen and its front wheels are already "
+           "on the sand in front of the block, throwing up a wave of fine sand that sprays toward the lens."),
+}
+
 PRODUCT = {
     "R1": (TOM, ["tom/01_tom_day_photo_ad_neutral.png", "tom/02_tom_night_photo_ad_neutral.png", "tom/tom_night.png"]),
     "R2": (JERRY, ["jerry/jerry_01_studio_grey.png", "jerry/jerry_02_on_black.png"]),
@@ -124,19 +140,20 @@ def tag(ar: str) -> str:
     return ar.replace(":", "x")
 
 
-def prompt(r: str, ar: str) -> str:
-    return f"{WORLD} {PRODUCT[r][0]} {CONTENT[r]}{FRAME[ar]} {AVOID}"
+def prompt(r: str, ar: str, v: int = 1) -> str:
+    content = REROLL[r] if v == 2 else CONTENT[r]
+    return f"{WORLD} {PRODUCT[r][0]} {content}{FRAME[ar]} {AVOID}"
 
 
-def jobs(upload: bool = True) -> dict:
+def jobs(upload: bool = True, v: int = 1) -> dict:
     out = {}
-    for r in PRODUCT:
+    for r in (REROLL if v == 2 else PRODUCT):
         refs = [hf.upload(REFS / p) if upload else str(p) for p in PRODUCT[r][1]]
         for ar in SIZES:
-            params = {**BASE, "aspect_ratio": ar, "prompt": prompt(r, ar)}
+            params = {**BASE, "aspect_ratio": ar, "prompt": prompt(r, ar, v)}
             if refs:
                 params["image_urls"] = refs
-            out[f"{r}_{tag(ar)}_v1"] = params
+            out[f"{r}_{tag(ar)}_v{v}"] = params
     return out
 
 
@@ -173,17 +190,19 @@ def finish(k: str, res: dict, state: dict) -> None:
     state[k].update(file=str(final), raw=str(raw))
 
 
-def run(confirm: bool) -> None:
+def run(confirm: bool, v: int = 1) -> None:
     state = load()
-    js = jobs()
+    js = jobs(v=v)
     todo = {k: p for k, p in js.items() if not state.get(k, {}).get("request_id")
             or state[k].get("status") in ("failed", "nsfw")}
     q = quote(todo)
     total = sum(q.values())
     cap = hf.max_spend()
-    print(f"{len(todo)} jobs, quote ${total:.3f}; this run budget ${BUDGET_USD:.2f}; "
+    print(f"{len(todo)} jobs, quote ${total:.3f}; this run budget ${(REROLL_BUDGET_USD if v == 2 else BUDGET_USD):.2f}; "
           f"project ${SPENT_BEFORE + spent(state) + total:.2f} of cap ${cap:.2f}")
-    if spent(state) + total > BUDGET_USD + 1e-9:
+    phase = sum(j.get("usd", 0) for k, j in state.items() if k.endswith(f"_v{v}") and j.get("request_id")
+                and j.get("status") not in ("failed", "nsfw"))
+    if phase + total > (REROLL_BUDGET_USD if v == 2 else BUDGET_USD) + 1e-9:
         raise hf.HiggsfieldError("Refused: above the approved budget for this run")
     if SPENT_BEFORE + spent(state) + total > cap:
         raise hf.HiggsfieldError("Refused: total project spend would exceed HIGGSFIELD_MAX_SPEND_USD")
@@ -238,16 +257,16 @@ def main(argv: list[str]) -> int:
     cmd = argv[0] if argv else ""
     try:
         if cmd == "prompts":
-            for k, p in jobs(upload=False).items():
+            for k, p in jobs(upload=False, v=2 if "--v2" in argv else 1).items():
                 refs = ", ".join(f"`{u}`" for u in p.get("image_urls", [])) or "none (original design)"
                 print(f"#### {k}\n- {MODEL}, {p['aspect_ratio']}, {p['resolution']}, quality {p['quality']}; refs: {refs}\n\n> {p['prompt']}\n")
         elif cmd == "quote":
-            q = quote(jobs())
-            for k, v in q.items():
-                print(f"{k:12} ${v:.4f}")
+            q = quote(jobs(v=2 if "--v2" in argv else 1))
+            for k, usd in q.items():
+                print(f"{k:12} ${usd:.4f}")
             print(f"TOTAL ${sum(q.values()):.4f} ({len(q)} images, quality {QUALITY})")
         elif cmd == "run":
-            run("--yes" in argv)
+            run("--yes" in argv, 2 if "--v2" in argv else 1)
         elif cmd == "sheet":
             sheet()
         else:
