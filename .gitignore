@@ -19,3 +19,11 @@ __pycache__/
 .venv/
 .DS_Store
 Thumbs.db
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+# served copy of media/web (see scripts/sync-media.mjs)
+/public/media/
