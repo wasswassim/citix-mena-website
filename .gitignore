@@ -27,3 +27,4 @@ next-env.d.ts
 *.tsbuildinfo
 # served copy of media/web (see scripts/sync-media.mjs)
 /public/media/
+/media/hero_orbit/
