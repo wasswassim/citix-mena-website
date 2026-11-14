@@ -18,3 +18,5 @@ Notes
 - The CITIX MENA logos on the Jerry cap, Baloo band and Tom cap are CITIX's own; generated images still keep caps plain and the real logo is composited later.
 - Jumbo's screen content (bottle, tree) is a third-party ad; prompts use the refs for the building corner and two-face screen geometry only.
 - Not used: new-Tom calligraphy refs 03–06, PDF images with the Burj Khalifa (p32 Emaar ad) or third-party ads.
+
+- Added 14 Nov 2026: `jumbo/jumbo_03_two_faces_t9.25_screen_neutral.png` — the t9.25 frame had small Gucci logos on the screen-room floor (missed in H0); this copy desaturates the pink room to cool grey and blurs the bottle, tree and floor logos. Use it instead of jumbo_01/03 for R5.

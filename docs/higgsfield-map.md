@@ -197,3 +197,10 @@ Generated 10/10 at medium, **$0.908** (project spend $11.43 → **$12.34**, cap 
 | R5 16:9 / 9:16 | Jumbo block + corner screen OK | **Screen copied the third-party ad from the refs (bottle + pink tree)** → reroll required. SUV unbadged, no plates; sits in front of the block rather than emerging. |
 
 Gate 1b reroll proposal (v2, `python scripts/orbit_stills.py quote --v2`): R4 x2 $0.204 + R5 x2 $0.184 = **$0.388**. Prompts: `python scripts/orbit_stills.py prompts --v2`.
+
+#### Gate 1b feedback (14 Nov 2026) → revised v2 rerolls
+Wassim: R3 oryx → **camel**; R5 = the car is advertised **inside** the screen, drives out of the building and starts drifting on the sand (no perfume ad); R4 = **only the screen on the sand**, no tower.
+- R3 v2: dromedary camel (no saddle/harness/rider) steps out of the glass; mountains + mist kept. Refs: none.
+- R4 v2: new product text `BALOO_SCREEN` (screen unit only: rounded white frame, indicator light, black band resting on the sand; no tower/spire/tiles). Slender tapered round bottle (no square/faceted shapes). Refs: `baloo_02`, `baloo_03`.
+- R5 v2: screen plays a car advert (bare cool-grey 3D showroom wrapping the corner); SUV mid-exit, rear wheels inside, front wheels drifting on the sand. Ref: new `jumbo/jumbo_03_two_faces_t9.25_screen_neutral.png` (pink room desaturated to grey; bottle, tree and the **Gucci floor logos** blurred; the v1 refs still carried that ad, which is why it leaked).
+- Exact quote: R3 $0.136 + R4 $0.182 + R5 $0.162 = **$0.480** (6 images, medium). Not generated yet.

@@ -4,7 +4,7 @@ Usage:
   python scripts/orbit_stills.py prompts          # print the prompts as Markdown (for docs/higgsfield-map.md)
   python scripts/orbit_stills.py quote [--q high] # free: exact quote, no generation
   python scripts/orbit_stills.py run --yes        # submit, wait, download, resize (resumable)
-  python scripts/orbit_stills.py quote --v2 / run --v2 --yes   # Gate 1b rerolls (R4, R5)
+  python scripts/orbit_stills.py quote --v2 / run --v2 --yes   # Gate 1b rerolls (R3, R4, R5)
   python scripts/orbit_stills.py sheet            # contact sheet media/hero_orbit/stills/_stills_sheet.jpg
 
 State lives in media/hero_orbit/stills/jobs.json, so a re-run never pays twice.
@@ -112,18 +112,37 @@ CONTENT = {
            "of no real make or model, no badges, no grille logo, no number plates. Its front wheels are already "
            "on the sand and it throws up a wave of fine sand that sprays toward the lens."),
 }
-# Gate 1b reroll proposals (v2). Only these rotations get a v2 job.
+# Gate 1b rerolls (v2), from Wassim's feedback on 14 Nov 2026. Only these rotations get a v2 job.
+BALOO_SCREEN = (
+    "PRODUCT (reference images 1-2 show it mounted on a building; keep ONLY the screen unit and its exact shape): "
+    "the CITIX \"Baloo\" giant 3D screen as a standalone object standing upright directly on the sand: a tall "
+    "portrait screen with large rounded corners inside a thick white rounded frame, a short horizontal indicator "
+    "light at the frame's top right, and a black horizontal band under the frame, plain, no text or logo. The "
+    "black band rests on the sand. NO tower, no spire, no column, no white cladding tiles, no building of any "
+    "kind: the screen unit stands alone in the desert. Ignore the content in the reference screen."
+)
 REROLL = {
+    "R3": ("Inside the glass: a misty night view of jagged, rocky Hajar-style mountains. A dromedary camel (single "
+           "hump, sandy coat in cool moonlight, no saddle, no harness, no rope, no rider) steps out of the glass "
+           "toward the camera, head, long neck, chest and front legs already in the 3D space in front of the panel, "
+           "its back half still inside the mountain scene; cool mist rolls off the mountains and flows out through "
+           "the glass onto the sand."),
     "R4": ("Rising out of the screen: a tall, slender, unbranded glass perfume bottle with a softly tapered "
            "cylindrical body and a small round cap, no label, no square or faceted shapes, clearly emerging from "
            "the screen's 3D depth and lifting above the top of the frame into open air, bathed in a soft "
            "pink-red light (deep crimson, not neon) that spills onto the white frame and the sand."),
-    "R5": ("The reference screens show a third-party advert: do NOT reproduce it (no bottle, no tree, no pink or "
-           "red light, no room interior). Here the corner screen shows a deep, dark, cool-blue moonlit dune "
-           "landscape receding into the block, lit only by cool white light. Drifting out of that screen toward "
-           "the camera: a generic modern luxury SUV, dark graphite paint, of no real make or model, no badges, no "
-           "grille logo, no number plates. Its rear is still inside the screen and its front wheels are already "
-           "on the sand in front of the block, throwing up a wave of fine sand that sprays toward the lens."),
+    "R5": ("The reference screens show a third-party advert: do NOT reproduce any of it (no bottle, no tree, no "
+           "petals, no pink or red light). Here the corner screen plays a car advert: inside it, a deep, bare 3D "
+           "showroom room with cool white-grey walls and a row of small ceiling lights, wrapping around the corner. "
+           "A generic modern luxury SUV (dark graphite paint, of no real make or model, no badges, no grille logo, "
+           "no number plates) has just driven OUT of that screen: its rear wheels are still inside the screen room, "
+           "its front half is out of the building, and its front wheels have hit the sand, already turning into a "
+           "drift, throwing up a wave of fine sand toward the lens. The scene must read as the car leaving the "
+           "screen, proving the screen's 3D depth."),
+}
+REROLL_PRODUCT = {
+    "R4": (BALOO_SCREEN, ["baloo/baloo_02_spire_screen_t1.75.png", "baloo/baloo_03_screen_base_detail_t1.75.png"]),
+    "R5": (JUMBO, ["jumbo/jumbo_03_two_faces_t9.25_screen_neutral.png"]),
 }
 
 PRODUCT = {
@@ -142,13 +161,15 @@ def tag(ar: str) -> str:
 
 def prompt(r: str, ar: str, v: int = 1) -> str:
     content = REROLL[r] if v == 2 else CONTENT[r]
-    return f"{WORLD} {PRODUCT[r][0]} {content}{FRAME[ar]} {AVOID}"
+    product = REROLL_PRODUCT[r][0] if v == 2 and r in REROLL_PRODUCT else PRODUCT[r][0]
+    return f"{WORLD} {product} {content}{FRAME[ar]} {AVOID}"
 
 
 def jobs(upload: bool = True, v: int = 1) -> dict:
     out = {}
     for r in (REROLL if v == 2 else PRODUCT):
-        refs = [hf.upload(REFS / p) if upload else str(p) for p in PRODUCT[r][1]]
+        names = REROLL_PRODUCT[r][1] if v == 2 and r in REROLL_PRODUCT else PRODUCT[r][1]
+        refs = [hf.upload(REFS / p) if upload else str(p) for p in names]
         for ar in SIZES:
             params = {**BASE, "aspect_ratio": ar, "prompt": prompt(r, ar, v)}
             if refs:
