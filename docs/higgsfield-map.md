@@ -489,3 +489,10 @@ First plate (test): **falcon**, exact quote still $0.062 + clip $0.752 = **$0.81
 
 #### Falcon plate, step 1: still (14 Nov 2026) — Wassim approved "OK falcon $0.814"
 `media/hero_orbit/plates/falcon_still.png` (2688x1520), **$0.062** (project **$15.38**, cap $40). Background measured pure black (corner mean 0.2 of 255; 87% of pixels under 12). One falcon, front view, wings level and fully spread, centred; wingspan covers 6% to 96% of the frame width (tight but complete), no jesses or text. Clip ($0.752) waits for Wassim to see the still.
+
+#### Falcon plate, step 2: clip + 3D test (14 Nov 2026)
+`media/hero_orbit/plates/falcon_clip.mp4` (1912x1080, 24 fps, 4.04 s), **$0.752** (falcon plate total $0.814 as quoted; project **$16.13**, cap $40).
+Measured: background corners 0.00 of 255 in every sampled frame; body centre x 47.7-50.6 %, y 46.5-54.6 %; two full wingbeats (downstrokes near 1.0 s and 2.5 s); wings stay inside the frame (highest tip at 7 % from the top; span reaches 99 % of the width in the last half second, hidden by a soft edge mask). One bird, two wings, no morphing seen on the 4-fps sheet.
+In the scene: web copy `media/web/lab/falcon_plate.mp4` (1280 wide, 1.2 MB) as a video texture; black keyed out in the shader by luminance, tinted slightly cool; the sprite follows a 3D path out of Tom's lower screen while the orbit runs. Orbit lock unchanged (Tom 67 % across, 48 % of the height).
+Preview: `media/hero_orbit/preview/route1_3d_orbit_R1_falcon_plate.mp4` + `_sheet.jpg` (captured at 12 fps in headless Edge; the live page `/en/orbit-lab` is the smooth version). Checked at 150 % display scaling.
+Still rough: flat sand, simple light beam, falcon path and size not art-directed, no interaction between the falcon and the sand stream.

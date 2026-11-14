@@ -9,7 +9,8 @@ import * as THREE from "three";
  *  - The camera is a point on that circle (fixed radius, fixed height), always looking at the centre,
  *    travelling at one constant angular speed.
  *  - Black dune hills stand on the camera's path: they wipe the lens to black as the camera passes.
- * Placeholder content: a falcon sprite and a sand particle stream leave the lower screen while the orbit runs.
+ * Content: the falcon is a generated video plate on black (keyed in the shader); the sand stream is particles.
+ * Both leave the lower screen while the orbit runs.
  *
  * URL params:  ?t=3.5  freeze at 3.5 s (for measurements)   ?speed=8  degrees per second   ?debug=1  show numbers
  */
@@ -145,13 +146,35 @@ export default function OrbitLab() {
     duneAt(START_DEG - speedDeg * LOOP - 1.5); // and ends behind this one
 
     // ---------- content: falcon sprite + sand stream leaving the lower screen
-    const falconTex = new THREE.TextureLoader().load("/media/lab/falcon.png");
+    // Falcon = generated plate on pure black (scripts/orbit_plates.py), keyed by luminance in the shader.
+    const falconVideo = document.createElement("video");
+    falconVideo.src = "/media/lab/falcon_plate.mp4";
+    falconVideo.muted = true;
+    falconVideo.loop = true;
+    falconVideo.playsInline = true;
+    falconVideo.preload = "auto";
+    const falconTex = new THREE.VideoTexture(falconVideo);
     falconTex.colorSpace = THREE.SRGBColorSpace;
-    const falcon = new THREE.Mesh(
-      new THREE.PlaneGeometry(4.6, 4.6 * (284 / 676)),
-      new THREE.MeshBasicMaterial({ map: falconTex, transparent: true, depthWrite: false, toneMapped: false }),
-    );
+    const falconMat = new THREE.ShaderMaterial({
+      uniforms: { map: { value: falconTex }, opacity: { value: 0 } },
+      transparent: true,
+      depthWrite: false,
+      toneMapped: false,
+      vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+      fragmentShader: [
+        "uniform sampler2D map; uniform float opacity; varying vec2 vUv;",
+        "void main(){",
+        "  vec4 c = texture2D(map, vUv);",
+        "  float key = smoothstep(0.012, 0.06, max(c.r, max(c.g, c.b)));", // black -> transparent (values are linear)
+        "  float edge = smoothstep(0.0, 0.04, vUv.x) * smoothstep(1.0, 0.96, vUv.x);", // hide wingtips touching the plate edge
+        "  gl_FragColor = vec4(c.rgb * vec3(0.66, 0.76, 0.94), key * edge * opacity);", // lit by the cool screen behind it
+        "  #include <colorspace_fragment>",
+        "}",
+      ].join("\n"),
+    });
+    const falcon = new THREE.Mesh(new THREE.PlaneGeometry(5.2, 5.2 * (1080 / 1912)), falconMat);
     scene.add(falcon);
+    if (frozen === null) void falconVideo.play().catch(() => undefined);
     const screenOrigin = new THREE.Vector3(0, TOM.plinthH + TOM.h * 0.27, TOM.d / 2 + 0.05); // lower screen centre
 
     const N = 2600;
@@ -179,11 +202,14 @@ export default function OrbitLab() {
       const k = THREE.MathUtils.clamp((t - T0) / 4.6, 0, 1);
       const out = ease(k);
       falcon.position.set(screenOrigin.x - 1.2 * out - 9 * out * out, screenOrigin.y + 0.4 * out + 1.6 * out * out, screenOrigin.z + 0.2 + 19 * out);
-      const flap = 1 - 0.22 * Math.abs(Math.sin((t - T0) * 7));
       const grow = THREE.MathUtils.clamp(k * 5, 0.02, 1);
-      falcon.scale.set(grow, grow * flap, 1);
+      falcon.scale.set(grow, grow, 1);
       falcon.lookAt(camera.position);
-      (falcon.material as THREE.MeshBasicMaterial).opacity = k <= 0 ? 0 : THREE.MathUtils.clamp((1 - k) * 6, 0, 1);
+      falconMat.uniforms.opacity.value = k <= 0 ? 0 : THREE.MathUtils.clamp((1 - k) * 6, 0, 1);
+      if (frozen !== null && falconVideo.readyState >= 1) {
+        const want = ((((t - T0) % 4) + 4) % 4);
+        if (Math.abs(falconVideo.currentTime - want) > 0.02) falconVideo.currentTime = want; // freeze mode: seek the plate
+      }
 
       // sand stream: pours out of the lower screen and fans across the ground toward +z
       for (let i = 0; i < N; i++) {
@@ -262,6 +288,8 @@ export default function OrbitLab() {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVis);
+      falconVideo.pause();
+      falconVideo.removeAttribute("src");
       renderer.dispose();
       mount.removeChild(renderer.domElement);
     };
