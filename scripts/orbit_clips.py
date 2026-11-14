@@ -36,7 +36,9 @@ CAMERA = (
     "speed from the first frame to the last, low over the sand: it never stops, never slows down, never "
     "pauses or holds, and never speeds up. The subject keeps turning in the frame for the whole shot. "
     "Everything that happens on the screen happens WHILE the camera is orbiting, at the same time as the "
-    "rotation, never after it. Smooth, steady, cinematic, no shake, no zoom. Very dark, low-key image: the "
+    "rotation, never after it. The orbit is slow and covers only a small arc, spread evenly over the whole "
+    "duration, so the camera is still travelling at full speed in the very last frame. Smooth, steady, "
+    "cinematic, no shake, no zoom. Very dark, low-key image: the "
     "screen is the only light source, the dunes are almost invisible."
 )
 MOVING_END = (" The shot passes through the final frame while the camera is still orbiting at the same "

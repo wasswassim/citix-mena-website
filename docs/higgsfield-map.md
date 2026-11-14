@@ -435,3 +435,11 @@ Changes: (1) camera text now says one constant speed from first to last frame, n
 - **Settle at the end:** measured frame-to-frame motion is 1.8-3.4 from 0 to 3.0 s, then drops to about 0.83 for 3.0-4.0 s; the screen's on-frame width goes 4 px -> 36 px by 3.0 s and only 36 -> 38 px in the last second. So the orbit almost stops for the final second (Kling arrives at the end frame early and holds). Remaining motion there is the falcon's wings and the sand.
 - Fix without credits (H4): cut clip A where the orbit is still moving (about 3.0 s) and join it to clip B after B's ease-in, with a few-frame blend, so the rotation never stops. Each rotation gets a little shorter than 8 s; the loop length is set in H4.
 - The file has an audio track; it is dropped in the edit.
+
+#### Constant orbit speed (14 Nov 2026) — Wassim's feedback on the R1_A test
+Wassim: the rotation must not start fast and then go slow-motion; it keeps the **same speed** while the content comes out, in every shot, like the inspiration site.
+Measured on R1_A (Tom's left screen edge, px/s at 960 px width): 50 → 94 → 76 → 88 px/s from 0.6 to 2.6 s, then 36, 6 and 8 px/s for the last 1.4 s. Kling turns for about 2.3 s and then holds on the end frame.
+- New tool, no credits: `scripts/orbit_retime.py <clip> <out>` tracks the lit screen, then re-samples the frames so orbit progress is linear in time (slow frames are dropped; nothing is slowed or interpolated). Result for R1_A: 58 frames = **2.42 s**, 98 px/s in the first half and 91 px/s in the second → `media/hero_orbit/preview/R1_A_constant_speed_test.mp4`.
+- Half-speed variant with ffmpeg motion interpolation (free): **4.71 s** → `media/hero_orbit/preview/R1_A_constant_speed_half_test.mp4`. Interpolated frames look clean on a contact sheet; fast wing motion not yet judged in playback.
+- The same `--speed` value can be passed for every clip so all ten shots orbit at one speed (H4).
+- Prompt rev 3 (remaining clips): camera text adds "the orbit is slow and covers only a small arc, spread evenly over the whole duration, so the camera is still travelling at full speed in the very last frame". Kling may still hold at the end frame; the retime handles that either way. Price unchanged.
