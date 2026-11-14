@@ -486,3 +486,6 @@ First plate (test): **falcon**, exact quote still $0.062 + clip $0.752 = **$0.81
 
 > A falcon flies in place straight toward the camera, beating its wings in a steady, natural rhythm: three full wingbeats, down and up, with the feathers flexing. Its head stays level and its eyes stay on the camera. The camera is locked off and does not move. The subject stays centred, at the same size and the same position in the frame for the whole shot. The background stays pure black throughout: no ground, sky, dust, haze or light appears. The lighting stays constant, with no flicker. One bird, exactly two wings and one head; no morphing, no extra feathers, no text or logos.
 
+
+#### Falcon plate, step 1: still (14 Nov 2026) — Wassim approved "OK falcon $0.814"
+`media/hero_orbit/plates/falcon_still.png` (2688x1520), **$0.062** (project **$15.38**, cap $40). Background measured pure black (corner mean 0.2 of 255; 87% of pixels under 12). One falcon, front view, wings level and fully spread, centred; wingspan covers 6% to 96% of the frame width (tight but complete), no jesses or text. Clip ($0.752) waits for Wassim to see the still.

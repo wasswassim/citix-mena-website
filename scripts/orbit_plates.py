@@ -26,7 +26,7 @@ IMG, VID = "marketing-studio/image", "kling-video/v4.0/image-to-video"
 OUT = hf.ROOT / "media" / "hero_orbit" / "plates"
 STATE = OUT / "jobs.json"
 SPENT_BEFORE = 15.32          # project spend on 14 Nov 2026 before any plate
-BUDGET_USD = {"falcon": 0.0}  # set to the approved quote per plate
+BUDGET_USD = {"falcon": 0.814}  # Wassim approved "OK falcon $0.814" (14 Nov 2026): still, then clip
 DURATION, RESOLUTION = 4, "1080p"
 
 BLACK = ("Pure black background (#000000), completely empty: no ground, no sky, no horizon, no dust, no haze, "
