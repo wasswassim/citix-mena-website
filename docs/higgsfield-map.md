@@ -514,3 +514,22 @@ Two tests on R1, both without audio (runner `scripts/orbit_seedance.py`):
 
 > Use the reference video ONLY for the camera: copy its camera path exactly. In it the camera travels along a circle around a tall glowing totem at a fixed radius and a fixed height, always aimed at the totem, at one constant speed; the totem stays at the same position in the frame and at the same size from start to end and only its angle changes, from almost edge-on to a three-quarter view. Keep its timing too: the shot starts in darkness behind a black sand dune close to the lens, the dune slides away, and near the end another black dune slides across the lens and the shot ends in darkness. Do not copy the reference video's plain look. Use the reference image for the look, the product and the content: photorealistic cinematic night, very dark and low-key, a black void over desert sand dunes, cool blue grading; a tall, slim black smartboard totem with two stacked glowing screens, a plain top cap, a plinth and a thin red light strip on its side, exactly as in the image. The totem's screen is the only light: a soft shaft of cool light falls from it onto the sand. Action, happening WHILE the camera orbits, never after it: a falcon takes shape deep inside the lower screen, flies forward, breaks through the screen surface with its wings spreading and flies out toward the camera and away past it, while a stream of fine sand pours out of the lower screen and fans across the ground. The falcon clearly comes from inside the screen. The totem is a rigid, solid object that never changes shape. No push-in, no pull-back, no drifting, no slow-down, no pause. No text, logos, people or buildings.
 
+
+#### Seedance reference-mode test: R1 (14 Nov 2026) — Wassim approved "Reference only $1.702"
+`media/hero_orbit/seedance/R1_ref.mp4` (1280x720, 24 fps, 8.04 s, no audio), **$1.702** (project **$17.83**, cap $40). Inputs: image ref `R1_16x9_v3.png`, video ref `media/hero_orbit/lab/orbit_reference_R1_8s.mp4` (code orbit). Sheet: `R1_ref_sheet_4fps.jpg`.
+Measured at 960 px width (red strip = Tom's position and height; lit screen width = turn):
+| t | Tom x | Tom height | screen width |
+|---|---|---|---|
+| 1.0 s | 68.0 % | 67.2 % | 34 px |
+| 2.0 s | 70.7 % | 69.8 % | 56 px |
+| 3.0 s | 73.4 % | 71.8 % | 77 px |
+| 4.0 s | 75.9 % | 73.5 % | 98 px |
+| 5.0 s | 77.8 % | 70.7 % | 114 px |
+| 5.6 s | 78.4 % | 73.1 % | 120 px |
+| 6.3 s | 74.2 % | 55.8 % | 100 px |
+| 7.0 s | 69.7 % | 32.0 % | 77 px |
+- Wipes: black at 0-0.7 s behind a dune, black again from about 7.3 s behind a dune, as in the reference.
+- Turn: opens evenly, about +21 px per second from 1.0 to 4.6 s (no stop, no hold), then eases (+12 px in the next second).
+- Lock: better than Kling but not exact. Tom drifts right by about 10 % of the frame width over 4.6 s and grows about 9 % (slight push-in). **From about 5.9 s the camera pulls back**: Tom shrinks from 73 % to 32 % of the frame height before the wipe.
+- Scale: Tom is about 70 % of the frame height (reference: 50 %).
+- Content: the falcon is first visible as a silhouette **inside** the lower screen (1.3-4.0 s), breaks through at about 4.3 s, flies out and passes the camera top-left by about 5.6 s; sand bursts from the screen and keeps pouring. Tom keeps his shape (two screens, cap, plinth, red strip). Look matches the generated stills.
