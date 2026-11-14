@@ -566,7 +566,9 @@ Result `media/hero_orbit/preview/seedance_R1_locked.mp4` (6.62 s; first-pass ver
 | 5.42 s | 78.2 % / 59.89 % | 71.9 % / 60.51 % |
 Size spread over the whole visible part: 56.23-60.19 % before, 59.97-61.03 % after (the 61 % is in the last frames before the wipe, where the pull-back begins at about 6.1 s).
 
-### R3 (camel + glass panel) with Seedance reference mode — prompt and quote, not generated (14 Nov 2026)
+### R3 (camel + glass panel) with Seedance reference mode (14 Nov 2026)
+
+**Result: generated ($1.7024, project $19.53) → `media/hero_orbit/seedance/R3_ref.mp4`, APPROVED by Wassim as-is ("we're going to use it"); no lock or correction applied.** Method note: `docs/planning/R3_camel_method.md`.
 Wassim on the R1 lock, second pass: the zoom wobble is not 100 % gone and a small flicker remains during the orbit; he chose to move on to the other scenes, starting with the camel, as a replica of the website reference's motion using our glass panel.
 Camera reference: our own code orbit with the R3 panel (`/en/orbit-lab?ref=1&product=glass`): 3 m frameless panel fixed at two-thirds across and about 37 % of the frame height, radius 15 m, 8.5 degrees per second, from almost edge-on to three-quarter view, dune wipes at both ends → `media/hero_orbit/lab/orbit_reference_R3_8s.mp4`. The website's own video is not used as a reference (no reuse of their footage).
 Look reference: `media/hero_orbit/stills/R3_16x9_v3.png`.
