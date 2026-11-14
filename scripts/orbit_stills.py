@@ -174,6 +174,9 @@ WORLD3 = (
     "continues as real 3D matter outside, spreading from the foot of the screen across the sand toward the "
     "camera, lit by the screen and casting real shadows."
 )
+CAM3 = ("Camera low, at a strong three-quarter angle about 40 degrees off the screen's front, mid-orbit, so the "
+        "screen face is foreshortened and the product's thin side edge is visible; cinematic 35 mm lens, shallow "
+        "depth of field.")
 FRAME3 = {
     "16:9": " Wide composition with a lot of darkness: the product is small, standing right of centre (about "
             "two-thirds of the way across the frame), its full height only about half of the frame height; the "
@@ -223,13 +226,41 @@ V3 = {
 }
 
 
+# ---------------------------------------------------------------- v4: R4 with a CONVEX (outer) corner
+# Wassim, 14 Nov 2026: the two glass screens must wrap the corner externally, like two screens on two
+# walls of a building meeting where the walls meet (v3 came out concave, like an open book).
+V4_BUDGET_USD = 0.144  # quoted at Gate 1b as "Reroll R4 $0.144"; Wassim asked for the regeneration, 14 Nov 2026
+CORNER_GLASS_OUT = (
+    "PRODUCT: two identical frameless clear glass panels, each about 3 m by 3.5 m, standing on the "
+    "sand and joined along one shared vertical edge at 90 degrees into a CONVEX outer corner, like a two-sided "
+    "LED screen wrapped around the outside corner of a building. The shared vertical seam is the part closest "
+    "to the camera, in the middle; from it one glass face runs away to the back left and the other to the back "
+    "right, like the two visible walls of a cube seen corner-on (an arrowhead pointing at the "
+    "camera). The camera sees the OUTSIDE face of both panels. NOT an open book, NOT a V opening toward the "
+    "camera. No frame, bezel, border, tower, box or building: only the two sheets of glass, with a faint "
+    "cool-white glow on their thin edges (not cyan)."
+)
+V4 = {
+    "R4": (CORNER_GLASS_OUT, [],
+           "The two faces show one continuous deep scene INSIDE the corner, behind the glass: a volume of soft "
+           "crimson mist. A tall, slender, unbranded glass perfume bottle (tapered cylindrical body, small round "
+           "cap, no label) pushes out through the corner seam toward the camera, its upper half already in the "
+           "open air. Dark red rose petals drift out and scatter on the sand; low mist flows from the foot of the "
+           "corner. Soft crimson light (not neon) spills from both faces onto the sand. One colour family: "
+           "crimson on blue-black.",
+           "Camera low, facing the corner seam almost head-on, so both glass faces recede symmetrically; "
+           "cinematic 35 mm lens, shallow depth of field."),
+}
+VTAB = {3: V3, 4: V4}
+
+
 def _arg(flag: str) -> str:
     return sys.argv[sys.argv.index(flag) + 1] if flag in sys.argv and sys.argv.index(flag) + 1 < len(sys.argv) else ""
 
 
 ONLY = [r for r in _arg("--only").split(",") if r]          # e.g. --only R1,R4
-VERSION = 3 if "--v3" in sys.argv else 2 if "--v2" in sys.argv else 1
-BUDGETS = {1: BUDGET_USD, 2: REROLL_BUDGET_USD, 3: V3_BUDGET_USD}
+VERSION = 4 if "--v4" in sys.argv else 3 if "--v3" in sys.argv else 2 if "--v2" in sys.argv else 1
+BUDGETS = {1: BUDGET_USD, 2: REROLL_BUDGET_USD, 3: V3_BUDGET_USD, 4: V4_BUDGET_USD}
 
 
 def tag(ar: str) -> str:
@@ -237,8 +268,11 @@ def tag(ar: str) -> str:
 
 
 def prompt(r: str, ar: str, v: int = 1) -> str:
-    if v == 3:
-        return f"{WORLD3} {V3[r][0]} {V3[r][2]}{FRAME3[ar]} {AVOID}"
+    if v >= 3:
+        e = VTAB[v][r]
+        world = WORLD3.replace(CAM3, e[3]) if len(e) > 3 else WORLD3   # optional per-rotation camera sentence
+        assert len(e) < 4 or world != WORLD3
+        return f"{world} {e[0]} {e[2]}{FRAME3[ar]} {AVOID}"
     content = REROLL[r] if v == 2 else CONTENT[r]
     product = REROLL_PRODUCT[r][0] if v == 2 and r in REROLL_PRODUCT else PRODUCT[r][0]
     return f"{WORLD} {product} {content}{FRAME[ar]} {AVOID}"
@@ -246,8 +280,8 @@ def prompt(r: str, ar: str, v: int = 1) -> str:
 
 def jobs(upload: bool = True, v: int = 1) -> dict:
     out = {}
-    for r in (ONLY or (V3 if v == 3 else REROLL if v == 2 else PRODUCT)):
-        names = V3[r][1] if v == 3 else REROLL_PRODUCT[r][1] if v == 2 and r in REROLL_PRODUCT else PRODUCT[r][1]
+    for r in (ONLY or (VTAB[v] if v >= 3 else REROLL if v == 2 else PRODUCT)):
+        names = VTAB[v][r][1] if v >= 3 else REROLL_PRODUCT[r][1] if v == 2 and r in REROLL_PRODUCT else PRODUCT[r][1]
         refs = [hf.upload(REFS / p) if upload else str(p) for p in names]
         for ar in SIZES:
             params = {**BASE, "aspect_ratio": ar, "prompt": prompt(r, ar, v)}

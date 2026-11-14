@@ -305,3 +305,9 @@ Generated 10/10 for **$0.854** (H1 total $2.242; project **$13.67**, cap $40). S
 | R4 v3 | Two frameless glass panels joined at a seam, crimson mist, petals, tapered bottle in front of the seam. **The corner is concave (like an open book facing the camera), not the convex outer corner of a building** → optional reroll. |
 | R5 v3 | Dark, small Jumbo block with the showroom screen; SUV unbadged (plain grille, no emblem, no plates), drifting with tyre tracks. Car sits at the threshold / just outside rather than half inside the screen. |
 Optional reroll: R4 with a convex corner (pair $0.144).
+
+#### R4 v4 (14 Nov 2026) — convex outer corner
+Wassim: the two glass screens must wrap the corner **externally**, like two screens on two walls of a building meeting where the walls meet (v3 was concave). New product text `CORNER_GLASS_OUT` + a per-rotation camera sentence ("facing the corner seam almost head-on"), because the shared "40° off the screen's front" line fought the corner-on view. Prompt trimmed to stay at the quoted price. Full text: `python scripts/orbit_stills.py prompts --v4`.
+Generated 2/2 for **$0.144** (H1 total $2.386; project **$13.82**, cap $40).
+Check: seam closest to the camera, both faces receding, top edges sloping away; no frame, tower or box; faint white edges. Bottle (tapered, round cap, no label) stands at the seam in front of the glass with petals and crimson light on the sand. 9:16 same geometry.
+Proposed picks: R1 v3, R2 v3, R3 v3, R4 **v4**, R5 v3.
