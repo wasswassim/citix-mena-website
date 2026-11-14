@@ -85,9 +85,66 @@ REF3_PROMPT = (
 )
 KEYS = {"ref3": "R3_ref"}
 
+# ---------------------------------------------------------------- hero v5 (runbook v5, P2)
+# Exactly the R3 call: same camera reference, 8 s 720p 16:9, no audio. Prompt = the R3 prompt word for word up
+# to "...onto the sand." with only the "Inside the glass" sentence swapped, then the scene's action block, then
+# the R3 closing line.
+V5 = ORBIT / "v5"
+R3_INSIDE = "Inside the glass is a deep, misty night view of jagged rocky mountains;"
+R3_HEAD = REF3_PROMPT[: REF3_PROMPT.index("Action, happening")].rstrip()
+CLOSING = ("The glass panel is a rigid, flat sheet that never changes shape and never gets a frame. No slow-down, "
+           "no pause. No text, logos, people or buildings.")
+assert R3_INSIDE in R3_HEAD and R3_HEAD.endswith("onto the sand.") and REF3_PROMPT.endswith(CLOSING)
+V5_SCENES = {
+    "s1_oasis": (
+        "S1_oasis.png",
+        "Inside the glass is a moonlit desert oasis: a dark, still pool of water fringed by date palms, seen from "
+        "inside the scene;",
+        "Action, happening WHILE the camera orbits, never after it: the pool starts to ripple, then a smooth sheet "
+        "of clear water flows forward and pours out through the glass surface as if the glass were the edge of "
+        "the pool, spilling onto the sand in a low wave that spreads across the dunes and darkens the sand, "
+        "catching the cool light. Date palm fronds push out through the glass and sway gently outward. Fine mist "
+        "and a few drops follow the water. The water clearly comes from inside the glass."),
+    "s3_perfume": (
+        "S3_perfume.png",
+        "Inside the glass is a deep pink-red haze with slowly drifting rose petals; the pink-red light stays "
+        "inside the glass, everything outside stays cool slate-blue;",
+        "Action, happening WHILE the camera orbits, never after it: one tall faceted clear-glass perfume bottle "
+        "with a heavy glass stopper, no label, no logo, no text, is first seen small and far away deep inside the "
+        "pink haze, floats forward toward the glass, passes through the glass surface stopper first, comes fully "
+        "out and hovers just in front of the panel, turning slowly, catching the light. A soft burst of rose "
+        "petals and pink mist follows it out through the glass and drifts low over the sand. Exactly one bottle; "
+        "it is rigid and keeps its shape. The bottle clearly comes from inside the glass."),
+    "s4_suv": (
+        "S4_suv.png",
+        "Inside the glass is a dark desert track between dunes at night;",
+        "Action, happening WHILE the camera orbits, never after it: a dark luxury full-size SUV with its "
+        "headlights on is first seen small and far away inside the glass, drives fast toward the glass, bursts "
+        "out through the glass surface front first, lands on the sand outside, and swings into a controlled "
+        "sideways drift across the frame toward the camera; its four wheels throw a big spray of sand and dust "
+        "toward the lens, and the dust cloud fills the lens just before the black dune slides across it. The SUV "
+        "is a generic design, not any real model: no badges, no logos, no grille emblem, no number plates, "
+        "exactly four wheels, a consistent body. The glass panel stays intact: no shattering, no cracks, no "
+        "fragments. The SUV clearly comes from inside the glass."),
+}
+
+
+def v5_prompt(job: str) -> str:
+    _, inside, action = V5_SCENES[job]
+    return f"{R3_HEAD.replace(R3_INSIDE, inside)} {action} {CLOSING}"
+
+
+for _j in V5_SCENES:
+    BUDGET_USD.setdefault(_j, 0.0)      # set to the exact quote only after Wassim's OK at GATE 2
+    KEYS[_j] = _j
+
 
 def jobs() -> dict:
-    return {
+    v5 = {j: (REF, lambda j=j: {"image_urls": [hf.upload(V5 / "stills" / V5_SCENES[j][0])],
+                                "video_urls": [hf.upload(MOTION3)], "prompt": v5_prompt(j), "duration": 8,
+                                "resolution": RES, "aspect_ratio": "16:9", "generate_audio": False})
+          for j in V5_SCENES}
+    return {**v5,
         "i2v": (I2V, lambda: {"image_url": hf.upload(oc.plate("16x9")), "end_image_url": hf.upload(STILL),
                               "prompt": oc.prompt("R1", "A"), "duration": 4, "resolution": RES,
                               "generate_audio": False}),
@@ -110,7 +167,10 @@ def save(state: dict) -> None:
 
 
 def spent(state: dict) -> float:
-    return sum(j.get("usd", 0) for j in state.values() if j.get("request_id") and j.get("status") not in ("failed", "nsfw"))
+    """Seedance spend plus the v5 look stills (media/hero_orbit/v5/stills/jobs.json)."""
+    f = V5 / "stills" / "jobs.json"
+    other = [j for j in json.loads(f.read_text(encoding="utf-8")).values()] if f.exists() else []
+    return sum(j.get("usd", 0) for j in [*state.values(), *other] if j.get("request_id") and j.get("status") not in ("failed", "nsfw"))
 
 
 def main(argv: list[str]) -> int:
@@ -118,6 +178,10 @@ def main(argv: list[str]) -> int:
     name = argv[1] if len(argv) > 1 else ""
     try:
         if cmd == "prompts":
+            if "v5" in argv:
+                for j, (still, _, _) in V5_SCENES.items():
+                    print(f"#### Seedance ref ({j}): {REF}, 8 s, {RES}, 16:9, no audio; image ref {still}, video ref {MOTION3.name}\n\n> {v5_prompt(j)}\n")
+                return 0
             if "R3" in argv:
                 print(f"#### Seedance ref (R3): {REF}, 8 s, {RES}, 16:9, no audio; image ref {STILL3.name}, video ref {MOTION3.name}\n\n> {REF3_PROMPT}\n")
                 return 0
@@ -154,7 +218,9 @@ def main(argv: list[str]) -> int:
             state[key]["error"] = json.dumps(res)[:300]
             save(state)
             raise hf.HiggsfieldError(f"{key} ended as {res.get('status')}")
-        f = hf.download(res, OUT, prefix=key)[0]
+        out = V5 / "clips" if name in V5_SCENES else OUT
+        out.mkdir(parents=True, exist_ok=True)
+        f = hf.download(res, out, prefix=key)[0]
         final = f.with_name(f"{key}{f.suffix}")
         f.replace(final)
         state[key]["file"] = str(final)
