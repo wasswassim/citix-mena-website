@@ -158,7 +158,7 @@ PRODUCT = {
 # ---------------------------------------------------------------- v3 (after the bluesqx motion study)
 # docs/planning/bluesqx_motion_study.md: small subject, lots of black, the screen is the only light,
 # content leaks out at the base and spreads on the sand, light shaft with motes, ~40 deg off-front view.
-V3_BUDGET_USD = 0.0   # set to the approved Gate 1a (v3) quote before `run --v3 --yes`
+V3_BUDGET_USD = 0.854  # Wassim approved "OK all five $0.854" at Gate 1a (v3), 14 Nov 2026
 WORLD3 = (
     "Photorealistic cinematic night photograph, very low-key. A black void over desert sand dunes at night: "
     "the sky is pure blue-black with no horizon glow, no moon disc and no stars; the dunes are almost invisible, "
