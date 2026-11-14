@@ -549,3 +549,19 @@ Result `media/hero_orbit/preview/seedance_R1_locked.mp4` (6.58 s, 720p) + `_shee
 | 5.42 s | 78.3 % / 29.6 % | 72.0 % / 29.6 % |
 | 5.92 s | 78.4 % / 28.9 % | 72.4 % / 30.3 % |
 Zoom applied: 1.00 to 1.35 (only the last 0.6 s is above 1.05, and it sits under the wipe). Cut at 6.54 s; wipe over the last 0.8 s. Two earlier attempts in the same session were discarded: the strip-based size track over-zoomed the first second, and a wide screen band merged both screens.
+
+#### Seedance R1 lock, second pass: zoom wobble (14 Nov 2026, no credits)
+Wassim: "99 % good"; what is left is a small pull-in / pull-out over several frames.
+Cause: my correction, not only the clip. The size ruler was the upper screen (top edge to the divider), read to whole pixels; the divider reading shifts as it comes into focus (upper/lower ratio 1.09 at 1.1 s, 1.00 from 3.2 s), so the correction zoomed in and out by about 2 %. A straight-line fit did not help (first try this pass).
+Second correction of the record: with the full screen stack as the ruler (top of the upper screen to the bottom of the lower one, sub-pixel edges), the original clip does push in steadily, 56.2 -> 60.2 % of the frame height between 1 s and 5 s (about 7 %). The earlier "only about 3 %" was the divider ruler under-reading; the first estimate of about 9 % from the red strip was closer.
+Fix in `scripts/orbit_lock.py`: ruler = full screen stack while the lower screen's bottom edge is clean, then upper screen x the ratio measured just before (2.007 here); sub-pixel edges from the brightness profile; Gaussian smoothing of about 0.25 s; the first half second after the reveal (still partly behind the dune) is projected from the following 1.5 s instead of measured.
+Result `media/hero_orbit/preview/seedance_R1_locked.mp4` (6.62 s; first-pass version kept as `seedance_R1_locked_v1.mp4`):
+| t | before: x / screens | after: x / screens |
+|---|---|---|
+| 0.92 s | 68.1 % / 56.05 % | 71.4 % / 60.23 % |
+| 1.92 s | 70.5 % / 56.96 % | 71.7 % / 60.32 % |
+| 2.92 s | 73.3 % / 57.56 % | 71.7 % / 60.06 % |
+| 3.92 s | 75.8 % / 59.24 % | 71.7 % / 60.22 % |
+| 4.92 s | 77.7 % / 60.18 % | 71.7 % / 60.29 % |
+| 5.42 s | 78.2 % / 59.89 % | 71.9 % / 60.51 % |
+Size spread over the whole visible part: 56.23-60.19 % before, 59.97-61.03 % after (the 61 % is in the last frames before the wipe, where the pull-back begins at about 6.1 s).

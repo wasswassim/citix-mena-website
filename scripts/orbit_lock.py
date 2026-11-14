@@ -50,7 +50,7 @@ def track(frames: np.ndarray) -> np.ndarray:
     strip's lower part goes dim in some frames and the lower screen is hidden by the falcon and the sand.
     """
     n, h, w = frames.shape[:3]
-    out = np.full((n, 3), np.nan)
+    out = np.full((n, 4), np.nan)
     for i, fr in enumerate(frames):
         f = fr.astype(np.int16)
         red = (f[..., 0] > 120) & (f[..., 1] < 75) & (f[..., 2] < 85)
@@ -76,27 +76,107 @@ def track(frames: np.ndarray) -> np.ndarray:
         if not runs:
             continue
         top, bottom = runs[0]
-        if bottom - top > 0.45 * h:
-            bottom = top + (bottom - top) * 0.506          # both screens read as one run: the upper one is 50.6 % of it
-        elif len(runs) == 1 and bottom - top < 0.22 * h:
-            continue                                        # partly hidden (dune wipe): not a size measurement
-        elif len(runs) == 1 and bottom - top > 0.34 * h:
-            continue                                        # merged but cut off: not a size measurement
-        out[i] = (x, top, bottom)
+        merged = bottom - top > 0.45 * h
+        if not merged and len(runs) == 1 and not (0.22 * h <= bottom - top <= 0.34 * h):
+            continue                                        # partly hidden or cut off: not a size measurement
+        # Size = top edge of the upper screen -> centre of the dark divider between the two screens.
+        # Both are found from the brightness profile itself (edge gradient / local minimum), to a fraction of
+        # a pixel, so the result does not depend on a threshold that moves when the falcon or the sand flare up.
+        g = np.diff(r[max(0, top - 7): top + 8])
+        g = np.clip(g, 0, None)
+        if g.sum() <= 0:
+            continue
+        top_sub = max(0, top - 7) + float((np.arange(len(g)) * g).sum() / g.sum()) + 0.5
+        if merged:
+            lo, hi = int(top + (bottom - top) * 0.40), int(top + (bottom - top) * 0.62)
+        else:
+            nxt = runs[1][0] if len(runs) > 1 else bottom + 8
+            lo, hi = bottom - 6, min(h - 2, nxt + 6)
+        seg = r[lo:hi]
+        if len(seg) < 3:
+            continue
+        m = int(np.argmin(seg))
+        div = lo + float(m)
+        if 0 < m < len(seg) - 1:                             # parabola through the minimum: sub-pixel divider centre
+            y0, y1, y2 = seg[m - 1], seg[m], seg[m + 1]
+            den = y0 - 2 * y1 + y2
+            if den > 1e-6:
+                div += 0.5 * (y0 - y2) / den
+        if not (0.2 * h < div - top_sub < 0.36 * h):
+            continue
+        # bottom edge of the LOWER screen: strongest falling edge below the divider (NaN-able: content covers it later)
+        lo2, hi2 = int(div + 0.15 * h), min(h - 2, int(div + 0.42 * h))
+        bot = np.nan
+        if hi2 - lo2 > 8:
+            fall = np.clip(-np.diff(r[lo2:hi2]), 0, None)
+            kk = int(np.argmax(fall))
+            a0 = max(0, kk - 5)
+            seg2 = fall[a0: kk + 6]
+            if seg2.sum() > 0:
+                bot = lo2 + a0 + float((np.arange(len(seg2)) * seg2).sum() / seg2.sum()) + 0.5
+        out[i] = (x, top_sub, div, bot)
     return out
 
 
 def smooth(tr: np.ndarray, fps: float) -> np.ndarray:
-    """Median filter, then a moving average (about 0.5 s), gaps filled by interpolation."""
-    idx = np.arange(len(tr))
+    """Turn the per-frame track into a smooth correction (columns: x, top, top + size).
+
+    Size ruler: the full screen stack (top of the upper screen -> bottom of the lower screen) while the lower
+    screen is clean; once content covers it (falcon, sand), the upper screen (top -> divider) times the ratio
+    measured just before. The divider alone is a poor ruler early on: its reading shifts as it comes into
+    focus, which made an earlier version breathe in and out.
+    Smoothing: a Gaussian of about 0.25 s, enough to drop measuring jitter and still follow real camera moves.
+    """
+    n = len(tr)
+    idx = np.arange(n, dtype=float)
     ok = ~np.isnan(tr[:, 0])
-    out = np.empty_like(tr)
-    k = max(3, int(fps * 0.5) | 1)
-    for c in range(3):
-        v = np.interp(idx, idx[ok], tr[ok, c])
-        med = np.array([np.median(v[max(0, i - 3): i + 4]) for i in idx])
-        pad = np.pad(med, k // 2, mode="edge")
-        out[:, c] = np.convolve(pad, np.ones(k) / k, mode="valid")
+    first, last = int(np.where(ok)[0][0]), int(np.where(ok)[0][-1])
+    x = np.interp(idx, idx[ok], tr[ok, 0])
+    top = np.interp(idx, idx[ok], tr[ok, 1])
+    upper = np.interp(idx, idx[ok], tr[ok, 2] - tr[ok, 1])
+    total = tr[:, 3] - tr[:, 1]
+
+    # the stack is trusted until it first jumps (content reached the lower screen's bottom edge)
+    med5 = lambda v, i: float(np.nanmedian(v[max(first, i - 5): i + 1]))
+    switch = last + 1
+    for i in range(first + 6, last + 1):
+        ref = med5(total, i - 1)
+        if np.isnan(total[i]) or abs(total[i] / ref - 1) > 0.02:
+            if all(np.isnan(total[j]) or abs(total[j] / ref - 1) > 0.02 for j in range(i, min(last, i + 3) + 1)):
+                switch = i
+                break
+    win = slice(max(first, switch - int(fps * 0.6)), switch)
+    ratio = float(np.nanmedian(total[win] / upper[win]))
+    size = np.where(idx < switch, total, upper * ratio)
+    good = ~np.isnan(size) & ok
+    size = np.interp(idx, idx[good], size[good])
+
+    # The first half second after the product appears is still partly hidden by the dune wipe, so its
+    # readings are unreliable: replace them with a straight-line projection from the 1.5 s that follow.
+    t0, t1 = first + int(fps * 0.5), min(last, first + int(fps * 2.0))
+    if t1 - t0 > 6:
+        for v in (size, top):
+            c = np.polyfit(idx[t0:t1], v[t0:t1], 1)
+            v[:t0] = np.polyval(c, idx[:t0])
+
+    def gauss(v: np.ndarray, sigma: float) -> np.ndarray:
+        v = np.array([np.median(v[max(0, i - 2): i + 3]) for i in range(n)])
+        r = int(3 * sigma)
+        k = np.exp(-0.5 * (np.arange(-r, r + 1) / sigma) ** 2)
+        return np.convolve(np.pad(v, r, mode="edge"), k / k.sum(), mode="valid")
+
+    sigma = fps * 0.25
+    x, top, size = gauss(x, sigma), gauss(top, sigma), gauss(size, sigma)
+    out = np.stack([x, top, top + size], 1)
+    out[:first] = out[first]
+    out[last + 1:] = out[last]
+    steady = float(np.median(size[first + (last - first) // 10: first + (last - first) * 6 // 10]))
+    onset = last + 1
+    for i in range(first + (last - first) // 2, last - 2):
+        if all(size[i + k2] / steady < 0.93 for k2 in range(3)):
+            onset = i
+            break
+    smooth.onset, smooth.switch, smooth.ratio = onset, switch, ratio
     return out
 
 
@@ -123,8 +203,8 @@ def main() -> int:
     first, last = int(ok[0]), int(ok[-1])
     tr = smooth(raw, fps)
     height = tr[:, 2] - tr[:, 1]
-    steady = height[first + int(fps * 0.3): last - int(fps * 0.3)]
-    target_h = float(np.percentile(steady, 90))               # lock to the closest (largest) steady size: only zoom in
+    onset = min(getattr(smooth, "onset", last + 1), last + 1)
+    target_h = float(height[first:onset].max())               # lock to the closest steady size: only ever zoom in
     mid = (first + last) // 2
     target_x = float(np.median(tr[first:mid, 0]))
     target_top = float(np.median(tr[first:mid, 1]))
@@ -138,7 +218,9 @@ def main() -> int:
             break
     wipe_n = int(round(wipe_s * fps))
     print(f"{w}x{h} @ {fps:.0f} fps, {len(frames)} frames; strip tracked {first / fps:.2f}-{last / fps:.2f} s")
-    print(f"lock: upper screen {target_h / h * 100:.1f} % of frame height, x {target_x / w * 100:.1f} %, top y {target_top / h * 100:.1f} %")
+    print(f"lock: screen stack {target_h / h * 100:.1f} % of frame height, x {target_x / w * 100:.1f} %, top y {target_top / h * 100:.1f} %")
+    print(f"size ruler: full screen stack until {smooth.switch / fps:.2f} s, then upper screen x {smooth.ratio:.3f}")
+    print(f"pull-back starts at about {onset / fps:.2f} s" if onset <= last else "no pull-back found")
     print(f"needed zoom: min {scale[first:end + 1].min():.3f}, max {scale[first:end + 1].max():.3f}; "
           f"cut at {end / fps:.2f} s (zoom would pass {max_scale}), dune wipe over the last {wipe_s:.1f} s")
 
@@ -163,13 +245,15 @@ def main() -> int:
     enc.stdin.close()
     enc.wait()
 
-    check = track(read(dst, w, h))
-    print("  t      before: x%  upper-screen%   |   after: x%  upper-screen%")
-    for i in range(first, end + 1, max(1, int(fps * 0.5))):
-        b = raw[i]
-        a = check[i] if i < len(check) else (np.nan,) * 3
-        fmt = lambda v: "   -  " if np.isnan(v[0]) else f"{v[0] / w * 100:5.1f}  {(v[2] - v[1]) / h * 100:5.1f}"
-        print(f"  {i / fps:4.2f}        {fmt(b)}      |        {fmt(a)}")
+    after = smooth(track(read(dst, w, h)), fps)
+    before_h, after_h = height, after[:, 2] - after[:, 1]
+    print("  t      before: x%  screens%   |   after: x%  screens%")
+    for i in range(first, min(end, len(after) - 1) - int(wipe_s * fps) + 1, max(1, int(fps * 0.5))):
+        print(f"  {i / fps:4.2f}        {tr[i, 0] / w * 100:5.1f}  {before_h[i] / h * 100:5.2f}      |        "
+              f"{after[i, 0] / w * 100:5.1f}  {after_h[i] / h * 100:5.2f}")
+    a0, b0 = first + int(fps * 0.3), min(end, len(after) - 1) - int(wipe_s * fps)
+    print(f"size spread {before_h[a0:b0].min() / h * 100:.2f}-{before_h[a0:b0].max() / h * 100:.2f} % before, "
+          f"{after_h[a0:b0].min() / h * 100:.2f}-{after_h[a0:b0].max() / h * 100:.2f} % after")
     print(f"-> {dst} ({(end + 1) / fps:.2f} s)")
     return 0
 
