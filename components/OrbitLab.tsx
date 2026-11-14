@@ -16,9 +16,9 @@ import * as THREE from "three";
  */
 
 const LOOP = 8; // seconds per rotation
-const R = 26; // camera circle radius (m)
+const R_TOM = 26; // camera circle radius (m) for Tom
 const CAM_H = 1.5; // camera height (m)
-const LOOK_Y = 3.6; // the camera always aims at this point on Tom's axis
+const LOOK_TOM = 3.6; // the camera always aims at this point on Tom's axis
 const TOM = { w: 2, h: 5.9, d: 0.24, plinthH: 1.1, plinthW: 1.2 };
 const START_DEG = 82; // angle from the screen's normal at t = 0 (almost edge-on, on the red-strip side)
 
@@ -32,6 +32,9 @@ export default function OrbitLab() {
     const params = new URLSearchParams(window.location.search);
     const frozen = params.has("t") ? Number(params.get("t")) : null;
     const speedDeg = Number(params.get("speed")) || 8.5; // inspiration: about 65 degrees in 8 s
+    const glass = params.get("product") === "glass"; // R3: frameless square glass panel instead of Tom
+    const R = glass ? 15 : R_TOM;
+    const LOOK_Y = glass ? 1.9 : LOOK_TOM;
     const refOnly = params.has("ref"); // clean camera-motion reference: product, light and dunes only
     const debug = !refOnly && (params.has("debug") || frozen !== null);
 
@@ -74,6 +77,7 @@ export default function OrbitLab() {
     // ---------- Tom (old Tom): body box, front texture from the real cut-out, plinth, red side strip
     const tom = new THREE.Group();
     scene.add(tom);
+    tom.visible = !glass;
     const black = new THREE.MeshStandardMaterial({ color: 0x08090b, roughness: 0.55, metalness: 0.3 });
     const body = new THREE.Mesh(new THREE.BoxGeometry(TOM.w, TOM.h, TOM.d), black);
     body.position.y = TOM.plinthH + TOM.h / 2;
@@ -96,9 +100,28 @@ export default function OrbitLab() {
     strip.position.set(TOM.w / 2 + 0.011, (TOM.h + TOM.plinthH) / 2, 0.04);
     tom.add(strip);
 
+    // ---------- R3 glass panel: 3 m x 3 m clear sheet standing on the sand, faint white edges, softly lit face
+    if (glass) {
+      const panel = new THREE.Group();
+      const S = 3;
+      const face = new THREE.Mesh(
+        new THREE.PlaneGeometry(S, S),
+        new THREE.MeshBasicMaterial({ color: 0x7f97c2, transparent: true, opacity: 0.55, side: THREE.DoubleSide, fog: false, toneMapped: false }),
+      );
+      face.position.y = S / 2;
+      panel.add(face);
+      const edgeMat = new THREE.MeshBasicMaterial({ color: 0xeaf1ff, fog: false, toneMapped: false });
+      for (const [w2, h2, x2, y2] of [[S, 0.035, 0, S], [S, 0.035, 0, 0.02], [0.035, S, -S / 2, S / 2], [0.035, S, S / 2, S / 2]]) {
+        const e = new THREE.Mesh(new THREE.BoxGeometry(w2, h2, 0.05), edgeMat);
+        e.position.set(x2, y2, 0);
+        panel.add(e);
+      }
+      scene.add(panel);
+    }
+
     // ---------- light from the screens: pool on the sand + a faint volumetric shaft
     const spot = new THREE.SpotLight(0xcfe0ff, 420, 34, 1.05, 1, 1.9);
-    spot.position.set(0, 4.4, 0.5);
+    spot.position.set(0, glass ? 2.2 : 4.4, 0.5);
     spot.target.position.set(0, 0, 5.5);
     scene.add(spot, spot.target);
     scene.add(new THREE.HemisphereLight(0x2b4070, 0x000000, 0.1)); // faint moon rim on the sand
@@ -128,7 +151,7 @@ export default function OrbitLab() {
     // two crossed soft beams read as a volume from any orbit angle
     for (const tilt of [0.36, 0.2]) {
       const shaft = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 10), shaftMat);
-      shaft.position.set(0, 2.6 - tilt * 2.4, 5.1);
+      shaft.position.set(0, (glass ? 1.7 : 2.6) - tilt * 2.4, 5.1);
       shaft.rotation.x = -Math.PI / 2 + tilt;
       scene.add(shaft);
     }
@@ -138,8 +161,9 @@ export default function OrbitLab() {
     const duneAt = (deg: number) => {
       const a = THREE.MathUtils.degToRad(deg);
       const dune = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), duneMat);
-      dune.scale.set(5.5, 3.4, 2.2);
-      dune.position.set(Math.sin(a) * (R - 3.2), 0, Math.cos(a) * (R - 3.2));
+      const k = R / R_TOM; // same angular size whatever the orbit radius, so the wipes keep their timing
+      dune.scale.set(5.5 * k, 3.4 * Math.max(k, 0.75), 2.2 * k);
+      dune.position.set(Math.sin(a) * (R - 3.2 * k), 0, Math.cos(a) * (R - 3.2 * k));
       dune.rotation.y = a;
       scene.add(dune);
     };

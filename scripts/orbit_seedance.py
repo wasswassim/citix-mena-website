@@ -30,7 +30,7 @@ STATE = OUT / "jobs.json"
 STILL = ORBIT / "stills" / "R1_16x9_v3.png"
 MOTION = ORBIT / "lab" / "orbit_reference_R1_8s.mp4"
 SPENT_BEFORE = 16.13                       # project spend on 14 Nov 2026 before any Seedance job
-BUDGET_USD = {"i2v": 0.0, "ref": 1.7024}   # ref: Wassim approved "Reference only $1.702" (14 Nov 2026)
+BUDGET_USD = {"i2v": 0.0, "ref": 1.7024, "ref3": 0.0}   # ref: Wassim approved "Reference only $1.702" (14 Nov 2026)
 RES = sys.argv[sys.argv.index("--res") + 1] if "--res" in sys.argv else "720p"   # tests at 720p; finals at 1080p
 
 REF_PROMPT = (
@@ -54,12 +54,46 @@ REF_PROMPT = (
     "slow-down, no pause. No text, logos, people or buildings."
 )
 
+# R3 (camel + glass panel). Lessons from the R1 test are written in: Seedance pushed in about 7 %, drifted
+# sideways and pulled back before the final wipe, so the prompt forbids each of those by name.
+STILL3 = ORBIT / "stills" / "R3_16x9_v3.png"
+MOTION3 = ORBIT / "lab" / "orbit_reference_R3_8s.mp4"
+REF3_PROMPT = (
+    "Use the reference video ONLY for the camera: copy its camera path and its framing exactly. In it the "
+    "camera travels along a circle around an upright square panel at a fixed radius and a fixed height, always "
+    "aimed at the panel, at one constant speed. The panel stays at exactly the same position in the frame and "
+    "at exactly the same size in every frame, from the first frame it is visible to the last; only its angle "
+    "changes, from almost edge-on to a three-quarter view. The camera never moves closer, never moves away "
+    "and never drifts sideways: no push-in at the start, no zoom in the middle, and NO pull-back before the "
+    "end. Keep the timing too: the shot starts in darkness behind a black sand dune close to the lens, the "
+    "dune slides away, and at the end another black dune slides across the lens while the panel is still at "
+    "full size, and the shot ends in darkness. Do not copy the reference video's plain look. "
+    "Use the reference image for the look, the object and the content: photorealistic cinematic night, very "
+    "dark and low-key, a black void over desert sand dunes, cool slate-blue grading. The object is a "
+    "frameless, perfectly clear square glass panel standing upright on the sand, a few centimetres thick, "
+    "with a faint cool-white glow along its thin edges (white, not cyan), exactly as in the image. Inside the "
+    "glass is a deep, misty night view of jagged rocky mountains; the glass is the only light, and a soft "
+    "shaft of cool light and low mist spill from it onto the sand. "
+    "Action, happening WHILE the camera orbits, never after it: a dromedary camel (one hump, no saddle, no "
+    "harness, no rider) is first seen small and far away deep inside the mountain scene, walks forward toward "
+    "the glass, its head and long neck pass through the glass surface, then its chest and front legs, then "
+    "its whole body, and it steps out onto the sand and keeps walking calmly out of the frame, with a natural "
+    "gait and exactly four legs. Mist flows out through the glass with it and spreads low over the sand. The "
+    "camel clearly comes from inside the glass. "
+    "The glass panel is a rigid, flat sheet that never changes shape and never gets a frame. No slow-down, no "
+    "pause. No text, logos, people or buildings."
+)
+KEYS = {"ref3": "R3_ref"}
+
 
 def jobs() -> dict:
     return {
         "i2v": (I2V, lambda: {"image_url": hf.upload(oc.plate("16x9")), "end_image_url": hf.upload(STILL),
                               "prompt": oc.prompt("R1", "A"), "duration": 4, "resolution": RES,
                               "generate_audio": False}),
+        "ref3": (REF, lambda: {"image_urls": [hf.upload(STILL3)], "video_urls": [hf.upload(MOTION3)],
+                               "prompt": REF3_PROMPT, "duration": 8, "resolution": RES, "aspect_ratio": "16:9",
+                               "generate_audio": False}),
         "ref": (REF, lambda: {"image_urls": [hf.upload(STILL)], "video_urls": [hf.upload(MOTION)],
                               "prompt": REF_PROMPT, "duration": 8, "resolution": RES, "aspect_ratio": "16:9",
                               "generate_audio": False}),
@@ -84,6 +118,9 @@ def main(argv: list[str]) -> int:
     name = argv[1] if len(argv) > 1 else ""
     try:
         if cmd == "prompts":
+            if "R3" in argv:
+                print(f"#### Seedance ref (R3): {REF}, 8 s, {RES}, 16:9, no audio; image ref {STILL3.name}, video ref {MOTION3.name}\n\n> {REF3_PROMPT}\n")
+                return 0
             print(f"#### Seedance i2v (R1): {I2V}, 4 s, {RES}, no audio; first frame black plate, last frame {STILL.name}\n\n> {oc.prompt('R1', 'A')}\n")
             print(f"#### Seedance ref (R1): {REF}, 8 s, {RES}, 16:9, no audio; image ref {STILL.name}, video ref {MOTION.name}\n\n> {REF_PROMPT}\n")
             return 0
@@ -105,7 +142,7 @@ def main(argv: list[str]) -> int:
             raise hf.HiggsfieldError("Refused: above the approved budget for this job")
         if SPENT_BEFORE + spent(state) + usd > cap:
             raise hf.HiggsfieldError("Refused: total project spend would exceed HIGGSFIELD_MAX_SPEND_USD")
-        key = f"R1_{name}" + (f"_t{argv[argv.index('--take') + 1]}" if "--take" in argv else "")
+        key = KEYS.get(name, f"R1_{name}") + (f"_t{argv[argv.index('--take') + 1]}" if "--take" in argv else "")
         if state.get(key, {}).get("request_id") and state[key].get("status") not in ("failed", "nsfw"):
             raise hf.HiggsfieldError(f"{key} was already submitted; use --take N for a new take")
         res = hf.generate(model, params, confirm=True)
