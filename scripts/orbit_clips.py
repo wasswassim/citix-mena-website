@@ -32,9 +32,12 @@ PICKS = {"R1": 3, "R2": 3, "R3": 3, "R4": 4, "R5": 3}   # approved at Gate 1b, 1
 SIZES = {"16x9": (1920, 1080), "9x16": (1080, 1920)}
 
 CAMERA = (
-    "One continuous shot at night, no cuts. The camera orbits clockwise around the subject at one constant "
-    "speed from the first frame to the last, low over the sand: it never stops, never slows down, never "
-    "pauses or holds, and never speeds up. The subject keeps turning in the frame for the whole shot. "
+    "One continuous shot at night, no cuts. The subject is locked in the frame like an object on a slow "
+    "turntable: it stays at exactly the same position in the frame, at the same distance from the camera and "
+    "at the same size for the whole shot, and only its angle changes. The camera circles it clockwise at a "
+    "fixed radius and a fixed height, always aimed at it: no push-in, no pull-back, no drifting sideways, no "
+    "rising or sinking. The turn has one constant speed from the first frame to the last: it never stops, "
+    "never slows down, never pauses or holds, and never speeds up. "
     "Everything that happens on the screen happens WHILE the camera is orbiting, at the same time as the "
     "rotation, never after it. The orbit is slow and covers only a small arc, spread evenly over the whole "
     "duration, so the camera is still travelling at full speed in the very last frame. Smooth, steady, "

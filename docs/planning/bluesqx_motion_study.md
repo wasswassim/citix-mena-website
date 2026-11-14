@@ -56,3 +56,15 @@ Method: one frame every 0.5 s (62 frames) saved to `C:\Users\wassi\scratch\blues
 
 Not taken: the cyan neon frame (brand rule: no neon; R3/R4 keep a faint white edge), their forest content, their exact framing, any asset.
 Kept from our plan and not in theirs: a hero subject that clearly leaves the screen (falcon, camel, bottle, SUV), the R5 sand hitting the lens, moonlit-desert world, Pulse Red accents.
+
+## Correction (14 Nov 2026, after Wassim's review)
+Limits of this study: it was made from **still frames** (one every 0.5 s), not by watching the video play. Motion was inferred, and sections 4 and 5 got one thing wrong.
+
+Measured on the frames of the "empty frame" scene (1280 px wide):
+- Panel **height** stays 276 → 265 px over 4 s (about 4 %), until the wipe covers it.
+- Panel **centre** moves only 760 → 790 px (about 2 % of the frame width).
+- Panel **width** shrinks steadily 247 → 103 px, about 28 px per second, at an even rate.
+
+So the subject is **locked in the frame**: same place, same distance, same size, and only its angle changes at a constant rate, as if the product stood on a slow turntable (a camera circling at a fixed radius while aimed at it gives the same picture). There is **no push-in** and no sideways travel of the subject; what slides past is the foreground terrain. Sections 4–5 above should be read with that correction.
+
+Our R1_A test did not do this: Tom drifted from 48 % to 66 % of the frame width while turning. Fixes: (1) clip prompts now state the turntable lock (fixed position, distance and size; no push-in, pull-back or drift); (2) in the edit the product can also be pinned in place by tracking its screen and shifting each frame (no credits).

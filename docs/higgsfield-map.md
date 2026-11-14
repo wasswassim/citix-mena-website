@@ -443,3 +443,6 @@ Measured on R1_A (Tom's left screen edge, px/s at 960 px width): 50 → 94 → 7
 - Half-speed variant with ffmpeg motion interpolation (free): **4.71 s** → `media/hero_orbit/preview/R1_A_constant_speed_half_test.mp4`. Interpolated frames look clean on a contact sheet; fast wing motion not yet judged in playback.
 - The same `--speed` value can be passed for every clip so all ten shots orbit at one speed (H4).
 - Prompt rev 3 (remaining clips): camera text adds "the orbit is slow and covers only a small arc, spread evenly over the whole duration, so the camera is still travelling at full speed in the very last frame". Kling may still hold at the end frame; the retime handles that either way. Price unchanged.
+
+#### Clip prompt rev 4 (14 Nov 2026) — turntable lock
+Wassim: in the inspiration the screen stays at the same distance from the camera, as if the product itself were rotating. Confirmed by measurement on the reference frames (height 276 → 265 px, centre 760 → 790 px, width 247 → 103 px at an even rate); see the correction in `docs/planning/bluesqx_motion_study.md`. Camera text now locks the subject like an object on a slow turntable: same position, distance and size, only the angle changes; fixed radius and height; no push-in, pull-back or drift; one constant speed. "Low over the sand ... very gentle push-in" removed. Price unchanged; nothing generated.
