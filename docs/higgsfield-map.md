@@ -677,3 +677,4 @@ Run after "OK SUV fix $1.7024": **failed, not charged**. Higgsfield: "Your credi
 Re-run after "Topped up, re-run": **failed again, not charged**, same message (balance too low). Project stays **$26.68**.
 Third run ("Re-run now"): **failed, not charged**, same balance message. The Higgsfield connector account shows 10 credits on a free plan, so the top-up is not visible there; the API key may draw on a separate API balance. Project stays **$26.68**.
 Fourth run ("Fixed, re-run"): **failed, not charged**, same balance message. Project stays **$26.68**.
+Fifth run ("Re-run SUV fix"): **completed**, $1.7024 -> `media/hero_orbit/v5/clips/s4_suv_t2.mp4` (raw). Project **$28.38** of $40. Seen in stills (2 fps sheet `_s4_suv_t2_sheet_2fps.jpg`): from about 1.5 s to 3.5 s the SUV is seen only inside the glass borders, nothing past the edges; it comes out about 4 s and turns with a big sand spray. Dust does not clearly fill the lens before the end wipe.
