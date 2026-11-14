@@ -678,3 +678,13 @@ Re-run after "Topped up, re-run": **failed again, not charged**, same message (b
 Third run ("Re-run now"): **failed, not charged**, same balance message. The Higgsfield connector account shows 10 credits on a free plan, so the top-up is not visible there; the API key may draw on a separate API balance. Project stays **$26.68**.
 Fourth run ("Fixed, re-run"): **failed, not charged**, same balance message. Project stays **$26.68**.
 Fifth run ("Re-run SUV fix"): **completed**, $1.7024 -> `media/hero_orbit/v5/clips/s4_suv_t2.mp4` (raw). Project **$28.38** of $40. Seen in stills (2 fps sheet `_s4_suv_t2_sheet_2fps.jpg`): from about 1.5 s to 3.5 s the SUV is seen only inside the glass borders, nothing past the edges; it comes out about 4 s and turns with a big sand spray. Dust does not clearly fill the lens before the end wipe.
+
+## v5 P3 — loop assembly (no credits, 14 Nov 2026)
+
+Order (Wassim, GATE 3 question): **oasis → perfume → camel → SUV**. Clips used: `v5/clips/s1_oasis.mp4`, `v5/clips/s3_perfume_t2.mp4`, `seedance/R3_ref.mp4`, `v5/clips/s4_suv_t2.mp4` (all 1280×720, 24 fps, 193 frames, black at both ends). Last (black) frame of each dropped so every scene is 192 frames = 8.000 s. Hard cuts on black, no crossfade needed (mean luma 0.00 around all three joins).
+
+- Master: `media/hero_orbit/v5/loop/orbit_master_16x9.mp4` (x264 CRF 12, 768 frames, 32.000 s).
+- Loop seam (first vs last frame): mean abs diff **0.000/255**, max 2.
+- Web: `media/web/hero/orbit_16x9.mp4` (H.264 veryfast CRF 21, faststart, no audio, **6.62 MB**), `orbit_16x9.webm` (VP9 CRF 34, **4.01 MB**), `orbit_16x9_poster.webp` (S1 oasis still, q80, **95 KB**).
+- `media/web/hero/timing.json`: scene windows; each scene is visible for about 6.2–6.6 s, with about 1.6–1.8 s of black between scenes (the dune wipes). SUV dust: most sand spray at **30.25 s**, closing dune from 30.63 s, black at 31.21 s. Seedance did not make the dust fill the lens, so the code overlay should do that at 30.25 s.
+- The two loop videos are not committed yet (same as the intro exports); `timing.json` and the poster are.
