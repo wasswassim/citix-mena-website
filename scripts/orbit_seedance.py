@@ -135,6 +135,7 @@ def v5_prompt(job: str) -> str:
 
 
 BUDGET_USD["s1_oasis"] = 1.7024   # Wassim: "let's do it clip by clip, start with the oasis" at GATE 2 ($1.7024 each), 14 Nov 2026
+BUDGET_USD["s3_perfume"] = 1.7024  # Wassim: "OK perfume $1.7024", 14 Nov 2026 (oasis approved by moving on)
 for _j in V5_SCENES:
     BUDGET_USD.setdefault(_j, 0.0)      # set to the exact quote only after Wassim's OK at GATE 2
     KEYS[_j] = _j

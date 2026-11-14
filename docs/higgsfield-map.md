@@ -635,3 +635,7 @@ Differences from the prompt / R3 (checked at full size):
 ### P2 S1 oasis — generated (14 Nov 2026)
 
 Clip by clip at Wassim's request. `s1_oasis` $1.7024 -> `media/hero_orbit/v5/clips/s1_oasis.mp4` (raw, no correction). Project **$21.49** of $40. Perfume and SUV not generated yet.
+
+### P2 S3 perfume — generated (14 Nov 2026)
+
+After "OK perfume $1.7024". `s3_perfume` $1.7024 -> `media/hero_orbit/v5/clips/s3_perfume.mp4` (raw). Project **$23.19** of $40. SUV not generated yet.
