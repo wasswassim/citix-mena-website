@@ -30,7 +30,7 @@ STATE = OUT / "jobs.json"
 STILL = ORBIT / "stills" / "R1_16x9_v3.png"
 MOTION = ORBIT / "lab" / "orbit_reference_R1_8s.mp4"
 SPENT_BEFORE = 16.13                       # project spend on 14 Nov 2026 before any Seedance job
-BUDGET_USD = {"i2v": 0.0, "ref": 1.7024, "ref3": 0.0}   # ref: Wassim approved "Reference only $1.702" (14 Nov 2026)
+BUDGET_USD = {"i2v": 0.0, "ref": 1.7024, "ref3": 1.7024}  # ref: "Reference only $1.702"; ref3: "OK camel $1.702" (Wassim, 14 Nov 2026)
 RES = sys.argv[sys.argv.index("--res") + 1] if "--res" in sys.argv else "720p"   # tests at 720p; finals at 1080p
 
 REF_PROMPT = (
