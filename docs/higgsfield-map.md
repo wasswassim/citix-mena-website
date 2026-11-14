@@ -699,3 +699,11 @@ Wassim: the camera flickers in the last 1–2 s of the perfume and camel scenes.
 Fix: `scripts/orbit_deflicker.py` rebuilds each repeated frame as the motion-compensated midpoint of its neighbours (ffmpeg minterpolate), and spreads the perfume jump over frames 162–166. It works on the raw YUV planes: an RGB/PNG round trip darkened the clips about 3 % because Seedance stores darks below video black. Untouched frames keep their exact values; luma means match the originals (e.g. 23.44 → 23.46). Rebuilt frames were checked visually (camel legs, bottle label: no artefacts).
 - Fixed clips: `media/hero_orbit/v5/fixed/` (`s1_oasis_fixed`, `s3_perfume_t2_fixed`, `R3_ref_fixed`, `s4_suv_t2_fixed`). Raw clips untouched.
 - Loop rebuilt from them: `media/web/hero/orbit_16x9.mp4` **6.54 MB**, `orbit_16x9.webm` **3.96 MB**, 768 frames / 32.000 s; no freezes left; joins and seam on black. Previous loop archived in `media/web/hero/_archive_v5a/` and `media/hero_orbit/v5/loop/_archive_v5a/`. `timing.json` sources updated; timings unchanged.
+
+## v5 P3c — perfume ends 2 s earlier (no credits, 14 Nov 2026)
+
+Wassim: the frame-repeat fix did not remove the camera flicker in the last 2 s of the perfume and camel scenes; "move the black cut of the ending 2 seconds ahead, before the flickering". Perfume first.
+- `scripts/orbit_endwipe.py` draws a dune wipe like the clip's own closing dune (straight dark edge, ~45°, sliding in from the left, eased, 13 frames) starting at frame 118 = **4.92 s** (was 6.92 s), blends to the clip's own black (Y 14.2), keeps the same black tail and cuts the scene to **6.0 s** (144 frames). Raw YUV, no RGB round trip.
+- Clip: `media/hero_orbit/v5/fixed/s3_perfume_t2_end6s.mp4`.
+- Loop is now **30.0 s** (oasis 0–8, perfume 8–14, camel 14–22, SUV 22–30): `media/web/hero/orbit_16x9.mp4` **6.09 MB**, `orbit_16x9.webm` **3.69 MB**, 720 frames; joins and seam on black. Previous loop in `media/web/hero/_archive_v5b/`. `timing.json` rewritten (SUV dust peak now **28.29 s**, closing dune 28.63 s).
+- Camel not changed yet (waiting for Wassim's check of the perfume).
