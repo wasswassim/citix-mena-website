@@ -533,3 +533,19 @@ Measured at 960 px width (red strip = Tom's position and height; lit screen widt
 - Lock: better than Kling but not exact. Tom drifts right by about 10 % of the frame width over 4.6 s and grows about 9 % (slight push-in). **From about 5.9 s the camera pulls back**: Tom shrinks from 73 % to 32 % of the frame height before the wipe.
 - Scale: Tom is about 70 % of the frame height (reference: 50 %).
 - Content: the falcon is first visible as a silhouette **inside** the lower screen (1.3-4.0 s), breaks through at about 4.3 s, flies out and passes the camera top-left by about 5.6 s; sand bursts from the screen and keeps pouring. Tom keeps his shape (two screens, cap, plinth, red strip). Look matches the generated stills.
+
+#### Seedance R1: pull-back removed in the edit (14 Nov 2026, no credits)
+Wassim: no pull-back or push-in at the beginning, middle or end; the orbit distance stays the same.
+Tool: `scripts/orbit_lock.py <in> <out>`: tracks Tom per frame (red strip = position, upper screen = size, since nothing crosses it), smooths the track, then scales and shifts every frame so Tom keeps one size and one position; frame edges are extended, not filled with black. Where the needed zoom would pass 1.35 the clip is cut and closed with a black dune wipe drawn in code.
+Correction to the earlier table: measured on the upper screen, Tom's size was already steady before the pull-back (27.6-29.7 % of the frame height from 0.9 to 5.9 s, about 3 % growth); the "9 % push-in" came from the red strip's lower part going dim. The real faults were the sideways drift (67.8 -> 78.4 %) and the pull-back after 5.9 s (29 % -> 19 %).
+Result `media/hero_orbit/preview/seedance_R1_locked.mp4` (6.58 s, 720p) + `_sheet.jpg`:
+| t | before: x / upper screen | after: x / upper screen |
+|---|---|---|
+| 0.92 s | 67.8 % / 27.6 % | 71.6 % / 29.6 % |
+| 1.92 s | 70.5 % / 28.9 % | 72.0 % / 29.8 % |
+| 2.92 s | 73.3 % / 28.9 % | 72.0 % / 29.6 % |
+| 3.92 s | 75.8 % / 29.3 % | 72.0 % / 29.6 % |
+| 4.92 s | 77.7 % / 28.9 % | 72.0 % / 29.0 % |
+| 5.42 s | 78.3 % / 29.6 % | 72.0 % / 29.6 % |
+| 5.92 s | 78.4 % / 28.9 % | 72.4 % / 30.3 % |
+Zoom applied: 1.00 to 1.35 (only the last 0.6 s is above 1.05, and it sits under the wipe). Cut at 6.54 s; wipe over the last 0.8 s. Two earlier attempts in the same session were discarded: the strip-based size track over-zoomed the first second, and a wide screen band merged both screens.
