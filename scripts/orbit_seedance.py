@@ -143,6 +143,7 @@ V5_SCENES["s3_perfume_t2"] = (
     "one bottle; it is rigid, keeps its shape, and its label never shows any writing. The bottle clearly comes "
     "from inside the glass.")
 BUDGET_USD["s3_perfume_t2"] = 1.7024   # Wassim: "OK clip $1.7024" (perfume take 2), 14 Nov 2026
+BUDGET_USD["s4_suv"] = 1.7024   # Wassim: "OK SUV $1.7024", 14 Nov 2026
 
 
 def v5_prompt(job: str) -> str:

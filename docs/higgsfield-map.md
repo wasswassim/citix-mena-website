@@ -659,3 +659,7 @@ Quote: still **$0.086** (/estimate) + clip **$1.7024** = **$1.7884** (project $2
 Result: after "OK still $0.086", `S3_perfume_t2.png` generated ($0.086; project **$23.28** of $40). Checked at full size: gold bottle, gold cap, cream floral label with no text, letters or logo; pink blossom tree inside the glass, petals and pink mist on the sand. Differences: the bottle stands fully in front of the glass (not halfway through); its shoulders are squarer than "softly rounded".
 
 Clip: after "OK clip $1.7024", `s3_perfume_t2` -> `media/hero_orbit/v5/clips/s3_perfume_t2.mp4` (raw). Project **$24.98** of $40. SUV not generated yet.
+
+### P2 S4 SUV — generated (14 Nov 2026)
+
+After "OK SUV $1.7024": `s4_suv` -> `media/hero_orbit/v5/clips/s4_suv.mp4` (raw). Project **$26.68** of $40. Review sheet (1 frame/s, oasis / perfume t2 / SUV): `media/hero_orbit/v5/clips/_v5_review_sheet_1s.jpg`. Seen in stills only: the SUV appears inside the glass around 3 s, comes out about 4 s and turns with a big sand spray; no badge, emblem or plate seen; glass intact. Dust does not clearly fill the lens before the end wipe, and the sand spray is brownish.
