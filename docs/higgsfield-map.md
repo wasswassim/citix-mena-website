@@ -471,3 +471,18 @@ Build: `components/OrbitLab.tsx` + page `/en/orbit-lab` (Three.js, noindex, not 
 Measured on rendered frames (1280x720): Tom centre x 66.6 / 66.6 / 66.7 / 66.7 / 66.8 % at 2 / 3 / 4 / 5 / 6 s; height 50.1 / 50.1 / 50.0 / 50.0 / 49.9 %; screen width 37 / 49 / 61 / 70 / 79 px (steady opening). Radius 26.000 m at every sampled time; angle advances 8.5 degrees each second.
 Files: `media/hero_orbit/preview/route1_3d_orbit_R1_test.mp4` (7.9 s, rendered at 12 fps in headless Edge and blended to 24, so less smooth than the live page) and `route1_3d_orbit_R1_sheet.jpg`. Test textures: `media/web/lab/tom_front.png`, `falcon.png`.
 Verdict: geometry, lock and constant speed are exact by construction. The look is still a rough draft: flat sand, simple light beam, placeholder falcon. Reaching the quality of the generated stills needs real content plates (falcon, water, camel, bottle, SUV as footage on black) and better sand and lighting.
+
+### Route 1 chosen (14 Nov 2026): real 3D orbit + generated content plates
+Wassim: "the rotation seems perfect ... let's carry on with this decision." The orbit, products, sand, light and wipes are built in code (`components/OrbitLab.tsx`); Higgsfield only generates the content that leaves the screen, as plates on pure black. The H2/H3 first/last-frame clip plan is parked (R1_A and R1_A_t2 kept as reference). Fixed the same day: the live page was cropped on Wassim's screen (canvas sized in device pixels with no CSS size); verified at 150 % display scaling.
+Plate method: one still on black (Marketing Studio) → one Kling clip animated from it with a locked camera and the subject centred → keyed by luminance in the browser and moved along a 3D path. Runner: `scripts/orbit_plates.py`.
+First plate (test): **falcon**, exact quote still $0.062 + clip $0.752 = **$0.814** (project $15.32 → $16.13, cap $40). Two steps: still first, shown for approval, then the clip. Not generated yet.
+
+#### plate: falcon
+- still: marketing-studio/image, 16:9, 2k, medium, no reference images
+
+> Photorealistic studio photograph of a single saker falcon in flight, seen from the front and slightly below, flying straight toward the camera with its wings fully spread and level. The bird is centred and the whole bird is visible, with clear empty space around both wingtips. Pure black background (#000000), completely empty: no ground, no sky, no horizon, no dust, no haze, no light beams, no reflections. The falcon is lit from behind and below by a cool white light, as if by a large screen behind it: crisp feather detail, a thin cool rim light on the wings, cool blue-white grading. No jesses, hood, leash or perch. No text, logos or people.
+
+- clip: kling-video/v4.0/image-to-video, 4 s, 1080p, first frame = the approved still, no end frame
+
+> A falcon flies in place straight toward the camera, beating its wings in a steady, natural rhythm: three full wingbeats, down and up, with the feathers flexing. Its head stays level and its eyes stay on the camera. The camera is locked off and does not move. The subject stays centred, at the same size and the same position in the frame for the whole shot. The background stays pure black throughout: no ground, sky, dust, haze or light appears. The lighting stays constant, with no flicker. One bird, exactly two wings and one head; no morphing, no extra feathers, no text or logos.
+

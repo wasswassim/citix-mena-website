@@ -37,6 +37,9 @@ export default function OrbitLab() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x020306);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    // The drawing buffer is sized in device pixels; the element itself must always fit the window,
+    // otherwise the picture is cropped on screens with display scaling (125 %, 150 %, ...).
+    Object.assign(renderer.domElement.style, { display: "block", width: "100%", height: "100%" });
     mount.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
