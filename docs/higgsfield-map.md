@@ -446,3 +446,5 @@ Measured on R1_A (Tom's left screen edge, px/s at 960 px width): 50 → 94 → 7
 
 #### Clip prompt rev 4 (14 Nov 2026) — turntable lock
 Wassim: in the inspiration the screen stays at the same distance from the camera, as if the product itself were rotating. Confirmed by measurement on the reference frames (height 276 → 265 px, centre 760 → 790 px, width 247 → 103 px at an even rate); see the correction in `docs/planning/bluesqx_motion_study.md`. Camera text now locks the subject like an object on a slow turntable: same position, distance and size, only the angle changes; fixed radius and height; no push-in, pull-back or drift; one constant speed. "Low over the sand ... very gentle push-in" removed. Price unchanged; nothing generated.
+
+- Rev 4b (Wassim, 14 Nov): geometry stated in his words: the product is the centre of a circle, the camera is a point on the circle looking at the centre and travels along it, so the radius never changes.

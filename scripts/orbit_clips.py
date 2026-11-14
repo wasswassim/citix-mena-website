@@ -34,9 +34,10 @@ SIZES = {"16x9": (1920, 1080), "9x16": (1080, 1920)}
 CAMERA = (
     "One continuous shot at night, no cuts. The subject is locked in the frame like an object on a slow "
     "turntable: it stays at exactly the same position in the frame, at the same distance from the camera and "
-    "at the same size for the whole shot, and only its angle changes. The camera circles it clockwise at a "
-    "fixed radius and a fixed height, always aimed at it: no push-in, no pull-back, no drifting sideways, no "
-    "rising or sinking. The turn has one constant speed from the first frame to the last: it never stops, "
+    "at the same size for the whole shot, and only its angle changes. Geometry: the subject is the centre "
+    "of a circle and the camera is a point on that circle, always looking straight at the centre; the camera "
+    "travels clockwise along the circle, so the radius between camera and subject never changes. Fixed "
+    "height too: no push-in, no pull-back, no drifting sideways, no rising or sinking. The turn has one constant speed from the first frame to the last: it never stops, "
     "never slows down, never pauses or holds, and never speeds up. "
     "Everything that happens on the screen happens WHILE the camera is orbiting, at the same time as the "
     "rotation, never after it. The orbit is slow and covers only a small arc, spread evenly over the whole "
