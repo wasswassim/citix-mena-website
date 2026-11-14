@@ -448,3 +448,19 @@ Measured on R1_A (Tom's left screen edge, px/s at 960 px width): 50 → 94 → 7
 Wassim: in the inspiration the screen stays at the same distance from the camera, as if the product itself were rotating. Confirmed by measurement on the reference frames (height 276 → 265 px, centre 760 → 790 px, width 247 → 103 px at an even rate); see the correction in `docs/planning/bluesqx_motion_study.md`. Camera text now locks the subject like an object on a slow turntable: same position, distance and size, only the angle changes; fixed radius and height; no push-in, pull-back or drift; one constant speed. "Low over the sand ... very gentle push-in" removed. Price unchanged; nothing generated.
 
 - Rev 4b (Wassim, 14 Nov): geometry stated in his words: the product is the centre of a circle, the camera is a point on the circle looking at the centre and travels along it, so the radius never changes.
+
+#### H2 re-test: R1_A take 2 (14 Nov 2026) — Wassim approved "Re-test R1_A $0.752"
+`media/hero_orbit/clips/16x9/R1_A_t2.mp4` (prompt rev 4b: fixed-radius orbit), **$0.752** (project **$15.32**, cap $40). Take 1 kept as `R1_A.mp4`.
+Measured at 960 px width (red side strip = Tom's position and height; lit screen = turn):
+| t | Tom x | Tom height | screen width |
+|---|---|---|---|
+| 1.75 s | 480 | first visible, small and far | 2 |
+| 2.25 s | 607 | growing | 48 |
+| 2.50 s | 666 | 397 | 80 |
+| 3.00 s | 712 | 412 | 98 |
+| 3.50 s | 734 | 418 | 107 |
+| 4.00 s | 753 | about 420 | 115 |
+- **Not locked.** Tom starts small and far, then the camera closes in: he grows to about 420 px tall and moves from x 480 to 753 (28 % of the frame width). Take 1 did the same (x 455 to 753, height 146 to 420).
+- **Not constant.** The turn is fast between 2.0 and 2.75 s (screen width +46 px in 0.5 s), then slow to the end (+17 px in the last second). Better than take 1's full stop, but still a slow-down.
+- Cause: the first frame is a black plate with no product in it, so Kling has to invent how Tom arrives, and it does that by flying the camera in. The prompt cannot pin position, size and speed when one end of the clip carries no information.
+- Proposal: give Kling a real keyframe at **both** ends (same product position and size, different angle) and build the dark wipes in code. Keyframe K0 for R1 (edge-on, no falcon yet) quoted at $0.074.

@@ -24,7 +24,7 @@ import higgsfield as hf  # noqa: E402
 
 MODEL = "kling-video/v4.0/image-to-video"
 DURATION, RESOLUTION = 4, "1080p"
-BUDGET_USD = {"16x9": 0.752, "9x16": 0.0}   # 16x9: Wassim approved "Test R1_A $0.752" (14 Nov 2026); raise at Gate 2a/3a
+BUDGET_USD = {"16x9": 1.504, "9x16": 0.0}   # 16x9: Wassim approved "Test R1_A $0.752" + "Re-test R1_A $0.752" (14 Nov 2026); raise at Gate 2a/3a
 SPENT_BEFORE = 13.82                      # project spend after H1 (stills), 14 Nov 2026
 ORBIT = hf.ROOT / "media" / "hero_orbit"
 STILLS = ORBIT / "stills"
@@ -144,6 +144,8 @@ def _arg(flag: str) -> str:
 
 
 ONLY = [n for n in _arg("--only").split(",") if n]
+TAKE = _arg("--take")                      # e.g. --take 2 -> jobs/files named R1_A_t2 (a new take, old one kept)
+SUFFIX = f"_t{TAKE}" if TAKE else ""
 
 
 def names() -> list[str]:
@@ -217,7 +219,8 @@ def frames_sheet(clip: Path, fps: int = 4) -> Path:
 def run(fmt: str, confirm: bool, quote_only: bool = False) -> None:
     state = load(fmt)
     other = spent(load("9x16" if fmt == "16x9" else "16x9"))
-    todo = [n for n in names() if not state.get(n, {}).get("request_id") or state[n].get("status") in ("failed", "nsfw")]
+    todo = [n for n in names() if not state.get(n + SUFFIX, {}).get("request_id")
+            or state[n + SUFFIX].get("status") in ("failed", "nsfw")]
     built = {n: params(n, fmt) for n in todo}
     quotes = {n: hf.estimate(MODEL, p) for n, p in built.items()}
     for n, q in quotes.items():
@@ -237,10 +240,10 @@ def run(fmt: str, confirm: bool, quote_only: bool = False) -> None:
         return
     for n in todo:
         res = hf.generate(MODEL, built[n], confirm=True)
-        state[n] = {"request_id": res["request_id"], "usd": quotes[n], "status": res.get("status")}
+        state[n + SUFFIX] = {"request_id": res["request_id"], "usd": quotes[n], "status": res.get("status")}
         save(fmt, state)
-    pending = [n for n in names() if state.get(n, {}).get("request_id") and not state[n].get("file")
-               and state[n].get("status") not in ("failed", "nsfw")]
+    pending = [n + SUFFIX for n in names() if state.get(n + SUFFIX, {}).get("request_id")
+               and not state[n + SUFFIX].get("file") and state[n + SUFFIX].get("status") not in ("failed", "nsfw")]
     start = time.time()
     while pending and time.time() - start < 3000:
         for n in list(pending):
