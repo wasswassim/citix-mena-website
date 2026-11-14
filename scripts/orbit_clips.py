@@ -32,10 +32,17 @@ PICKS = {"R1": 3, "R2": 3, "R3": 3, "R4": 4, "R5": 3}   # approved at Gate 1b, 1
 SIZES = {"16x9": (1920, 1080), "9x16": (1080, 1920)}
 
 CAMERA = (
-    "One continuous shot at night, no cuts. The camera orbits slowly clockwise around the subject at a "
-    "constant speed, low over the sand, with a very gentle push-in. Smooth, steady, cinematic, no shake, no "
-    "zoom. Very dark, low-key image: the screen is the only light source, the dunes are almost invisible."
+    "One continuous shot at night, no cuts. The camera orbits clockwise around the subject at one constant "
+    "speed from the first frame to the last, low over the sand: it never stops, never slows down, never "
+    "pauses or holds, and never speeds up. The subject keeps turning in the frame for the whole shot. "
+    "Everything that happens on the screen happens WHILE the camera is orbiting, at the same time as the "
+    "rotation, never after it. Smooth, steady, cinematic, no shake, no zoom. Very dark, low-key image: the "
+    "screen is the only light source, the dunes are almost invisible."
 )
+MOVING_END = (" The shot passes through the final frame while the camera is still orbiting at the same "
+              "speed, with no settling and no freeze.")
+MOVING_START = ("The shot begins already in motion: the camera is orbiting at the same constant speed from the "
+                "very first frame, with no hold on the opening image. ")
 RULES = (
     "No text, logos, people, buildings or new objects appear. Keep deep blacks and the same cool grading "
     "throughout; no flicker, no brightness pumping."
@@ -43,11 +50,12 @@ RULES = (
 OPEN = (
     "The shot starts in complete darkness: the black crest of a sand dune, very close to the lens, fills the "
     "frame. As the camera orbits, the dark crest slides out of frame and reveals SUBJECT, small in the "
-    "distance, first seen almost edge-on as a thin lit sliver, then opening to a three-quarter view as the "
-    "camera keeps travelling. "
+    "distance, first seen almost edge-on as a thin lit sliver, then opening steadily to a three-quarter "
+    "view as the camera keeps travelling. While the subject is still turning: "
 )
 CLOSE = (
-    " The camera keeps orbiting clockwise so SUBJECT turns back toward edge-on, and in the last second the "
+    " All through this the camera keeps orbiting clockwise so SUBJECT turns steadily toward edge-on, and in "
+    "the last second, without any change of speed, the "
     "black crest of a sand dune, very close to the lens, slides across the frame and covers it completely, "
     "ending in total darkness."
 )
@@ -56,10 +64,9 @@ ROT = {
         "subject": "a tall, slim black smartboard totem with two stacked glowing screens and a thin red light strip on its side",
         "rigid": "The totem is a rigid, solid object: its shape, proportions, straight edges, two screens, top "
                  "cap, plinth and red side strip stay exactly identical; no morphing, bending or extra parts.",
-        "A": "As the totem opens to the camera, a shaft of cool light pours from its lower screen onto the sand; "
-             "a falcon takes shape deep inside the lower screen, flies forward, breaks through the screen surface "
+        "A": "a shaft of cool light pours from its lower screen onto the sand and a falcon takes shape deep inside the lower screen, flies forward, breaks through the screen surface "
              "with its wings spreading, and a stream of fine sand pours out with it and fans across the ground. "
-             "The shot ends exactly on the final frame: the falcon in front of the screen, wings fully spread.",
+             "By the final frame the falcon is in front of the screen, wings fully spread.",
         "B": "The falcon beats its wings once and flies out toward the camera, passing close over the lens and "
              "out of frame, while the stream of sand keeps pouring from the lower screen and spreading across the "
              "ground, then thins out.",
@@ -68,10 +75,10 @@ ROT = {
         "subject": "a slim black pedestrian smartboard totem with two stacked glowing screens",
         "rigid": "The totem is a rigid, solid object: its shape, proportions, two screens, top lens and pedestal "
                  "stay exactly identical; no morphing, bending or extra parts.",
-        "A": "As the totem opens to the camera, an oasis appears deep inside its lower screen; palm fronds grow "
+        "A": "an oasis appears deep inside its lower screen; palm fronds grow "
              "forward and push out past the screen edge, and water begins to pour over the bottom edge of the "
              "screen onto the sand, the pool spreading toward the camera while small green shoots rise in the wet "
-             "sand. The shot ends exactly on the final frame.",
+             "sand.",
         "B": "The water keeps falling and the pool keeps spreading across the sand toward the camera, catching "
              "cool reflections; the palm fronds sway gently and more shoots and reeds grow around the foot of the "
              "totem.",
@@ -80,9 +87,9 @@ ROT = {
         "subject": "a frameless clear glass panel standing upright on the sand, showing misty mountains inside it",
         "rigid": "The glass panel is a rigid, flat sheet: its square shape and thin faintly glowing white edges "
                  "stay exactly identical; no frame appears, no morphing.",
-        "A": "As the panel opens to the camera, mist rolls out of the mountain scene through the glass onto the "
+        "A": "mist rolls out of the mountain scene through the glass onto the "
              "sand; a camel walks forward from deep inside the scene, its head and neck pass through the glass "
-             "surface, then its body, and it steps out onto the sand. The shot ends exactly on the final frame.",
+             "surface, then its body, and it steps out onto the sand.",
         "B": "The camel keeps walking calmly out across the sand toward the camera and leaves the frame, with a "
              "natural gait and exactly four legs; the mist keeps flowing out of the glass and spreading low over "
              "the sand.",
@@ -92,10 +99,10 @@ ROT = {
                    "crimson from the mist inside",
         "rigid": "The two glass panels are rigid, flat sheets joined at a fixed 90-degree outer corner: their "
                  "shape and thin faintly glowing white edges stay exactly identical; no frame appears, no morphing.",
-        "A": "As the glass corner opens to the camera, crimson mist swirls deep inside it; a tall slender perfume "
+        "A": "crimson mist swirls deep inside it; a tall slender perfume "
              "bottle with no label rises from inside the corner and pushes out through the corner seam into the "
              "open air, rose petals drifting out with it and settling on the sand, crimson light spreading over "
-             "the ground. The shot ends exactly on the final frame.",
+             "the ground.",
         "B": "The bottle keeps rising slowly and turns a little in the air in front of the corner; more rose "
              "petals drift out and scatter across the sand toward the camera, and low crimson mist spreads from the "
              "foot of the glass. The bottle stays plain: no label, no text.",
@@ -105,10 +112,9 @@ ROT = {
         "rigid": "The block and its corner screen are rigid and solid: their shape and edges stay exactly "
                  "identical; no morphing. The SUV stays one consistent, generic vehicle with a plain grille: no "
                  "badge, no logo, no number plate, no text.",
-        "A": "As the block opens to the camera, a dark SUV is parked deep inside the showroom on the screen. Its "
-             "headlights switch on, it drives forward, crosses the screen surface and drops onto the sand in front "
-             "of the block, turning into a drift and throwing up fine sand. The shot ends exactly on the final "
-             "frame.",
+        "A": "a dark SUV deep inside the showroom on the screen switches on its headlights and drives forward without "
+             "waiting, crosses the screen surface and drops onto the sand in front "
+             "of the block, turning into a drift and throwing up fine sand.",
         "B": "The SUV drifts across the sand toward the camera, its tyres throwing a growing wave of fine sand; "
              "the wave of sand flies straight at the lens, hits it and covers the whole frame, and the image goes "
              "to total darkness.",
@@ -119,9 +125,11 @@ ROT = {
 def prompt(r: str, part: str) -> str:
     x = ROT[r]
     if part == "A":
-        body = OPEN.replace("SUBJECT", x["subject"]) + x["A"]
+        body = OPEN.replace("SUBJECT", x["subject"]) + x["A"] + MOVING_END
     else:
-        body = x["B"] + ("" if r == "R5" else CLOSE.replace("SUBJECT", "the product"))
+        tail = (" The camera keeps orbiting at the same speed until the frame is dark." if r == "R5"
+                else CLOSE.replace("SUBJECT", "the product"))
+        body = MOVING_START + x["B"] + tail
     return f"{CAMERA} {body} {x['rigid']} {RULES}"
 
 
