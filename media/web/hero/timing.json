@@ -14,7 +14,7 @@
   "scenes": [
     {
       "name": "oasis",
-      "source": "media/hero_orbit/v5/clips/s1_oasis.mp4",
+      "source": "media/hero_orbit/v5/fixed/s1_oasis_fixed.mp4",
       "start": 0.0,
       "end": 8.0,
       "visible_from": 0.875,
@@ -22,7 +22,7 @@
     },
     {
       "name": "perfume",
-      "source": "media/hero_orbit/v5/clips/s3_perfume_t2.mp4",
+      "source": "media/hero_orbit/v5/fixed/s3_perfume_t2_fixed.mp4",
       "start": 8.0,
       "end": 16.0,
       "visible_from": 8.792,
@@ -30,7 +30,7 @@
     },
     {
       "name": "camel",
-      "source": "media/hero_orbit/seedance/R3_ref.mp4",
+      "source": "media/hero_orbit/v5/fixed/R3_ref_fixed.mp4",
       "start": 16.0,
       "end": 24.0,
       "visible_from": 16.833,
@@ -38,7 +38,7 @@
     },
     {
       "name": "suv",
-      "source": "media/hero_orbit/v5/clips/s4_suv_t2.mp4",
+      "source": "media/hero_orbit/v5/fixed/s4_suv_t2_fixed.mp4",
       "start": 24.0,
       "end": 32.0,
       "visible_from": 24.875,
@@ -50,5 +50,6 @@
     "dune_wipe_starts": 30.625,
     "black": 31.208,
     "note": "Seedance did not fill the lens with dust; 'peak' is the frame with the most bright sand spray, just before the closing dune. Sync the code dust overlay to it."
-  }
+  },
+  "deflicker": "Repeated frame once per second rebuilt by motion interpolation in all four clips; perfume camera jump at 6.75-6.92 s (scene time) smoothed. scripts/orbit_deflicker.py"
 }

@@ -688,3 +688,14 @@ Order (Wassim, GATE 3 question): **oasis → perfume → camel → SUV**. Clips 
 - Web: `media/web/hero/orbit_16x9.mp4` (H.264 veryfast CRF 21, faststart, no audio, **6.62 MB**), `orbit_16x9.webm` (VP9 CRF 34, **4.01 MB**), `orbit_16x9_poster.webp` (S1 oasis still, q80, **95 KB**).
 - `media/web/hero/timing.json`: scene windows; each scene is visible for about 6.2–6.6 s, with about 1.6–1.8 s of black between scenes (the dune wipes). SUV dust: most sand spray at **30.25 s**, closing dune from 30.63 s, black at 31.21 s. Seedance did not make the dust fill the lens, so the code overlay should do that at 30.25 s.
 - The two loop videos are not committed yet (same as the intro exports); `timing.json` and the poster are.
+
+## v5 P3b — flicker fix (no credits, 14 Nov 2026)
+
+Wassim: the camera flickers in the last 1–2 s of the perfume and camel scenes. Measured cause:
+- **All four clips** repeat one frame per second (frames 35, 59, 83, 107, 131, 155: 1.46 s, 2.46 s … 6.46 s). Seedance renders a little under 24 fps and pads with a duplicate, so the orbit freezes for one frame and then catches up. Most visible near the end, where the camera move is the main motion.
+- **Perfume take 2** also jumps about 5 px (with a brightness spike) at 6.83 s, just before the closing dune.
+- Brightness itself does not flicker (frame-to-frame swing ≈ 0.3 %, below one code value); highlights change smoothly.
+
+Fix: `scripts/orbit_deflicker.py` rebuilds each repeated frame as the motion-compensated midpoint of its neighbours (ffmpeg minterpolate), and spreads the perfume jump over frames 162–166. It works on the raw YUV planes: an RGB/PNG round trip darkened the clips about 3 % because Seedance stores darks below video black. Untouched frames keep their exact values; luma means match the originals (e.g. 23.44 → 23.46). Rebuilt frames were checked visually (camel legs, bottle label: no artefacts).
+- Fixed clips: `media/hero_orbit/v5/fixed/` (`s1_oasis_fixed`, `s3_perfume_t2_fixed`, `R3_ref_fixed`, `s4_suv_t2_fixed`). Raw clips untouched.
+- Loop rebuilt from them: `media/web/hero/orbit_16x9.mp4` **6.54 MB**, `orbit_16x9.webm` **3.96 MB**, 768 frames / 32.000 s; no freezes left; joins and seam on black. Previous loop archived in `media/web/hero/_archive_v5a/` and `media/hero_orbit/v5/loop/_archive_v5a/`. `timing.json` sources updated; timings unchanged.
