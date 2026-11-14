@@ -29,6 +29,8 @@ STATE = OUT / "jobs.json"
 R3_STILL = ORBIT / "stills" / "R3_16x9_v3.png"
 SPENT_BEFORE = 19.53          # project spend at the start of v5 (runbook v5, 14 Nov 2026)
 BUDGET_USD = 0.252            # Wassim approved "OK stills $0.252" at GATE 1, 14 Nov 2026
+if "--take" in sys.argv and sys.argv[sys.argv.index("--take") + 1] == "2":
+    BUDGET_USD = 0.086        # Wassim approved "OK still $0.086" (perfume take 2), 14 Nov 2026
 W, H = 1920, 1080
 BASE = {"resolution": "2k", "quality": "medium", "enhance_prompt": False, "aspect_ratio": "16:9"}
 
