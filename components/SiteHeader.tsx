@@ -70,9 +70,10 @@ export default function SiteHeader(p: Props) {
         </div>
       )}
       <header className="site-header">
-        {/* Placeholder wordmark: no official CITIX logo file is in the repo yet. Swap for the SVG when supplied. */}
+        {/* Official CITIX › MENA logo from citixmena.com (media/brand/_download_2026-11-15/SOURCE.md).
+            Brand rules: never stretched (height set, width follows), never bottom-right, clear space = the X. */}
         <Link href={`/${p.lang}`} className="site-name">
-          {p.siteName}
+          <img src="/media/brand/citix-logo-white.png" alt={p.siteName} width={934} height={280} />
         </Link>
         <nav className="site-nav" aria-label={p.navLabel}>
           <ul>

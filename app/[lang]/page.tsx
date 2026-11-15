@@ -4,7 +4,7 @@ import Arrow from "@/components/Arrow";
 import EcosystemCards from "@/components/EcosystemCards";
 import HeroLoop from "@/components/HeroLoop";
 import SiteHeader from "@/components/SiteHeader";
-import { trustedBrands } from "@/lib/brands";
+import { logoStyle, trustedBrands } from "@/lib/brands";
 import { dictionaries, isLocale } from "@/lib/i18n";
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
@@ -64,9 +64,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               {[0, 1].map((copy) => (
                 <ul className="marquee-track" key={copy} aria-hidden={copy === 1 || undefined}>
                   {trustedBrands.map((b) => (
-                    <li key={b} className="logo-ph" title={`${b} (${t.hero.placeholderNote})`}>
-                      {b}
-                    </li>
+                    <li key={b.name} className="logo" role="img" aria-label={b.name} style={logoStyle(b.box)} />
                   ))}
                 </ul>
               ))}

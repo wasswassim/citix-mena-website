@@ -85,7 +85,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       line2: "Stronger Brands.",
       ctaSolutions: "Our Solutions",
       ctaProject: "Latest Project",
-      trusted: "Global brands that trust CITIX",
+      trusted: "Global brands that trust us",
       placeholderNote: "logo placeholder",
     },
     // From the CITIX Ecosystem slide (company deck). "Propriety" on the slide corrected to "Proprietary".
@@ -146,7 +146,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       line2: "علامات أقوى.",
       ctaSolutions: "حلولنا",
       ctaProject: "أحدث مشاريعنا",
-      trusted: "علامات عالمية تثق بـ CITIX",
+      trusted: "علامات عالمية تثق بنا",
       placeholderNote: "شعار مؤقت",
     },
     ecosystem: {
