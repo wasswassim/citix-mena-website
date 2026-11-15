@@ -791,4 +791,4 @@ Company facts, update (Wassim, 15 Nov 2026): fifth counter '150 people on our te
 
 Company facts, update (Wassim, 15 Nov 2026): black-to-white fade removed; plain white background (Pure Snow) with a thin line underneath before About. The whole strip turns the header light again. Five counters unchanged.
 
-Company facts, update (Wassim, 15 Nov 2026): counters in equal squares (aspect 1:1), number and label centred, shared 1 px Urban Mist grid lines (no doubled edges), white section with 48-80 px padding. 5 per row on desktop (262 px at 1440), 3 + 2 centred on tablets (231 px), 2 + 2 + 1 centred on phones (172 px). Labels reserve 2 lines (3 on phones) so the numbers sit at the same height. Checked 1440, 768, 375: no horizontal scroll, no console errors.
+Company facts, update (Wassim, 15 Nov 2026): equal squares undone (back to the white row with dividers and the line underneath); each counter (number + label) is now centred in its own column, with equal side padding in every column. 5 / 3+2 / 2+2+1 layouts unchanged. Checked 1440 and 375: centred within 1 px, no horizontal scroll, no console errors.
