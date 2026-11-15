@@ -102,7 +102,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { title: "Smart City", text: "Easy-to-integrate informational system" },
       ],
     },
-    // Counters from the "Company facts" slide (company deck). Left out on purpose: revenue and EBITDA (financials,
+    // Counters from the "Company facts" slide (company deck; employees added by Wassim). Left out on purpose: revenue and EBITDA (financials,
     // need the supervisor's OK before going public), countries and "No. 1 in Kazakhstan" (the network section).
     facts: {
       title: "CITIX MENA in numbers",
@@ -111,6 +111,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { value: 360, suffix: "", label: "brands partnered with us" },
         { value: 1000, suffix: "+", label: "marketing campaigns delivered" },
         { value: 50, suffix: "+", label: "smart-city cases" },
+        { value: 150, suffix: "", label: "people on our team" },
       ],
     },
     // About statement (Wassim, 15 Nov 2026). Sources: sales deck "About CITIX", "Smart widget system", "Dynamic
@@ -193,6 +194,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { value: 360, suffix: "", label: "علامة تجارية شريكة" },
         { value: 1000, suffix: "+", label: "حملة تسويقية منفّذة" },
         { value: 50, suffix: "+", label: "حالة استخدام للمدن الذكية" },
+        { value: 150, suffix: "", label: "موظفاً في فريقنا" },
       ],
     },
     about: {
