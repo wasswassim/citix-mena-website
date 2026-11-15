@@ -741,7 +741,7 @@ main:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: clamp(40px, 4.4vw, 64px) clamp(12px, 1.6vw, 24px);
+  padding: clamp(28px, 3vw, 44px) clamp(12px, 1.6vw, 24px);
   border-inline-start: 1px solid var(--facts-line);
   text-align: center;
 }
@@ -836,7 +836,7 @@ main:focus {
    paragraphs, 24 px (20) under the title, 64 px (40) before the short line + button, 176 px bottom space.
    A title replaces their animated logo (Wassim, 15 Nov 2026). */
 .about {
-  padding: clamp(96px, 11vw, 160px) var(--gutter) clamp(120px, 12.2vw, 176px);
+  padding: clamp(56px, 6vw, 88px) var(--gutter) clamp(56px, 6vw, 88px);
   background: var(--snow);
   color: var(--graphite);
 }
@@ -901,17 +901,17 @@ main:focus {
    The bluesqx product accordion rebuilt (values read from their stylesheet, study only): 8 px gaps, closed cards
    12 % wide (14 % on hover), the open card takes the rest; width change 1 s cubic-bezier(.165,.84,.44,1); text
    fades up 0.5 s after opening, the button 0.7 s; closed cards carry the name vertically near the bottom.
-   Width animates through flex-grow (0 -> 1 on one card while 1 -> 0 on the other: the total stays 1, so the row
-   never jumps). Phones: cards stack, 72 px closed, 34 rem open. */
+   Width animates through flex-basis (12 % <-> 100 %, every card may shrink so the row always fits).
+   Phones: cards stack, 72 px closed, 34 rem open. */
 .products {
-  padding: clamp(72px, 7.8vw, 112px) clamp(8px, 1vw, 16px);
+  padding: clamp(48px, 5vw, 72px) clamp(8px, 1vw, 16px);
   background: var(--snow);
   color: var(--graphite);
 }
 
 .products-head {
   max-width: 600px;
-  margin: 0 auto clamp(40px, 4.4vw, 64px);
+  margin: 0 auto clamp(28px, 3vw, 44px);
   padding-inline: var(--gutter);
   text-align: center;
 }
@@ -940,21 +940,21 @@ main:focus {
   list-style: none;
 }
 
+/* Exact bluesqx sizing (15 Nov 2026): closed 12 %, open 100 %, all allowed to shrink so the row fits; the 2 rem
+   side padding takes part in that shrink maths, which gives their 969 / 134 px split on a 1397 px row. Square edges. */
 .prod-card {
   position: relative;
-  flex: 0 0 12%;
+  flex: 0 1 12%;
   min-width: 0;
+  padding-inline: 2rem;
   overflow: hidden;
-  border-radius: 6px;
   background: var(--black);
   color: var(--snow);
-  transition:
-    flex-grow 1s cubic-bezier(0.165, 0.84, 0.44, 1),
-    flex-basis 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: flex-basis 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .prod-card[data-open] {
-  flex-grow: 1;
+  flex-basis: 100%;
 }
 
 @media (hover: hover) {
@@ -1102,7 +1102,7 @@ main:focus {
 .products-more {
   display: flex;
   justify-content: center;
-  margin-top: clamp(32px, 3.3vw, 48px);
+  margin-top: clamp(24px, 2.4vw, 36px);
 }
 
 [dir="rtl"] .prod-tag {
@@ -1127,11 +1127,13 @@ main:focus {
 
   .prod-card {
     flex: none;
+    padding-inline: 0;
     height: 72px;
     transition: height 1s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
   .prod-card[data-open] {
+    flex-basis: auto;
     height: 34rem;
   }
 

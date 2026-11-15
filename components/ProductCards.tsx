@@ -10,10 +10,8 @@ import Arrow from "@/components/Arrow";
  * Clicking a strip opens it (1 s ease-out) while the open one closes; its text fades up after the card has grown.
  * Phones: the cards stack and open downwards.
  *
- * Media (company sales deck, media/source/products/SOURCE.md), chosen for look per kilobyte:
- *   Tom: real night photo (41 KB) · Jerry: studio render (6-18 KB) · Baloo: night render (21-52 KB)
- *   Jumbo: the only video (3D perfume campaign, 9.8 s, 545 KB MP4 / 573 KB WebM).
- * The Jumbo video downloads nothing until the card is first opened (preload="none", and its still is a lazy <img>
+ * Media: every card is a short muted video from the company files (media/source/products/SOURCE.md), 0.3-0.8 MB
+ * each. A video downloads nothing until its card is open (preload="none", and its still is a lazy <img>
  * underneath instead of a poster attribute, which would load with the page). It plays only while its card is open
  * and the section is on screen; closing pauses it where it is, reopening resumes from that point, and it starts
  * over only when it reaches the end (loop). With reduced motion it never plays: the still stays.
@@ -21,21 +19,22 @@ import Arrow from "@/components/Arrow";
 type Card = { name: string; tag: string; text: string; alt: string };
 type Props = { title: string; sub: string; cta: string; all: string; href: string; cards: Card[] };
 
-type Media = { src: string; srcSet?: string; position?: string; video?: { mp4: string; webm: string } };
+type Media = { src: string; srcSet: string; position?: string; video: { mp4: string; webm: string } };
+const P = "/media/products/";
+const clip = (n: string, poster: [string, string], position?: string): Media => ({
+  src: P + poster[1],
+  srcSet: `${P}${poster[0]} 600w, ${P}${poster[1]} 1200w`,
+  position,
+  video: { mp4: `${P}${n}.mp4`, webm: `${P}${n}.webm` },
+});
+// Every card is a video (Wassim, 15 Nov 2026); the still underneath is its first frame.
 const MEDIA: Media[] = [
-  { src: "/media/products/tom-800.webp", position: "50% 30%" },
-  // object-position keeps each product inside the narrow closed strip (measured on the deck images)
-  { src: "/media/products/jerry-1600.webp", srcSet: "/media/products/jerry-800.webp 800w, /media/products/jerry-1600.webp 1600w" },
+  clip("tom", ["tom-poster-600.webp", "tom-poster-1200.webp"]),
+  clip("jerry", ["jerry-poster-600.webp", "jerry-poster-1200.webp"]),
+  clip("baloo", ["baloo-poster-600.webp", "baloo-poster-1200.webp"]),
   {
-    src: "/media/products/baloo-1600.webp",
-    srcSet: "/media/products/baloo-800.webp 800w, /media/products/baloo-1600.webp 1600w",
-    position: "55% 50%",
-  },
-  {
-    src: "/media/products/jumbo-poster-1600.webp",
-    srcSet: "/media/products/jumbo-poster-800.webp 800w, /media/products/jumbo-poster-1600.webp 1600w",
-    position: "55% 50%",
-    video: { mp4: "/media/products/jumbo.mp4", webm: "/media/products/jumbo.webm" },
+    ...clip("jumbo", ["jumbo-poster-800.webp", "jumbo-poster-1600.webp"], "55% 50%"),
+    srcSet: `${P}jumbo-poster-800.webp 800w, ${P}jumbo-poster-1600.webp 1600w`,
   },
 ];
 
@@ -44,9 +43,8 @@ export default function ProductCards({ title, sub, cta, all, href, cards }: Prop
   const [inView, setInView] = useState(false);
   const [reduced, setReduced] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const uid = useId();
-  const videoIndex = MEDIA.findIndex((m) => m.video);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -63,11 +61,12 @@ export default function ProductCards({ title, sub, cta, all, href, cards }: Prop
 
   // Play only while open + on screen; pausing keeps the current time, so reopening resumes from there.
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (open === videoIndex && inView && !reduced) v.play().catch(() => {});
-    else v.pause();
-  }, [open, inView, reduced, videoIndex]);
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === open && inView && !reduced) v.play().catch(() => {});
+      else v.pause();
+    });
+  }, [open, inView, reduced]);
 
   return (
     <section ref={sectionRef} className="products" data-header-theme="light" aria-labelledby="products-title">
@@ -89,26 +88,26 @@ export default function ProductCards({ title, sub, cta, all, href, cards }: Prop
                 <img
                   src={m.src}
                   srcSet={m.srcSet}
-                  sizes={m.srcSet ? "(max-width: 767px) 100vw, 75vw" : undefined}
+                  sizes="(max-width: 767px) 100vw, 70vw"
                   alt={c.alt}
                   loading="lazy"
                   decoding="async"
                   style={m.position ? { objectPosition: m.position } : undefined}
                 />
-                {m.video && (
-                  <video
-                    ref={videoRef}
-                    muted
-                    loop
-                    playsInline
-                    preload="none"
-                    aria-hidden="true"
-                    style={m.position ? { objectPosition: m.position } : undefined}
-                  >
-                    <source src={m.video.mp4} type="video/mp4" />
-                    <source src={m.video.webm} type="video/webm" />
-                  </video>
-                )}
+                <video
+                  ref={(el) => {
+                    videoRefs.current[i] = el;
+                  }}
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  aria-hidden="true"
+                  style={m.position ? { objectPosition: m.position } : undefined}
+                >
+                  <source src={m.video.mp4} type="video/mp4" />
+                  <source src={m.video.webm} type="video/webm" />
+                </video>
               </div>
               <div className="prod-shade" aria-hidden="true" />
 
