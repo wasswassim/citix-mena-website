@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import HeroLoop from "@/components/HeroLoop";
 import { dictionaries, isLocale } from "@/lib/i18n";
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
@@ -22,13 +23,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       </header>
 
       <main id="main" tabIndex={-1}>
-        {/* Hero night state. Placeholder still until Prompt 4 builds the coded day/night hero;
-            it is the film's last frame, so Enter fades the gate into it without a cut. */}
+        {/* Hero v5 "The Orbit": 28 s glass-panel loop (16:9 + 9:16), poster first, no dust overlay. */}
         <section className="hero" aria-labelledby="hero-title">
-          <picture className="hero-media">
-            <source media="(max-aspect-ratio: 4/5)" srcSet="/media/end-mobile.jpg" />
-            <img src="/media/end.jpg" alt={t.hero.imageAlt} width={1920} height={1080} fetchPriority="high" />
-          </picture>
+          <HeroLoop alt={t.hero.imageAlt} />
           <div className="hero-copy">
             <h1 id="hero-title">{t.hero.title}</h1>
             <p>{t.hero.sub}</p>

@@ -49,7 +49,8 @@
     "peak": 26.292,
     "dune_wipe_starts": 26.625,
     "black": 27.083,
-    "note": "Seedance did not fill the lens with dust; 'peak' is the frame with the most bright sand spray, just before the closing dune. Sync the code dust overlay to it."
+    "note": "Seedance did not fill the lens with dust; 'peak' is the frame with the most bright sand spray, just before the closing dune. Sync the code dust overlay to it.",
+    "overlay": "dropped by Wassim, 15 Nov 2026: no code dust overlay; the loop plays as is"
   },
   "edits": [
     "Repeated frame once per second rebuilt by motion interpolation in all four clips (scripts/orbit_deflicker.py); perfume camera jump smoothed.",

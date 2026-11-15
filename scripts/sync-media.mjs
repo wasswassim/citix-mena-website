@@ -9,6 +9,6 @@ const src = join(root, "media", "web");
 const dest = join(root, "public", "media");
 if (existsSync(src)) {
   mkdirSync(dest, { recursive: true });
-  cpSync(src, dest, { recursive: true, filter: (p) => !p.endsWith(".gitkeep") && !p.endsWith("intro-preview.mp4") });
+  cpSync(src, dest, { recursive: true, filter: (p) => !p.endsWith(".gitkeep") && !p.endsWith("intro-preview.mp4") && !/[\\/]_archive/.test(p) });
   console.log("media/web -> public/media");
 }

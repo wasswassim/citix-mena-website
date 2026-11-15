@@ -44,7 +44,7 @@ Planning happens in a claude.ai Project ("CitiX MENA Internship"); copies of the
   - **Oasis:** water and date palms spill out of the glass.
   - **Camel:** done and approved; reuse `R3_ref.mp4` as is.
   - **Perfume:** an unbranded faceted bottle floats out with rose petals; pink-red only inside the glass.
-  - **SUV (finale):** an unbranded generic SUV bursts out and drifts; dust hits the lens (code dust overlay synced via `timing.json`); the glass stays intact.
+  - **SUV (finale):** an unbranded generic SUV bursts out and drifts; the glass stays intact. (Code dust overlay dropped by Wassim, 15 Nov 2026.)
   - Loop order: the runbook says oasis → camel → perfume → SUV; Wassim's chat message (14 Nov) said oasis → perfume → camel → SUV. Confirm at GATE 3.
   - New outputs go in `media/hero_orbit/v5/`. No lock script or grading on raw clips unless Wassim asks.
   - The products (Tom, Jerry, Baloo, Jumbo) leave the hero and are shown in the Smartboards section with real assets.

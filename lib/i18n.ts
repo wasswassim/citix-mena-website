@@ -58,7 +58,8 @@ export const dictionaries: Record<Locale, Dictionary> = {
       sub: "Smart street boards and giant 3D screens across the UAE. Live city information on top, your brand below.",
       ctaAdvertise: "Advertise with us",
       ctaPartner: "Partner with us",
-      imageAlt: "A CITIX Tom smartboard at night, showing a weather widget above a CITIX brand message",
+      imageAlt:
+        "A frameless glass screen standing on moonlit desert dunes; an oasis, a perfume bottle, a camel and an SUV come out of the glass in turn",
     },
     comingSoon: { title: "Coming soon", body: "This page is on its way.", back: "Back to the homepage" },
     langSwitch: { label: "العربية", href: "/ar" },
@@ -86,7 +87,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       sub: "لوحات ذكية في الشوارع وشاشات ثلاثية الأبعاد عملاقة في أنحاء الإمارات. معلومات المدينة الحيّة في الأعلى، وعلامتك في الأسفل.",
       ctaAdvertise: "أعلن معنا",
       ctaPartner: "كن شريكاً",
-      imageAlt: "لوحة Tom الذكية من CITIX ليلاً، تعرض حالة الطقس فوق رسالة من CITIX",
+      imageAlt: "شاشة زجاجية بلا إطار على كثبان صحراوية تحت ضوء القمر، تخرج منها بالتتابع واحة وزجاجة عطر وجمل وسيارة دفع رباعي",
     },
     comingSoon: { title: "قريباً", body: "هذه الصفحة قيد الإعداد.", back: "العودة إلى الصفحة الرئيسية" },
     langSwitch: { label: "English", href: "/en" },

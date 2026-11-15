@@ -724,3 +724,11 @@ P4 Option A: a plain centre crop misses the glass panel (it sits right of centre
 ### P4 Option A v2 — stutter fix (no credits, 15 Nov 2026)
 
 Wassim: the mobile version looked flickery. Cause (measured): v1 moved the crop window in 2 source-px steps (= 3.6 phone px) with up to 18 still frames between steps, so slow drifts played as a stutter. v2 cuts the window from a frame already scaled to phone size (1 px steps), keeps oasis and perfume still, and gives camel (880 → 630) and SUV (890 → 780) one slow eased glide each (max 8 / 4 phone px per frame). The window only jumps on the black joins. v1 kept in `media/web/hero/_archive_m1/` and `media/hero_orbit/v5/mobile/_archive_v1/`.
+
+## v5 GATE 4: Option A kept; P5 hero code, no dust (no credits, 15 Nov 2026)
+
+Wassim: "Keep Option A" (mobile = the free keyed reframe, no 9:16 regeneration). Then: "let's remove the dust": no code dust overlay; the SUV ending plays as generated.
+
+P5: `components/HeroLoop.tsx` replaces the old Tom placeholder still in the hero. Server-rendered poster `<img>` (LCP; 16:9 oasis still, 9:16 frame on portrait screens), then the muted loop fades in once playing: `orbit_16x9` (WebM, MP4 fallback) on landscape, `orbit_9x16` on portrait (max-aspect-ratio 4/5). No video under prefers-reduced-motion; paused off-screen and in hidden tabs. Side gradient for copy legibility (mirrored in AR). H1, sub, CTAs, EN/AR unchanged; alt text rewritten for the new loop. `sync-media` no longer copies `_archive*` folders into public.
+Checked in the browser pane: EN desktop plays the 16:9 WebM; AR at 375x812 plays the 9:16 WebM, RTL, no horizontal scroll; pauses off-screen and resumes; no console errors. Reduced motion not checked in the browser (code path only).
+Note: the logo marquee and the other homepage sections are not built yet (the runbook's "keep the 35-logo marquee" refers to work still to come).
