@@ -719,29 +719,13 @@ main:focus {
 
 /* ---------- Company facts (between the hero and the About statement) ----------
    A compact counter row (Wassim's reference: numbers side by side, a short line under each, thin full-height
-   dividers). Background (Wassim, 15 Nov 2026): a black-to-white fade that joins the dark hero above and the white
-   About section below with no edge. The fade lives in a tall top band (--facts-fade) measured in px, not %, so on
-   every screen the counters sit on the near-white end (dark text keeps its contrast); eased stops avoid banding. */
+   dividers). White background (Wassim, 15 Nov 2026; the black-to-white fade was tried and dropped), with a thin
+   line underneath to close the row before the white About section, as in the reference. */
 .facts {
   --facts-line: rgb(22 22 22 / 0.12);
-  --facts-fade: clamp(150px, 15vw, 240px);
-  --L: calc(var(--facts-fade) * 1.25);
-  padding-block-start: var(--facts-fade);
-  background: linear-gradient(
-    180deg,
-    #000 0,
-    #060606 calc(var(--L) * 0.1),
-    #191919 calc(var(--L) * 0.2),
-    #363636 calc(var(--L) * 0.3),
-    #5c5c5c calc(var(--L) * 0.4),
-    #868686 calc(var(--L) * 0.5),
-    #afafaf calc(var(--L) * 0.6),
-    #d2d2d2 calc(var(--L) * 0.7),
-    #ececec calc(var(--L) * 0.8),
-    #fafafa calc(var(--L) * 0.9),
-    var(--snow) var(--L)
-  );
+  background: var(--snow);
   color: var(--graphite);
+  border-block-end: 1px solid var(--facts-line);
 }
 
 .facts-list {

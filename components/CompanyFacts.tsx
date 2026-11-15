@@ -68,12 +68,11 @@ export default function CompanyFacts({ title, facts }: Props) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="facts" aria-labelledby="facts-title">
+    <section ref={sectionRef} className="facts" data-header-theme="light" aria-labelledby="facts-title">
       <h2 id="facts-title" className="sr-only">
         {title}
       </h2>
-      {/* Only the light (counters) part turns the header light; the black top of the fade keeps it dark. */}
-      <ul className="facts-list" data-header-theme="light">
+      <ul className="facts-list">
         {facts.map((f, i) => (
           <li key={f.label} className="fact" style={{ "--i": i } as React.CSSProperties}>
             <p className="fact-num">
