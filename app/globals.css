@@ -485,13 +485,17 @@ a {
   pointer-events: none;
 }
 
-.eco-card.is-flipping {
-  animation: eco-flip 0.6s cubic-bezier(0.45, 0, 0.55, 1);
+/* Content swap (Wassim, 15 Nov 2026): the card stays still; its words blur out, change at the blurriest
+   moment (EcosystemCards HALF_MS), then sharpen in. Duration = 2 × HALF_MS. */
+.eco-card.is-swapping :is(.eco-title, .eco-text) {
+  animation: eco-blur-swap 0.9s cubic-bezier(0.45, 0, 0.55, 1);
 }
 
-@keyframes eco-flip {
+@keyframes eco-blur-swap {
   50% {
-    transform: scaleX(0.02);
+    filter: blur(10px);
+    opacity: 0;
+    transform: scale(0.97);
   }
 }
 

@@ -762,3 +762,7 @@ Wassim: the reds were too shiny for a dark site; make the glass feel like Apple 
 - Trusted label: "Global brands that trust us" (AR: "علامات عالمية تثق بنا").
 - Official logos downloaded with Wassim's OK into `media/brand/_download_2026-11-15/` (sources in `SOURCE.md`): `Logos.svg` (the 35-brand grid from citixmena.com) and `logo_white.png` (CITIX > MENA). Web copies in `media/web/brand/`. The marquee shows each logo through a CSS window onto the official SVG (boxes in `lib/brands.ts`; nothing traced or redrawn), greyscale at 70% opacity. The header shows the official CITIX logo (height-set, never stretched).
 Checked: 1440x900 EN through the loop (light values measured), 390x844 AR (fits, no horizontal scroll), fresh load without console errors. The live feel of the light reaction is for Wassim to judge in playback.
+
+## Hero: Ecosystem cards change by blur, not flip (no credits, 15 Nov 2026)
+
+Wassim: "Instead of making the cards flip, make the content inside the cards blur and change." The glass cards now stay still; every 4.2 s, one card after another (160 ms apart), the title and text blur out (10 px, fading, slightly shrinking), change at the blurriest moment (450 ms) and sharpen back in (0.9 s in all). Light tracking unchanged; nothing moves with reduced motion. Checked: the animation runs on the title and text only, blur(10px) and opacity 0 at the midpoint, words swap Hardware -> Blockchain etc.; no console errors.

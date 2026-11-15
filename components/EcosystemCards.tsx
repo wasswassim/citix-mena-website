@@ -4,21 +4,21 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * CITIX Ecosystem glass cards (Wassim, 15 Nov 2026): 3 cards at a time, bottom-start of the hero; every few seconds
- * each card flips (one after the other) to show the other 3, in a loop. The flip squeezes the card to its edge and
- * opens it on the next card: a 2D transform, because a real 3D flip stops the frosted-glass blur in Chrome.
+ * each card (one after the other) changes to show the other 3, in a loop. The glass stays still: only the words
+ * blur out, swap at the blurriest moment and sharpen back in (Wassim: blur instead of a flip).
  *
  * Apple-style glass that reacts to the scene: ~8 times a second the hero video frame is drawn into a tiny canvas,
  * and for each card the light around it gives --li (strength), --lx/--ly (direction) and --lc (colour), which move
  * the card's highlight, rim light and tint (app/globals.css). The real blur of the video stays underneath.
  *
  * All 6 cards are in the HTML as a list for screen readers and crawlers; the animated cards are decorative copies.
- * Reduced motion: no flipping and no light tracking (static glass).
+ * Reduced motion: no swapping and no light tracking (static glass).
  */
 type Card = { title: string; text: string };
 
 const HOLD_MS = 4200; // time each set stays
-const STAGGER_MS = 140; // delay between the 3 cards
-const HALF_MS = 300; // half a flip: the content swaps at the edge-on moment
+const STAGGER_MS = 160; // delay between the 3 cards
+const HALF_MS = 450; // half the blur swap: the words change at the blurriest moment (CSS: 2 × HALF_MS)
 const SAMPLE_MS = 125; // light sampling rate
 const CW = 64; // sample canvas (16:9)
 const CH = 36;
@@ -139,7 +139,7 @@ export default function EcosystemCards({ label, cards }: { label: string; cards:
               ref={(el) => {
                 cardRefs.current[i] = el;
               }}
-              className={flipping[i] ? "eco-card is-flipping" : "eco-card"}
+              className={flipping[i] ? "eco-card is-swapping" : "eco-card"}
             >
               <span className="eco-title">{c.title}</span>
               <span className="eco-dot" />
