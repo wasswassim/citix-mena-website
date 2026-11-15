@@ -3,7 +3,7 @@
 Updated 14 Nov 2026, 18:30, by Claude (claude.ai project "CitiX MENA Internship"). P5 updated 15 Nov 2026 with the measured bluesqx hero shell (pasted by Wassim; previous copy kept as `HERO_ORBIT_RUNBOOK_v5.0_archived.md`).
 This file is the single source of truth for the hero build. It **replaces runbook v4.2**: the Tom, Jerry, Baloo and Jumbo rotations and the Kling first/last-frame method are dropped.
 
-> Later decisions by Wassim that override this file: loop order oasis → perfume → camel → SUV; perfume and camel scenes end 2 s earlier (loop = 28 s); mobile = Option A (keyed reframe); **no dust overlay** (15 Nov 2026). See `docs/higgsfield-map.md`.
+> Later decisions by Wassim that override this file: loop order oasis → perfume → camel → SUV; perfume and camel scenes end 2 s earlier (loop = 28 s); mobile = Option A (keyed reframe); **no dust overlay** (15 Nov 2026). See `docs/higgsfield-map.md`. **GATE 5 approved (15 Nov 2026)** on the hero shell as built (commit b6b57cc): CITIX wording, EN/AR, CSS reveal, bar off; differentiation from bluesqx to follow.
 
 ## Decision (Wassim, 14 Nov evening)
 The R3 camel clip is the model for the whole hero:
