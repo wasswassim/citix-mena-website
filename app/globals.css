@@ -231,7 +231,7 @@ a {
    reference: graphite text and the official black-and-red logo. The calm-red buttons and menu stay as they are. */
 .site-top {
   color: var(--snow);
-  transition: color 0.3s ease;
+  transition: color 0.2s ease-out;
 }
 
 .site-name .logo-dark,
@@ -259,6 +259,35 @@ a {
 
 .site-top[data-theme="light"] .mobile-menu {
   color: var(--snow);
+}
+
+/* Frosted header after 96 px of scroll (Wassim, 15 Nov 2026; values measured on the reference): 28 px blur over
+   80% Graphite Shadow on dark sections or 80% Pure Snow on light ones; the tint fades in 0.3 s. Phones and touch
+   screens get a 96% solid tint without blur (cheaper, no flicker while scrolling). */
+.site-header {
+  transition: background-color 0.3s ease-out;
+}
+
+.site-top[data-frosted] .site-header {
+  background-color: rgb(22 22 22 / 0.8);
+  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(28px);
+}
+
+.site-top[data-frosted][data-theme="light"] .site-header {
+  background-color: rgb(255 255 255 / 0.8);
+}
+
+@media (max-width: 991px), (hover: none) {
+  .site-top[data-frosted] .site-header {
+    background-color: rgb(22 22 22 / 0.96);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .site-top[data-frosted][data-theme="light"] .site-header {
+    background-color: rgb(255 255 255 / 0.96);
+  }
 }
 
 .mobile-menu a {

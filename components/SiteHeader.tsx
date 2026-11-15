@@ -39,22 +39,24 @@ export default function SiteHeader(p: Props) {
     setBar((SHOW_ANNOUNCEMENT || forced) && !closed);
   }, []);
 
-  // Dark header over light sections: checks which section sits under the header's middle line while scrolling
+  // Header tone and frosting (Wassim, 15 Nov 2026, like the reference): the tone follows the section 25 px below the
+  // top of the screen (light sections are marked data-header-theme="light"; everything else is dark), and after
+  // 96 px of scroll the header turns into frosted glass of that tone (app/globals.css). Transparent at the very top.
   const topRef = useRef<HTMLDivElement>(null);
   const [light, setLight] = useState(false);
+  const [frosted, setFrosted] = useState(false);
   useEffect(() => {
     let raf = 0;
+    const TONE_LINE = 25;
+    const FROST_AFTER = 96;
     const check = () => {
       raf = 0;
-      const header = topRef.current?.querySelector(".site-header");
-      if (!header) return;
-      const r = header.getBoundingClientRect();
-      const y = r.top + r.height / 2;
       const onLight = [...document.querySelectorAll<HTMLElement>('[data-header-theme="light"]')].some((el) => {
         const b = el.getBoundingClientRect();
-        return b.top <= y && b.bottom >= y;
+        return b.top <= TONE_LINE && b.bottom > TONE_LINE;
       });
       setLight(onLight);
+      setFrosted(window.scrollY > FROST_AFTER);
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(check);
@@ -84,7 +86,9 @@ export default function SiteHeader(p: Props) {
   };
 
   return (
-    <div ref={topRef} className="site-top" data-open={open || undefined} data-theme={light ? "light" : undefined}>
+    <div ref={topRef} className="site-top" data-open={open || undefined} data-theme={light ? "light" : undefined}
+      data-frosted={frosted || undefined}
+    >
       {bar && (
         <div className="announce">
           <p>{p.announcement.text}</p>
