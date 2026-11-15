@@ -28,7 +28,27 @@ type Dictionary = {
     mute: string;
     soundUnavailable: string;
   };
-  hero: { title: string; sub: string; ctaAdvertise: string; ctaPartner: string; imageAlt: string };
+  hero: {
+    title: string;
+    sub: string;
+    ctaAdvertise: string;
+    ctaPartner: string;
+    imageAlt: string;
+    line1: string;
+    line2: string;
+    ctaSolutions: string;
+    ctaProject: string;
+    trusted: string;
+    placeholderNote: string;
+  };
+  header: {
+    nav: { solutions: string; smartboards: string; projects: string; about: string; insights: string; contact: string };
+    getInTouch: string;
+    menuOpen: string;
+    menuClose: string;
+    navLabel: string;
+  };
+  announcement: { text: string; cta: string; close: string };
   comingSoon: { title: string; body: string; back: string };
   langSwitch: { label: string; href: string };
 };
@@ -60,7 +80,28 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ctaPartner: "Partner with us",
       imageAlt:
         "A frameless glass screen standing on moonlit desert dunes; an oasis, a perfume bottle, a camel and an SUV come out of the glass in turn",
+      line1: "Smarter Cities.",
+      line2: "Stronger Brands.",
+      ctaSolutions: "Our Solutions",
+      ctaProject: "Latest Project",
+      trusted: "Trusted by leading global brands:",
+      placeholderNote: "logo placeholder",
     },
+    header: {
+      nav: {
+        solutions: "Solutions",
+        smartboards: "Smartboards",
+        projects: "Projects",
+        about: "About",
+        insights: "Insights",
+        contact: "Contact",
+      },
+      getInTouch: "Get in touch",
+      menuOpen: "Open menu",
+      menuClose: "Close menu",
+      navLabel: "Main",
+    },
+    announcement: { text: "Stay inspired: subscribe for CITIX MENA updates", cta: "Subscribe", close: "Close" },
     comingSoon: { title: "Coming soon", body: "This page is on its way.", back: "Back to the homepage" },
     langSwitch: { label: "العربية", href: "/ar" },
   },
@@ -88,7 +129,28 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ctaAdvertise: "أعلن معنا",
       ctaPartner: "كن شريكاً",
       imageAlt: "شاشة زجاجية بلا إطار على كثبان صحراوية تحت ضوء القمر، تخرج منها بالتتابع واحة وزجاجة عطر وجمل وسيارة دفع رباعي",
+      line1: "مدن أذكى.",
+      line2: "علامات أقوى.",
+      ctaSolutions: "حلولنا",
+      ctaProject: "أحدث مشاريعنا",
+      trusted: "تثق بنا علامات عالمية رائدة:",
+      placeholderNote: "شعار مؤقت",
     },
+    header: {
+      nav: {
+        solutions: "الحلول",
+        smartboards: "اللوحات الذكية",
+        projects: "المشاريع",
+        about: "من نحن",
+        insights: "رؤى",
+        contact: "تواصل",
+      },
+      getInTouch: "تواصل معنا",
+      menuOpen: "فتح القائمة",
+      menuClose: "إغلاق القائمة",
+      navLabel: "الرئيسية",
+    },
+    announcement: { text: "ابقَ على اطلاع: اشترك لتصلك أخبار CITIX MENA", cta: "اشترك", close: "إغلاق" },
     comingSoon: { title: "قريباً", body: "هذه الصفحة قيد الإعداد.", back: "العودة إلى الصفحة الرئيسية" },
     langSwitch: { label: "English", href: "/en" },
   },

@@ -736,3 +736,11 @@ Note: the logo marquee and the other homepage sections are not built yet (the ru
 ## v5 GATE 5 approved (15 Nov 2026)
 
 Wassim: "Approve hero". Runbook v5 P0 → P5 complete. Hero spend: $8.85 in v5 ($0.252 stills + $0.086 perfume still t2 + 5 × $1.7024 clips); project total $28.38 of the $40 cap.
+
+## v5 P5 (updated runbook): bluesqx hero shell rebuilt (no credits, 15 Nov 2026)
+
+Wassim pasted the updated runbook (P5 = measured bluesqx hero shell); saved to `docs/planning/HERO_ORBIT_RUNBOOK.md`, previous copy kept as `HERO_ORBIT_RUNBOOK_v5.0_archived.md`. Re-measured bluesqx live at 1440x900 and 390x844 (study only; screenshots in `C:\Users\wassi\scratch\bluesqx_study\p5_compare\`, outside the repo, never reused).
+
+Built (layout and behaviour only, our own code): flat `rgba(0,0,0,0.5)` overlay; fixed transparent header (z 1000): wordmark start, 6 nav links centred (to Coming soon), "Get in touch ↗" + EN/AR at the end; phones: wordmark, Get in touch, "+" menu (Escape closes). H1 "Smarter Cities. / Stronger Brands." at 57/160 (16/128 on phones), clamp(40px, 3.9vw, 56px), lh 1, −2 px, weight 500, radial gradient text #FFF 25% → #E0E0E0 60% → #8A8F99 90%. Outline CTAs "Our Solutions ↗" / "Latest Project ↗" at 79.5% height, 72 px from the end edge (start on phones), arrow box turns Pulse Red on hover. "Trusted by leading global brands:" at 87.8%, 18 px (#ECF0F8), then the 35-brand marquee (90×40, pauses on hover, static with reduced motion). Announcement bar built behind `lib/flags.ts` (off; preview with `?bar=1`; closing is remembered). Arabic mirrored. Measured positions match bluesqx at both sizes.
+
+Deviations: no dust overlay (Wassim, 15 Nov); the H1 reveal is a CSS wipe on a wrapper, not SplitType (Chrome stops painting gradient text when the H1 or its lines are animated; no new dependency); the wordmark is text (no CITIX logo file in the repo or on this PC); logos are labelled placeholders (no official SVGs yet, list in `lib/brands.ts`); the hero sub-line is no longer shown (not in the bluesqx layout). The Arabic copy needs a native-speaker review.

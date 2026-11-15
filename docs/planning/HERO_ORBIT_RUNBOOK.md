@@ -1,7 +1,9 @@
 # CITIX MENA — Hero "The Orbit" RUNBOOK v5 (for Claude Code)
 
-Updated 14 Nov 2026, 18:30, by Claude (claude.ai project "CitiX MENA Internship").
+Updated 14 Nov 2026, 18:30, by Claude (claude.ai project "CitiX MENA Internship"). P5 updated 15 Nov 2026 with the measured bluesqx hero shell (pasted by Wassim; previous copy kept as `HERO_ORBIT_RUNBOOK_v5.0_archived.md`).
 This file is the single source of truth for the hero build. It **replaces runbook v4.2**: the Tom, Jerry, Baloo and Jumbo rotations and the Kling first/last-frame method are dropped.
+
+> Later decisions by Wassim that override this file: loop order oasis → perfume → camel → SUV; perfume and camel scenes end 2 s earlier (loop = 28 s); mobile = Option A (keyed reframe); **no dust overlay** (15 Nov 2026). See `docs/higgsfield-map.md`.
 
 ## Decision (Wassim, 14 Nov evening)
 The R3 camel clip is the model for the whole hero:
@@ -20,8 +22,8 @@ Only the content inside and coming out of the glass changes.
 | Order in loop | Scene | Content | Status |
 |---|---|---|---|
 | 1 | Oasis | Water and palms spill out of the glass | to make |
-| 2 | Camel (current R3) | Mountains inside, a dromedary walks out | **DONE, approved** (`R3_ref.mp4`) |
-| 3 | Perfume (CITIX promo style) | An unbranded bottle floats out with rose petals | to make |
+| 2 | Perfume (CITIX promo style) | An unbranded bottle floats out with rose petals | to make |
+| 3 | Camel (current R3) | Mountains inside, a dromedary walks out | **DONE, approved** (`R3_ref.mp4`) |
 | 4 | SUV (finale) | An unbranded SUV bursts out and drifts; dust hits the lens | to make |
 
 **Loop:** 4 × 8 s = **32 s**. Every scene starts and ends on black (the dune wipe), so the joins are invisible and the loop restarts at scene 1. This matches bluesqx (31.2 s).
@@ -107,7 +109,7 @@ Steps:
 4. Wassim approves or asks for rerolls. Show the cost of each reroll first.
 
 ## P3 — Loop assembly (no credits)
-1. Order: S1 oasis → S2 camel (`R3_ref.mp4`) → S3 perfume → S4 SUV. Hard cuts on black; add a 2–4 frame crossfade only where a flash is visible.
+1. Order (changed by Wassim at 18:32): oasis → perfume → camel (`R3_ref.mp4`) → SUV. The scene IDs S1/S3/S4 and the job names stay unchanged; only the loop order changes. Hard cuts on black; add a 2–4 frame crossfade only where a flash is visible.
 2. Check the loop is seamless: run a pixel diff between the first and last frames and report the value.
 3. Export to `media/web/hero/`:
    - `orbit_16x9.mp4`: H.264, preset veryfast, faststart, no audio, ≤ 8 MB.
@@ -121,9 +123,66 @@ Steps:
 - **Option B (≈ $7 for 4 clips, plus stills):** render a 9:16 camera reference in OrbitLab and re-run the 4 scenes at 9:16 with the same prompts.
 - Build Option A first, open it on screen, then ⛔ **GATE 4:** Wassim chooses A or B.
 
-## P5 — Hero code
-- Update the hero to use the new loop, `timing.json` and the SUV dust overlay (synced to S4).
-- Keep the H1, CTAs, 35-logo marquee, EN/AR, reduced motion, LCP rules and everything else already built.
+## P5 — Hero code: copy the bluesqx hero shell (layout, header, text placement, overlay)
+Copy their **layout and behaviour**, not their code, font, text or logos. Rebuild everything in our stack. The values below were measured live on bluesqx.com (15 Nov 2026) at 1440×900 and at a 569 px-wide mobile viewport. Before building, open bluesqx.com yourself at both sizes and compare the result side by side with ours.
+
+**Section**
+- Full viewport height: `100vh` (on mobile use `100svh`).
+- Video with `object-fit: cover`, absolutely positioned behind everything.
+
+**Dark overlay**
+- One flat layer over the video: `rgba(0,0,0,0.5)`, full size, under the text.
+- This is their whole overlay: no vignette, no gradient. Copy it exactly.
+
+**Announcement bar (optional)**
+- Their top bar is ≈117 px tall at 1440 px: "Stay Inspired! Subscribe…", a Subscribe button and a close ×.
+- Ours: "Stay inspired: subscribe for CITIX MENA updates" → links to the newsletter (S8); the bar can be closed and remembers that it was closed.
+- Build it but keep it behind a flag. Wassim decides at GATE 5.
+
+**Header**
+- `position: fixed`, transparent background, above the hero (z ≈ 1000).
+- **Desktop:**
+  - CITIX logo left, aligned with the H1 left edge (≈57 px from the left edge at 1440 px).
+  - Nav links centred: Solutions · Smartboards · Projects · About · Insights · Contact.
+  - Right side: "Get in touch ↗" button, plus the EN/AR switch.
+- **Mobile:** logo left; "Get in touch ↗" and a square "+" menu button on the right.
+
+**H1**
+- Two lines, top-left: "Smarter Cities." / "Stronger Brands."
+- Position: left ≈57 px and top ≈160 px at 1440×900; on mobile left ≈22 px and top ≈128 px.
+- Size and spacing: 56 px desktop / 40 px mobile; use `clamp(40px, 3.9vw, 56px)`. Line-height 1.0; letter-spacing −2 px; weight 500. Use Gilroy (their font is Beausite Classic, which we don't use).
+- **Gradient text fill** (their signature): `background: radial-gradient(circle at 50% 0%, …)` with `-webkit-background-clip: text; color: transparent`.
+  - Their stops: white 25% → #818AB3 at 90% → #1B1E24.
+  - Ours, brand version: #FFFFFF 25% → #E0E0E0 at 60% → #8A8F99 at 90%. Pulse Red stays for hover and accents only.
+- SplitType reveal on load.
+- Arabic: mirrored to top-right, same rules.
+
+**CTAs**
+- Two outline buttons, **bottom-right**: "Our Solutions ↗" and "Latest Project ↗".
+- Placement:
+  - Right edge ≈72 px from the viewport edge.
+  - Top of the buttons ≈80% of the hero height (y ≈716 of 900).
+  - Gap between the two buttons ≈12 px.
+  - In RTL they move to bottom-left.
+- Style:
+  - Transparent background, `1px solid rgba(255,255,255,0.2)`, radius 4 px.
+  - 16 px text, padding `4px 4px 4px 8px`.
+  - The arrow sits in a small square box on the right of each button.
+  - Hover: border brightens, arrow box turns Pulse Red.
+- "Get in touch" in the header uses the same style.
+
+**Trusted by + logo marquee**
+- Centred label "Trusted by leading global brands:", 18 px, colour ≈#ECF0F8. On desktop its top sits at ≈88% of the hero (y ≈790 of 900).
+- Below it, one row of logos at ≈90×40 px each, in an infinite horizontal marquee spanning the full width.
+  - Use the 35 brands, white monochrome, ~70% opacity.
+  - Pause on hover; static with reduced motion.
+- Mobile: same structure, showing about 4 logos at a time.
+
+**Keep from the existing build:** EN/AR, reduced motion (poster only), LCP rules, the dust overlay synced to S4 via `timing.json`, and crawlable HTML.
+
+**Steps**
+1. Build it, then make side-by-side screenshots at 1440×900 and 390×844: theirs vs ours.
+2. Open the screenshots on Wassim's screen with a short list of any remaining differences.
 - Serve locally, open it on screen, commit and push. ⛔ **GATE 5.**
 
 **Budget for v5:**
