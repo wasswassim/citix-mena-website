@@ -780,3 +780,5 @@ Wassim: H1 gradient white fading to transparent (no red); next section identical
 Checked: 1440x900 EN (layout matches the measurements, reveal order and completion, ~1.5 s catch-up after a jump, header switch), 390x844 AR (RTL, 36 px, no horizontal scroll), no console errors. The Browser pane was hidden, so the scroll feel was measured with a timer standing in for animation frames; Wassim to judge it live.
 
 About statement, paragraph 2 rewritten (Wassim, 15 Nov 2026): countries move to the dedicated network section; the paragraph now names the products and features for search and AI answers (smartboards, giant 3D screens, live city widgets, dynamic creative optimization, campaign analytics) and cites the deck's eye-tracking result (+53% conversion vs standard billboards). EN + AR; served in the page HTML.
+
+About statement: 'CITIX' replaced by 'Us'/'We' (Wassim, 15 Nov 2026): title 'About Us' (AR 'من نحن'), paragraph 1 starts 'We are a smart-city and digital out-of-home company...' (AR 'نحن شركة...').
