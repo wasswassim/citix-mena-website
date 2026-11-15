@@ -44,6 +44,13 @@ type Dictionary = {
   ecosystem: { label: string; cards: { title: string; text: string }[] };
   facts: { title: string; items: { value: number; suffix: string; label: string }[] };
   about: { title: string; paragraphs: string[]; ctaLine: string; cta: string };
+  products: {
+    title: string;
+    sub: string;
+    cta: string;
+    all: string;
+    cards: { name: string; tag: string; text: string; alt: string }[];
+  };
   header: {
     nav: { solutions: string; smartboards: string; projects: string; about: string; insights: string; contact: string };
     getInTouch: string;
@@ -127,6 +134,40 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ctaLine: "Let’s make tomorrow happen today.",
       cta: "Talk to us",
     },
+    // Our Products (Wassim, 15 Nov 2026). Subtitle = deck slide 6 word for word; card text from the product slides
+    // (Tom 13, Jerry 15, Baloo 17, Jumbo 19). Card order = cards in components/ProductCards.tsx.
+    products: {
+      title: "Our Products",
+      sub: "The first generation of innovative city gadgets is here to elevate the urban environment and modern advertising.",
+      cta: "Discover",
+      all: "All products",
+      cards: [
+        {
+          name: "Tom",
+          tag: "Roadside smartboard",
+          text: "A 7 × 2 m roadside totem. Live city widgets on top catch drivers’ eyes, and your ad sits right below.",
+          alt: "Tom roadside smartboard at night, with a weather widget above the ad and its red side light strip",
+        },
+        {
+          name: "Jerry",
+          tag: "Pedestrian smartboard",
+          text: "2.6 m tall and made for walkways, Jerry turns public space into a responsive media channel.",
+          alt: "Jerry pedestrian smartboard with an air quality widget above the ad",
+        },
+        {
+          name: "Baloo",
+          tag: "Giant 3D corner screen",
+          text: "A 32 m² digital spire on the corner of Tejara 1, where 3D content wraps around the building’s edge.",
+          alt: "Baloo corner screens on the Tejara 1 building at night, showing the CITIX X in 3D",
+        },
+        {
+          name: "Jumbo",
+          tag: "Largest 3D corner screen",
+          text: "Around 400 m² of corner screen at a premium mall, built for immersive 3D campaigns that adapt in real time.",
+          alt: "Jumbo corner screen on a shopping mall facade, with a 3D perfume bottle floating out of the screen",
+        },
+      ],
+    },
     header: {
       nav: {
         solutions: "Solutions",
@@ -205,6 +246,38 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ],
       ctaLine: "لنصنع الغد اليوم.",
       cta: "تحدث إلينا",
+    },
+    products: {
+      title: "منتجاتنا",
+      sub: "الجيل الأول من أدوات المدينة المبتكرة وصل ليرتقي بالبيئة الحضرية والإعلان الحديث.",
+      cta: "اكتشف",
+      all: "جميع المنتجات",
+      cards: [
+        {
+          name: "Tom",
+          tag: "لوحة ذكية على الطرق",
+          text: "لوحة طرقية بمقاس 7 × 2 م. معلومات المدينة الحيّة في الأعلى تلفت أنظار السائقين، وإعلانك أسفلها مباشرة.",
+          alt: "لوحة Tom الذكية على الطريق ليلاً، مع معلومات الطقس فوق الإعلان وشريطها الجانبي الأحمر المضيء",
+        },
+        {
+          name: "Jerry",
+          tag: "لوحة ذكية للمشاة",
+          text: "بارتفاع 2.6 م ومصممة لممرات المشاة، تحوّل Jerry المساحات العامة إلى قناة إعلامية تتفاعل مع محيطها.",
+          alt: "لوحة Jerry الذكية للمشاة مع مؤشر جودة الهواء فوق الإعلان",
+        },
+        {
+          name: "Baloo",
+          tag: "شاشة زاوية عملاقة ثلاثية الأبعاد",
+          text: "برج رقمي بمساحة 32 م² على زاوية مبنى تجارة 1، يلتف فيه المحتوى ثلاثي الأبعاد حول حافة المبنى.",
+          alt: "شاشات Baloo على زاوية مبنى تجارة 1 ليلاً تعرض شعار CITIX X بتقنية ثلاثية الأبعاد",
+        },
+        {
+          name: "Jumbo",
+          tag: "أكبر شاشة زاوية ثلاثية الأبعاد",
+          text: "نحو 400 م² من الشاشات على زاوية مركز تسوق راقٍ، مصممة لحملات ثلاثية الأبعاد غامرة تتكيّف في الوقت الحقيقي.",
+          alt: "شاشة Jumbo على واجهة مركز تسوق مع زجاجة عطر ثلاثية الأبعاد تخرج من الشاشة",
+        },
+      ],
     },
     header: {
       nav: {

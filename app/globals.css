@@ -896,3 +896,275 @@ main:focus {
     margin-block-start: 40px;
   }
 }
+
+/* ---------- Our Products (after About) ----------
+   The bluesqx product accordion rebuilt (values read from their stylesheet, study only): 8 px gaps, closed cards
+   12 % wide (14 % on hover), the open card takes the rest; width change 1 s cubic-bezier(.165,.84,.44,1); text
+   fades up 0.5 s after opening, the button 0.7 s; closed cards carry the name vertically near the bottom.
+   Width animates through flex-grow (0 -> 1 on one card while 1 -> 0 on the other: the total stays 1, so the row
+   never jumps). Phones: cards stack, 72 px closed, 34 rem open. */
+.products {
+  padding: clamp(72px, 7.8vw, 112px) clamp(8px, 1vw, 16px);
+  background: var(--snow);
+  color: var(--graphite);
+}
+
+.products-head {
+  max-width: 600px;
+  margin: 0 auto clamp(40px, 4.4vw, 64px);
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+
+.products-title {
+  margin: 0 0 16px;
+  font-size: clamp(36px, 3.34vw, 48px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.products-sub {
+  margin: 0;
+  font-size: clamp(16px, 1.25vw, 18px);
+  line-height: 1.45;
+  color: rgb(22 22 22 / 0.7);
+}
+
+.prod-row {
+  display: flex;
+  gap: 8px;
+  height: clamp(560px, 90vh, 820px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prod-card {
+  position: relative;
+  flex: 0 0 12%;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--black);
+  color: var(--snow);
+  transition:
+    flex-grow 1s cubic-bezier(0.165, 0.84, 0.44, 1),
+    flex-basis 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.prod-card[data-open] {
+  flex-grow: 1;
+}
+
+@media (hover: hover) {
+  .prod-card:not([data-open]):hover {
+    flex-basis: 14%;
+  }
+}
+
+.prod-media,
+.prod-media img,
+.prod-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* closed: 50 % black over the picture; open: half that, plus a top fade so the text always reads */
+.prod-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgb(0 0 0 / 0.72) 0%, rgb(0 0 0 / 0) 55%),
+    rgb(0 0 0 / 0.5);
+  transition: background-color 0.4s ease;
+}
+
+.prod-card[data-open] .prod-shade {
+  background:
+    linear-gradient(180deg, rgb(0 0 0 / 0.8) 0%, rgb(0 0 0 / 0.35) 35%, rgb(0 0 0 / 0) 60%),
+    rgb(0 0 0 / 0.22);
+}
+
+/* the whole closed card is the button */
+.prod-toggle {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 0 8%;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.prod-card[data-open] .prod-toggle {
+  pointer-events: none;
+}
+
+.prod-toggle:focus-visible {
+  outline-offset: -6px;
+}
+
+/* name read bottom-to-top, like the reference (vertical-rl turned 180 degrees works in every browser) */
+.prod-preview {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: clamp(22px, 2.2vw, 32px);
+  line-height: 1;
+  font-weight: 800;
+  white-space: nowrap;
+  transition:
+    opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    translate 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.prod-card[data-open] .prod-preview {
+  opacity: 0;
+  translate: 0 24px;
+}
+
+.prod-content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(40px, 4.4vw, 64px) 32px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.prod-top,
+.prod-bottom {
+  width: min(24rem, 100%);
+  opacity: 0;
+  translate: 0 3rem;
+  transition:
+    opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+    translate 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.prod-bottom {
+  translate: 0 2rem;
+}
+
+.prod-card[data-open] .prod-top,
+.prod-card[data-open] .prod-bottom {
+  opacity: 1;
+  translate: 0 0;
+  pointer-events: auto;
+  transition-duration: 0.5s;
+  transition-delay: 0.5s;
+}
+
+.prod-card[data-open] .prod-bottom {
+  transition-delay: 0.7s;
+}
+
+.prod-tag {
+  display: inline-block;
+  margin: 0 0 16px;
+  padding: 4px 8px;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.16);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.prod-name {
+  margin: 0 0 12px;
+  font-size: clamp(40px, 3.9vw, 56px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.prod-text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.45;
+  color: rgb(255 255 255 / 0.88);
+}
+
+.products-more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(32px, 3.3vw, 48px);
+}
+
+[dir="rtl"] .prod-tag {
+  letter-spacing: 0;
+}
+
+@media (max-width: 991px) {
+  .prod-card {
+    flex-basis: 16%;
+  }
+}
+
+@media (max-width: 767px) {
+  .products {
+    padding-inline: var(--gutter);
+  }
+
+  .prod-row {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .prod-card {
+    flex: none;
+    height: 72px;
+    transition: height 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .prod-card[data-open] {
+    height: 34rem;
+  }
+
+  .prod-toggle {
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 24px;
+  }
+
+  .prod-preview {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 24px;
+  }
+
+  .prod-content {
+    padding: 32px 24px;
+  }
+
+  /* narrower card: the text covers more of the picture, so the top fade reaches further */
+  .prod-card[data-open] .prod-shade {
+    background:
+      linear-gradient(180deg, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.55) 40%, rgb(0 0 0 / 0) 70%),
+      rgb(0 0 0 / 0.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prod-card,
+  .prod-top,
+  .prod-bottom,
+  .prod-preview {
+    transition-duration: 0.01s !important;
+    transition-delay: 0s !important;
+  }
+}

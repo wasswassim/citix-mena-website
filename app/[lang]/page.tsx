@@ -5,6 +5,7 @@ import Arrow from "@/components/Arrow";
 import CompanyFacts from "@/components/CompanyFacts";
 import EcosystemCards from "@/components/EcosystemCards";
 import HeroLoop from "@/components/HeroLoop";
+import ProductCards from "@/components/ProductCards";
 import SiteHeader from "@/components/SiteHeader";
 import { logoStyle, trustedBrands } from "@/lib/brands";
 import { dictionaries, isLocale } from "@/lib/i18n";
@@ -82,6 +83,15 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           ctaLine={t.about.ctaLine}
           cta={t.about.cta}
           href={soon}
+        />
+
+        <ProductCards
+          title={t.products.title}
+          sub={t.products.sub}
+          cta={t.products.cta}
+          all={t.products.all}
+          href={soon}
+          cards={t.products.cards}
         />
       </main>
     </>
