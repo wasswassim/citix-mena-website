@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Arrow from "@/components/Arrow";
+import EcosystemCards from "@/components/EcosystemCards";
 import HeroLoop from "@/components/HeroLoop";
 import SiteHeader from "@/components/SiteHeader";
 import { trustedBrands } from "@/lib/brands";
@@ -43,6 +44,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               <span className="hero-line">{t.hero.line1}</span> <span className="hero-line">{t.hero.line2}</span>
             </h1>
           </div>
+
+          <EcosystemCards label={t.ecosystem.label} cards={t.ecosystem.cards} />
 
           <div className="hero-ctas">
             <Link className="btn-outline" href={soon}>

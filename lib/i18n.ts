@@ -41,6 +41,7 @@ type Dictionary = {
     trusted: string;
     placeholderNote: string;
   };
+  ecosystem: { label: string; cards: { title: string; text: string }[] };
   header: {
     nav: { solutions: string; smartboards: string; projects: string; about: string; insights: string; contact: string };
     getInTouch: string;
@@ -84,8 +85,20 @@ export const dictionaries: Record<Locale, Dictionary> = {
       line2: "Stronger Brands.",
       ctaSolutions: "Our Solutions",
       ctaProject: "Latest Project",
-      trusted: "Trusted by leading global brands:",
+      trusted: "Global brands that trust CITIX",
       placeholderNote: "logo placeholder",
+    },
+    // From the CITIX Ecosystem slide (company deck). "Propriety" on the slide corrected to "Proprietary".
+    ecosystem: {
+      label: "Ecosystem",
+      cards: [
+        { title: "Hardware", text: "Self-engineered smartboards and components" },
+        { title: "Software", text: "Proprietary solutions" },
+        { title: "AI engine", text: "Face detection, ML and computer vision" },
+        { title: "Blockchain", text: "Content delivery" },
+        { title: "VPN", text: "Content delivery tunnels" },
+        { title: "Smart City", text: "Easy-to-integrate informational system" },
+      ],
     },
     header: {
       nav: {
@@ -96,7 +109,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         insights: "Insights",
         contact: "Contact",
       },
-      getInTouch: "Get in touch",
+      getInTouch: "Get a quote",
       menuOpen: "Open menu",
       menuClose: "Close menu",
       navLabel: "Main",
@@ -133,8 +146,19 @@ export const dictionaries: Record<Locale, Dictionary> = {
       line2: "علامات أقوى.",
       ctaSolutions: "حلولنا",
       ctaProject: "أحدث مشاريعنا",
-      trusted: "تثق بنا علامات عالمية رائدة:",
+      trusted: "علامات عالمية تثق بـ CITIX",
       placeholderNote: "شعار مؤقت",
+    },
+    ecosystem: {
+      label: "المنظومة",
+      cards: [
+        { title: "الأجهزة", text: "لوحات ذكية ومكوّنات من تصميمنا" },
+        { title: "البرمجيات", text: "حلول خاصة بنا" },
+        { title: "محرّك الذكاء الاصطناعي", text: "التعرّف على الوجوه، التعلّم الآلي والرؤية الحاسوبية" },
+        { title: "بلوك تشين", text: "توصيل المحتوى" },
+        { title: "VPN", text: "قنوات آمنة لتوصيل المحتوى" },
+        { title: "المدينة الذكية", text: "نظام معلوماتي سهل الدمج" },
+      ],
     },
     header: {
       nav: {
@@ -145,7 +169,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
         insights: "رؤى",
         contact: "تواصل",
       },
-      getInTouch: "تواصل معنا",
+      getInTouch: "اطلب عرض سعر",
       menuOpen: "فتح القائمة",
       menuClose: "إغلاق القائمة",
       navLabel: "الرئيسية",

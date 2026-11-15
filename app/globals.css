@@ -47,14 +47,15 @@ a {
   padding: 4px 4px 4px 8px;
   border: 1px solid rgb(255 255 255 / 0.2);
   border-radius: 4px;
-  background: transparent;
+  /* Filled with the brand gradient (Wassim, 15 Nov 2026) */
+  background: linear-gradient(135deg, var(--pulse), var(--pulse-dark));
   color: var(--snow);
   font-size: 16px;
   line-height: 20px;
   font-weight: 400;
   text-decoration: none;
   white-space: nowrap;
-  transition: border-color 0.25s ease;
+  transition: border-color 0.25s ease, filter 0.25s ease;
 }
 
 [dir="rtl"] .btn-outline {
@@ -77,10 +78,12 @@ a {
 
 .btn-outline:hover {
   border-color: rgb(255 255 255 / 0.6);
+  filter: brightness(1.12);
 }
 
 .btn-outline:hover .btn-arrow {
-  background: var(--pulse);
+  background: var(--snow);
+  color: var(--pulse);
 }
 
 /* ---------- Fixed header + optional announcement bar ---------- */
@@ -168,8 +171,12 @@ a {
   transition: background-color 0.2s ease;
 }
 
-.site-nav a:hover {
-  background: rgb(255 255 255 / 0.1);
+/* Menu hover: the brand gradient (Wassim, 15 Nov 2026) */
+.site-nav a:hover,
+.menu-btn:hover,
+.mobile-menu a:hover {
+  background: linear-gradient(135deg, var(--pulse), var(--pulse-dark));
+  border-color: transparent;
 }
 
 .header-actions {
@@ -195,6 +202,7 @@ a {
   background: transparent;
   color: var(--snow);
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .mobile-menu {
@@ -213,7 +221,9 @@ a {
 
 .mobile-menu a {
   display: block;
-  padding: 12px 0;
+  margin-inline: -8px;
+  padding: 12px 8px;
+  border-radius: 4px;
   font-size: 18px;
   font-weight: 400;
   text-decoration: none;
@@ -279,7 +289,8 @@ a {
   line-height: 1;
   letter-spacing: -2px;
   font-weight: 500;
-  background: radial-gradient(circle at 50% 0%, #ffffff 25%, #e0e0e0 60%, #8a8f99 90%);
+  /* Brand gradient (Wassim, 15 Nov 2026): Pure Snow at the top centre flowing into Pulse Red #FD0332 -> #990332 */
+  background: radial-gradient(circle at 50% 0%, #ffffff 30%, #fd0332 78%, #990332 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -376,6 +387,93 @@ a {
   opacity: 0.7;
 }
 
+/* ---------- CITIX Ecosystem glass cards (bottom-start; label level with the trusted-by label) ---------- */
+.ecosystem {
+  --card: clamp(128px, 10.5vw, 168px);
+  position: absolute;
+  inset-inline-start: var(--gutter);
+  /* label top sits at 87.8% (same line as the trusted-by label); its line is 23 px tall */
+  inset-block-end: calc(12.2% - 23px);
+}
+
+.eco-cards {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eco-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: var(--card);
+  aspect-ratio: 1;
+  padding: calc(var(--card) * 0.1);
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: calc(var(--card) * 0.13);
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.04));
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  backdrop-filter: blur(14px) saturate(120%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12);
+}
+
+.eco-card.is-flipping {
+  animation: eco-flip 0.6s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@keyframes eco-flip {
+  50% {
+    transform: scaleX(0.02);
+  }
+}
+
+.eco-title {
+  padding-inline-end: 18px;
+  font-weight: 800;
+  font-size: max(12px, calc(var(--card) * 0.1));
+  line-height: 1.15;
+}
+
+.eco-dot {
+  position: absolute;
+  inset-block-start: calc(var(--card) * 0.1);
+  inset-inline-end: calc(var(--card) * 0.1);
+  width: calc(var(--card) * 0.085);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--snow);
+  box-shadow: 0 0 10px 3px rgb(255 255 255 / 0.45);
+}
+
+.eco-text {
+  font-size: max(10px, calc(var(--card) * 0.075));
+  line-height: 1.25;
+  color: var(--mist);
+}
+
+.eco-label {
+  margin: 12px 0 0;
+  font-size: 18px;
+  line-height: 23px;
+  font-weight: 400;
+  color: #ecf0f8;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ---------- Mobile ---------- */
 @media (max-width: 900px) {
   .site-nav,
@@ -387,6 +485,27 @@ a {
   }
   .menu-btn {
     display: grid;
+  }
+  /* Phones and tablets: buttons start-aligned, the ecosystem cards fill the width just above them,
+     with the "Ecosystem" label on top of the cards (the trusted-by label sits below the buttons) */
+  .hero-ctas {
+    inset-block-start: 79.4%;
+    inset-inline: var(--gutter);
+    flex-wrap: wrap;
+  }
+  .ecosystem {
+    --card: min(168px, calc((100vw - 2 * var(--gutter) - 16px) / 3));
+    inset-block-end: calc(20.6% + 12px);
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .eco-cards {
+    gap: 8px;
+  }
+  .eco-label {
+    margin: 0 0 8px;
+    font-size: 16px;
+    line-height: 20px;
   }
 }
 
@@ -404,11 +523,6 @@ a {
   }
   .hero-title-wrap {
     inset-block-start: 128px;
-  }
-  .hero-ctas {
-    inset-block-start: 79.4%;
-    inset-inline: var(--gutter);
-    flex-wrap: wrap;
   }
   .trusted {
     inset-block-start: 86.7%;
