@@ -800,3 +800,6 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 - Card sizing now copies the bluesqx rule exactly: closed 12 %, open 100 %, all shrink to fit with 2 rem side padding -> 969 / 134 px on a 1397 px row, 810 px tall, 8 px gaps. Square corners.
 - Less space between sections: facts 28-44 px, About 56-88 px, Products 48-72 px (was 40-64 / 96-176 / 72-112).
 - Review: Baloo clip shows a real Jetour car campaign (same question as the Emirates/Gucci ads).
+
+## 15 Nov 2026 (late): Tom card = day + night in one clip (no credits spent)
+- Wassim compared Tom/Jerry alternatives in a local lab page (media/web/products-lab, not committed) and chose: Jerry stays; Tom plays the creative `tom_wate_auto` 0-9.6 s in one piece (daylight heat-alert shot, the creative's own blur-and-cut, then the night seatbelt/car shot). tom-daynight.mp4 1.07 MB / .webm 724 KB. The day-only tom.mp4/webm stay in the repo, unused.

@@ -29,7 +29,7 @@ const clip = (n: string, poster: [string, string], position?: string): Media => 
 });
 // Every card is a video (Wassim, 15 Nov 2026); the still underneath is its first frame.
 const MEDIA: Media[] = [
-  clip("tom", ["tom-poster-600.webp", "tom-poster-1200.webp"]),
+  clip("tom-daynight", ["tom-poster-600.webp", "tom-poster-1200.webp"]), // day then night, one clip (9.6 s)
   clip("jerry", ["jerry-poster-600.webp", "jerry-poster-1200.webp"]),
   clip("baloo", ["baloo-poster-600.webp", "baloo-poster-1200.webp"]),
   {
