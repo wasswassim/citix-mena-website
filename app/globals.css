@@ -718,32 +718,42 @@ main:focus {
 }
 
 /* ---------- Company facts (between the hero and the About statement) ----------
-   A compact counter row (Wassim's reference: numbers side by side, a short line under each, thin full-height
-   dividers). White background (Wassim, 15 Nov 2026; the black-to-white fade was tried and dropped), with a thin
-   line underneath to close the row before the white About section, as in the reference. */
+   A row of equal squares, number and line centred in each (Wassim, 15 Nov 2026), on white (the black-to-white
+   fade was tried and dropped). The squares share 1 px Urban Mist lines: each cell draws its own right and bottom
+   edges outside and its left and top edges inside, so neighbouring edges land on the same pixel (one line, never
+   doubled). Flex-wrap with centring keeps a short last row in the middle (tablets 3 + 2, phones 2 + 2 + 1). */
 .facts {
-  --facts-line: rgb(22 22 22 / 0.12);
+  --cols: 5;
+  --facts-line: var(--mist);
+  padding: clamp(48px, 5vw, 80px) var(--gutter);
   background: var(--snow);
   color: var(--graphite);
-  border-block-end: 1px solid var(--facts-line);
 }
 
 .facts-list {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: 0;
-  padding: 0 var(--gutter);
+  padding: 0;
   list-style: none;
 }
 
 .fact {
-  padding: clamp(40px, 4.4vw, 64px) clamp(20px, 2.6vw, 40px);
-  border-inline-start: 1px solid var(--facts-line);
-}
-
-.fact:first-child {
-  padding-inline-start: 0;
-  border-inline-start: 0;
+  flex: 0 0 calc(100% / var(--cols));
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  box-shadow:
+    1px 0 0 0 var(--facts-line),
+    0 1px 0 0 var(--facts-line),
+    1px 1px 0 0 var(--facts-line),
+    inset 1px 0 0 0 var(--facts-line),
+    inset 0 1px 0 0 var(--facts-line);
 }
 
 .fact-num {
@@ -762,6 +772,8 @@ main:focus {
   font-size: clamp(15px, 1.15vw, 18px);
   line-height: 1.35;
   color: rgb(22 22 22 / 0.7);
+  /* room for two lines in every square, so the numbers sit at the same height across the row */
+  min-height: calc(2em * 1.35);
 }
 
 /* Entrance (only once JS has set data-anim, so the numbers stay visible without it) */
@@ -781,45 +793,24 @@ main:focus {
 
 /* Tablets: 3 + 2 */
 @media (min-width: 768px) and (max-width: 991px) {
-  .facts-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .fact {
-    padding-block: 32px;
-  }
-
-  .fact:nth-child(3n + 1) {
-    padding-inline-start: 0;
-    border-inline-start: 0;
-  }
-
-  .fact:nth-child(n + 4) {
-    border-block-start: 1px solid var(--facts-line);
+  .facts {
+    --cols: 3;
   }
 }
 
-/* Phones: 2 + 2 + 1 (the fifth counter spans the row) */
+/* Phones: 2 + 2 + 1 */
 @media (max-width: 767px) {
-  .facts-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .facts {
+    --cols: 2;
   }
 
   .fact {
-    padding: 28px 12px 28px 16px;
+    padding: 12px;
   }
 
-  .fact:nth-child(odd) {
-    padding-inline-start: 0;
-    border-inline-start: 0;
-  }
-
-  .fact:nth-child(n + 3) {
-    border-block-start: 1px solid var(--facts-line);
-  }
-
-  .fact:nth-child(5) {
-    grid-column: 1 / -1;
+  /* narrow squares: the longest label wraps to three lines, so every label reserves three */
+  .fact-label {
+    min-height: calc(3em * 1.35);
   }
 
   .fact-num {
