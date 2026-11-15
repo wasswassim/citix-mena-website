@@ -720,3 +720,7 @@ Wassim approved the 28 s loop ("Approve loop").
 P4 Option A: a plain centre crop misses the glass panel (it sits right of centre, panel + content span ~630 px, a 9:16 window is 404 px). `scripts/orbit_mobile_crop.py` cuts a 404x720 window from `orbit_master_16x9.mp4` and moves it slowly per scene with hand-placed eased keys (panel first, then toward the subject as it comes out; camel keys shifted left so its head stays in frame). Raw YUV, no grading.
 - Master `media/hero_orbit/v5/mobile/orbit_master_9x16.mp4`; web `media/web/hero/orbit_9x16.mp4` (720x1280, 6.36 MB), `orbit_9x16.webm` (4.35 MB), `orbit_9x16_poster.webp` (oasis at 5 s). 28.0 s, same timings; `timing.json` gains a `mobile_9x16` entry.
 - Limits: the source is upscaled from 720 px wide (softer than the desktop loop); in the SUV ending the right edge of the panel leaves the frame. Option B (native 9:16 re-run, ≈ $7) would fix both.
+
+### P4 Option A v2 — stutter fix (no credits, 15 Nov 2026)
+
+Wassim: the mobile version looked flickery. Cause (measured): v1 moved the crop window in 2 source-px steps (= 3.6 phone px) with up to 18 still frames between steps, so slow drifts played as a stutter. v2 cuts the window from a frame already scaled to phone size (1 px steps), keeps oasis and perfume still, and gives camel (880 → 630) and SUV (890 → 780) one slow eased glide each (max 8 / 4 phone px per frame). The window only jumps on the black joins. v1 kept in `media/web/hero/_archive_m1/` and `media/hero_orbit/v5/mobile/_archive_v1/`.

@@ -65,6 +65,6 @@
       720,
       1280
     ],
-    "method": "Option A (free): 404x720 window cut from the 16:9 master, hand-keyed slow reframe per scene (scripts/orbit_mobile_crop.py), upscaled to 720x1280. Same timings as 16:9."
+    "method": "Option A (free): 9:16 window cut from the 16:9 master at phone resolution (frame scaled to 1280 px high, 720 px window), so pans move in 1 px steps; oasis and perfume framed still, camel and SUV one slow eased glide each (scripts/orbit_mobile_crop.py). Same timings as 16:9."
   }
 }

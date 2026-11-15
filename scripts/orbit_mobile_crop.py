@@ -23,6 +23,7 @@ import numpy as np
 
 W, H, FPS = 1280, 720, 24
 CW = 404                                   # 9:16 window on a 720 px-high frame (even width for yuv420p)
+OW, OH = 720, 1280                         # output (phone) size; the crop is cut at this resolution
 YS, CS = W * H, (W // 2) * (H // 2)
 SMOOTH_S = 0.9                             # gaussian sigma of the path, seconds
 MAX_PX_PER_FRAME = 4.0                     # pan speed limit (~96 px/s on the master)
@@ -66,10 +67,10 @@ def smooth_scene(c: np.ndarray) -> np.ndarray:
 # Hand-placed window centres (scene seconds -> master x), eased between keys. The automatic centring above is
 # pulled off the panel by the lit sand, so these are used for every scene; it stays as a fallback.
 KEYS: dict[str, list[tuple[float, float]]] = {
-    "oasis":   [(0.0, 900), (3.0, 900), (6.9, 860)],
-    "perfume": [(0.0, 900), (6.0, 880)],
-    "camel":   [(0.0, 900), (1.8, 870), (3.8, 680), (6.0, 650)],
-    "suv":     [(0.0, 900), (2.5, 880), (4.5, 780), (8.0, 780)],
+    "oasis":   [(0.0, 880), (8.0, 880)],          # static: a 40 px drift only read as stutter
+    "perfume": [(0.0, 890), (6.0, 890)],          # static
+    "camel":   [(0.0, 880), (0.9, 880), (4.8, 630), (6.0, 630)],   # one long glide
+    "suv":     [(0.0, 890), (1.5, 890), (5.0, 780), (8.0, 780)],
 }
 
 
@@ -100,20 +101,30 @@ def main(argv: list[str]) -> int:
         else:
             path[a:b] = smooth_scene(raw_c[a:b])
         report.append(f"{sc['name']}: window x {int(path[a:b].min() - CW / 2)}-{int(path[a:b].max() + CW / 2)}")
-    x0 = (np.round(path - CW / 2).astype(int) // 2) * 2  # even, for the half-size chroma planes
+    # Crop at OUTPUT resolution: the whole frame is first scaled to 1280 px high (lanczos, yuv444p so any x works),
+    # then a 720 px window is cut, so the pan moves in 1 phone-pixel steps. (v1 cut 2 source px steps = 3.6 phone px
+    # with up to 18 still frames between them: a visible stutter.)
+    del v
+    sc_ = OH / H
+    bw = int(round(W * sc_ / 2)) * 2                      # 2276
+    xs = np.clip(np.round(path * sc_ - OW / 2).astype(int), 0, bw - OW)
     out_dir.mkdir(parents=True, exist_ok=True)
     master = out_dir / "orbit_master_9x16.mp4"
-    with tempfile.TemporaryDirectory() as tmp:
-        raw = Path(tmp) / "m.yuv"
-        with raw.open("wb") as fh:
-            for i, f in enumerate(v):
-                x = x0[i]
-                fh.write(f[:YS].reshape(H, W)[:, x:x + CW].tobytes())
-                fh.write(f[YS:YS + CS].reshape(H // 2, W // 2)[:, x // 2:x // 2 + CW // 2].tobytes())
-                fh.write(f[YS + CS:].reshape(H // 2, W // 2)[:, x // 2:x // 2 + CW // 2].tobytes())
-        subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "yuv420p", "-s", f"{CW}x{H}",
-                        "-framerate", str(FPS), "-i", str(raw), "-c:v", "libx264", "-crf", "12", "-preset", "slow",
-                        "-pix_fmt", "yuv420p", str(master)], check=True)
+    dec = subprocess.Popen(["ffmpeg", "-v", "error", "-i", str(src), "-vf", f"scale={bw}:{OH}:flags=lanczos",
+                            "-f", "rawvideo", "-pix_fmt", "yuv444p", "-"], stdout=subprocess.PIPE)
+    enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "yuv444p", "-s",
+                            f"{OW}x{OH}", "-framerate", str(FPS), "-i", "-", "-c:v", "libx264", "-crf", "12",
+                            "-preset", "slow", "-pix_fmt", "yuv420p", str(master)], stdin=subprocess.PIPE)
+    fs = bw * OH * 3
+    for i in range(len(path)):
+        buf = dec.stdout.read(fs)
+        f = np.frombuffer(buf, np.uint8).reshape(3, OH, bw)
+        enc.stdin.write(np.ascontiguousarray(f[:, :, xs[i]:xs[i] + OW]).tobytes())
+    enc.stdin.close()
+    dec.wait()
+    enc.wait()
+    steps = np.abs(np.diff(xs))
+    print(f"pan steps (phone px per frame): max {steps.max()}, frames moving {int((steps > 0).sum())}")
     np.save(out_dir / "crop_path.npy", path)
     print("\n".join(report))
     print(f"-> {master}")
