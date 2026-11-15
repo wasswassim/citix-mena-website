@@ -16,7 +16,7 @@ import { useEffect, useRef, useState } from "react";
  */
 type Card = { title: string; text: string };
 
-const HOLD_MS = 4200; // time each set stays
+const HOLD_MS = 7000; // time each set stays (Wassim, 15 Nov 2026)
 const STAGGER_MS = 160; // delay between the 3 cards
 const HALF_MS = 450; // half the blur swap: the words change at the blurriest moment (CSS: 2 × HALF_MS)
 const SAMPLE_MS = 125; // light sampling rate

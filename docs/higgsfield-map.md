@@ -766,3 +766,5 @@ Checked: 1440x900 EN through the loop (light values measured), 390x844 AR (fits,
 ## Hero: Ecosystem cards change by blur, not flip (no credits, 15 Nov 2026)
 
 Wassim: "Instead of making the cards flip, make the content inside the cards blur and change." The glass cards now stay still; every 4.2 s, one card after another (160 ms apart), the title and text blur out (10 px, fading, slightly shrinking), change at the blurriest moment (450 ms) and sharpen back in (0.9 s in all). Light tracking unchanged; nothing moves with reduced motion. Checked: the animation runs on the title and text only, blur(10px) and opacity 0 at the midpoint, words swap Hardware -> Blockchain etc.; no console errors.
+
+Ecosystem cards: each set now stays 7 s instead of 4.2 s (Wassim, 15 Nov 2026); measured 7.0 s between changes in the browser.
