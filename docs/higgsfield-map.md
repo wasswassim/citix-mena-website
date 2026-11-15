@@ -732,3 +732,7 @@ Wassim: "Keep Option A" (mobile = the free keyed reframe, no 9:16 regeneration).
 P5: `components/HeroLoop.tsx` replaces the old Tom placeholder still in the hero. Server-rendered poster `<img>` (LCP; 16:9 oasis still, 9:16 frame on portrait screens), then the muted loop fades in once playing: `orbit_16x9` (WebM, MP4 fallback) on landscape, `orbit_9x16` on portrait (max-aspect-ratio 4/5). No video under prefers-reduced-motion; paused off-screen and in hidden tabs. Side gradient for copy legibility (mirrored in AR). H1, sub, CTAs, EN/AR unchanged; alt text rewritten for the new loop. `sync-media` no longer copies `_archive*` folders into public.
 Checked in the browser pane: EN desktop plays the 16:9 WebM; AR at 375x812 plays the 9:16 WebM, RTL, no horizontal scroll; pauses off-screen and resumes; no console errors. Reduced motion not checked in the browser (code path only).
 Note: the logo marquee and the other homepage sections are not built yet (the runbook's "keep the 35-logo marquee" refers to work still to come).
+
+## v5 GATE 5 approved (15 Nov 2026)
+
+Wassim: "Approve hero". Runbook v5 P0 → P5 complete. Hero spend: $8.85 in v5 ($0.252 stills + $0.086 perfume still t2 + 5 × $1.7024 clips); project total $28.38 of the $40 cap.
