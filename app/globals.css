@@ -227,6 +227,40 @@ a {
   list-style: none;
 }
 
+/* Over a light section (data-header-theme="light", e.g. the About statement) the header turns dark, as on the
+   reference: graphite text and the official black-and-red logo. The calm-red buttons and menu stay as they are. */
+.site-top {
+  color: var(--snow);
+  transition: color 0.3s ease;
+}
+
+.site-name .logo-dark,
+.site-top[data-theme="light"] .site-name .logo-light {
+  display: none;
+}
+
+.site-top[data-theme="light"] .site-name .logo-dark {
+  display: block;
+}
+
+.site-top[data-theme="light"] {
+  color: var(--graphite);
+}
+
+.site-top[data-theme="light"] .menu-btn {
+  border-color: rgb(22 22 22 / 0.25);
+  color: var(--graphite);
+}
+
+.site-top[data-theme="light"] .site-nav a:hover,
+.site-top[data-theme="light"] .menu-btn:hover {
+  color: var(--snow);
+}
+
+.site-top[data-theme="light"] .mobile-menu {
+  color: var(--snow);
+}
+
 .mobile-menu a {
   display: block;
   margin-inline: -8px;
@@ -297,9 +331,15 @@ a {
   line-height: 1;
   letter-spacing: -2px;
   font-weight: 500;
-  /* Brand colours, calm (Wassim, 15 Nov 2026): Pure Snow at the top centre, Urban Mist, then the deep brand red
-     #990332 only toward the edges (the bright #FD0332 version read too shiny) */
-  background: radial-gradient(circle at 50% 0%, #ffffff 30%, #e0e0e0 58%, #a8103d 86%, #7a0428 100%);
+  /* White fading to transparent (Wassim, 15 Nov 2026: no red): Pure Snow at the top centre, thinning toward the
+     edges so the hero film shows through the letters there */
+  background: radial-gradient(
+    circle at 50% 0%,
+    #ffffff 30%,
+    rgb(255 255 255 / 0.82) 55%,
+    rgb(255 255 255 / 0.42) 82%,
+    rgb(255 255 255 / 0.2) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -646,4 +686,71 @@ html[data-intro="on"] body::before {
 /* main only takes focus programmatically (after the intro gate closes): no outline needed */
 main:focus {
   outline: none;
+}
+
+/* ---------- About statement (after the hero) ----------
+   Layout measured on the bluesqx intro statement (1440 / 390 wide): white section, 57 px gutter (our --gutter),
+   max 1280 px text, 48/48 px (36/36 on phones), -1.6 px tracking, weight 500, a blank line between the two
+   paragraphs, 24 px (20) under the title, 64 px (40) before the short line + button, 176 px bottom space.
+   A title replaces their animated logo (Wassim, 15 Nov 2026). */
+.about {
+  padding: clamp(96px, 11vw, 160px) var(--gutter) clamp(120px, 12.2vw, 176px);
+  background: var(--snow);
+  color: var(--graphite);
+}
+
+.about-title {
+  margin: 0 0 24px;
+  font-size: clamp(18px, 1.55vw, 22px);
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.about-text {
+  max-width: 1280px;
+  font-size: clamp(36px, 3.34vw, 48px);
+  line-height: 1;
+  letter-spacing: -1.6px;
+  font-weight: 500;
+}
+
+.about-text p {
+  margin: 0;
+}
+
+.about-text p + p {
+  margin-block-start: 1em;
+}
+
+/* inline (not inline-block): keeps Latin word runs such as "Abu Dhabi" in the right order inside Arabic text */
+.about-word {
+  display: inline;
+}
+
+.about-cta {
+  margin-block-start: 64px;
+}
+
+.about-cta p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+/* Arabic letters join: no negative tracking, a little more leading */
+[dir="rtl"] .about-text {
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+
+@media (max-width: 767px) {
+  .about-title {
+    margin-block-end: 20px;
+  }
+
+  .about-cta {
+    margin-block-start: 40px;
+  }
 }

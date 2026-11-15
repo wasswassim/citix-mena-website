@@ -42,6 +42,7 @@ type Dictionary = {
     placeholderNote: string;
   };
   ecosystem: { label: string; cards: { title: string; text: string }[] };
+  about: { title: string; paragraphs: string[]; ctaLine: string; cta: string };
   header: {
     nav: { solutions: string; smartboards: string; projects: string; about: string; insights: string; contact: string };
     getInTouch: string;
@@ -99,6 +100,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { title: "VPN", text: "Content delivery tunnels" },
         { title: "Smart City", text: "Easy-to-integrate informational system" },
       ],
+    },
+    // About statement (Wassim, 15 Nov 2026). Sources: sales deck "About CITIX" + "Company facts" (UAE, Oman,
+    // Kazakhstan, Turkey), brand book mission ("Smart City, AdTech and design", "We make tomorrow happen today").
+    about: {
+      title: "About CITIX",
+      paragraphs: [
+        "CITIX is a smart-city and digital out-of-home company that turns street advertising into a living network, where technology, creativity and design work for the city.",
+        "From the UAE to Oman, Kazakhstan and Turkey, our smartboards and giant 3D screens share live city information and put brands exactly where people look.",
+      ],
+      ctaLine: "Let’s make tomorrow happen today.",
+      cta: "Talk to us",
     },
     header: {
       nav: {
@@ -159,6 +171,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { title: "VPN", text: "قنوات آمنة لتوصيل المحتوى" },
         { title: "المدينة الذكية", text: "نظام معلوماتي سهل الدمج" },
       ],
+    },
+    about: {
+      title: "عن CITIX",
+      paragraphs: [
+        "CITIX شركة متخصصة في المدن الذكية والإعلانات الرقمية الخارجية، تحوّل إعلانات الشوارع إلى شبكة رقمية حيّة تجتمع فيها التقنية والإبداع والتصميم لخدمة المدينة.",
+        "من الإمارات إلى عُمان وكازاخستان وتركيا، تعرض لوحاتنا الذكية وشاشاتنا العملاقة ثلاثية الأبعاد معلومات المدينة لحظة بلحظة، وتضع العلامات التجارية حيث ينظر الناس تماماً.",
+      ],
+      ctaLine: "لنصنع الغد اليوم.",
+      cta: "تحدث إلينا",
     },
     header: {
       nav: {

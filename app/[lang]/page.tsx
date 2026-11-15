@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AboutStatement from "@/components/AboutStatement";
 import Arrow from "@/components/Arrow";
 import EcosystemCards from "@/components/EcosystemCards";
 import HeroLoop from "@/components/HeroLoop";
@@ -71,6 +72,14 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             </div>
           </div>
         </section>
+
+        <AboutStatement
+          title={t.about.title}
+          paragraphs={t.about.paragraphs}
+          ctaLine={t.about.ctaLine}
+          cta={t.about.cta}
+          href={soon}
+        />
       </main>
     </>
   );

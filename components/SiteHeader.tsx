@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Arrow from "@/components/Arrow";
 import { SHOW_ANNOUNCEMENT } from "@/lib/flags";
 import type { Locale } from "@/lib/i18n";
@@ -39,6 +39,36 @@ export default function SiteHeader(p: Props) {
     setBar((SHOW_ANNOUNCEMENT || forced) && !closed);
   }, []);
 
+  // Dark header over light sections: checks which section sits under the header's middle line while scrolling
+  const topRef = useRef<HTMLDivElement>(null);
+  const [light, setLight] = useState(false);
+  useEffect(() => {
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const header = topRef.current?.querySelector(".site-header");
+      if (!header) return;
+      const r = header.getBoundingClientRect();
+      const y = r.top + r.height / 2;
+      const onLight = [...document.querySelectorAll<HTMLElement>('[data-header-theme="light"]')].some((el) => {
+        const b = el.getBoundingClientRect();
+        return b.top <= y && b.bottom >= y;
+      });
+      setLight(onLight);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(check);
+    };
+    check();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -54,7 +84,7 @@ export default function SiteHeader(p: Props) {
   };
 
   return (
-    <div className="site-top" data-open={open || undefined}>
+    <div ref={topRef} className="site-top" data-open={open || undefined} data-theme={light ? "light" : undefined}>
       {bar && (
         <div className="announce">
           <p>{p.announcement.text}</p>
@@ -73,7 +103,17 @@ export default function SiteHeader(p: Props) {
         {/* Official CITIX › MENA logo from citixmena.com (media/brand/_download_2026-11-15/SOURCE.md).
             Brand rules: never stretched (height set, width follows), never bottom-right, clear space = the X. */}
         <Link href={`/${p.lang}`} className="site-name">
-          <img src="/media/brand/citix-logo-white.png" alt={p.siteName} width={934} height={280} />
+          <img className="logo-light" src="/media/brand/citix-logo-white.png" alt={p.siteName} width={934} height={280} />
+          {/* Brand book "black / red" version for light sections: made from the official file by turning only its
+              white pixels black (red X and chevron untouched). */}
+          <img
+            className="logo-dark"
+            src="/media/brand/citix-logo-black.png"
+            alt=""
+            aria-hidden="true"
+            width={934}
+            height={280}
+          />
         </Link>
         <nav className="site-nav" aria-label={p.navLabel}>
           <ul>
