@@ -42,6 +42,7 @@ type Dictionary = {
     placeholderNote: string;
   };
   ecosystem: { label: string; cards: { title: string; text: string }[] };
+  facts: { title: string; items: { value: number; suffix: string; label: string }[] };
   about: { title: string; paragraphs: string[]; ctaLine: string; cta: string };
   header: {
     nav: { solutions: string; smartboards: string; projects: string; about: string; insights: string; contact: string };
@@ -99,6 +100,17 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { title: "Blockchain", text: "Content delivery" },
         { title: "VPN", text: "Content delivery tunnels" },
         { title: "Smart City", text: "Easy-to-integrate informational system" },
+      ],
+    },
+    // Counters from the "Company facts" slide (company deck). Left out on purpose: revenue and EBITDA (financials,
+    // need the supervisor's OK before going public), countries and "No. 1 in Kazakhstan" (the network section).
+    facts: {
+      title: "CITIX MENA in numbers",
+      items: [
+        { value: 600, suffix: "+", label: "smartboards installed" },
+        { value: 360, suffix: "", label: "brands partnered with us" },
+        { value: 1000, suffix: "+", label: "marketing campaigns delivered" },
+        { value: 50, suffix: "+", label: "smart-city cases" },
       ],
     },
     // About statement (Wassim, 15 Nov 2026). Sources: sales deck "About CITIX", "Smart widget system", "Dynamic
@@ -172,6 +184,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { title: "بلوك تشين", text: "توصيل المحتوى" },
         { title: "VPN", text: "قنوات آمنة لتوصيل المحتوى" },
         { title: "المدينة الذكية", text: "نظام معلوماتي سهل الدمج" },
+      ],
+    },
+    facts: {
+      title: "CITIX MENA بالأرقام",
+      items: [
+        { value: 600, suffix: "+", label: "لوحة ذكية مثبّتة" },
+        { value: 360, suffix: "", label: "علامة تجارية شريكة" },
+        { value: 1000, suffix: "+", label: "حملة تسويقية منفّذة" },
+        { value: 50, suffix: "+", label: "حالة استخدام للمدن الذكية" },
       ],
     },
     about: {

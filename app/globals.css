@@ -717,6 +717,105 @@ main:focus {
   outline: none;
 }
 
+/* ---------- Company facts (between the hero and the About statement) ----------
+   A compact counter row (Wassim's reference: numbers side by side, a short line under each, thin full-height
+   dividers). Neutral light grey so it reads as its own band before the white About section (no warm cream). */
+.facts {
+  --facts-line: rgb(22 22 22 / 0.12);
+  background: #f4f4f4;
+  color: var(--graphite);
+  border-block-end: 1px solid var(--facts-line);
+}
+
+.facts-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0 var(--gutter);
+  list-style: none;
+}
+
+.fact {
+  padding: clamp(40px, 4.4vw, 64px) clamp(20px, 2.6vw, 40px);
+  border-inline-start: 1px solid var(--facts-line);
+}
+
+.fact:first-child {
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+.fact-num {
+  margin: 0 0 12px;
+  font-size: clamp(44px, 4.6vw, 72px);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.fact-label {
+  margin: 0;
+  max-width: 24ch;
+  font-size: clamp(15px, 1.15vw, 18px);
+  line-height: 1.35;
+  color: rgb(22 22 22 / 0.7);
+}
+
+/* Entrance (only once JS has set data-anim, so the numbers stay visible without it) */
+.facts[data-anim] .fact {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--i, 0) * 140ms);
+}
+
+.facts[data-anim].is-in .fact {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 991px) {
+  .facts-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fact {
+    padding-block: 32px;
+  }
+
+  .fact:nth-child(odd) {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+
+  .fact:nth-child(even) {
+    border-inline-start: 1px solid var(--facts-line);
+  }
+
+  .fact:nth-child(n + 3) {
+    border-block-start: 1px solid var(--facts-line);
+  }
+}
+
+@media (max-width: 767px) {
+  .fact {
+    padding-inline-end: 12px;
+  }
+
+  .fact:nth-child(even) {
+    padding-inline-start: 16px;
+  }
+
+  .fact-num {
+    margin-block-end: 8px;
+    font-size: 40px;
+  }
+}
+
 /* ---------- About statement (after the hero) ----------
    Layout measured on the bluesqx intro statement (1440 / 390 wide): white section, 57 px gutter (our --gutter),
    max 1280 px text, 48/48 px (36/36 on phones), -1.6 px tracking, weight 500, a blank line between the two

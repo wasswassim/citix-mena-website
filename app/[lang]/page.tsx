@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import AboutStatement from "@/components/AboutStatement";
 import Arrow from "@/components/Arrow";
+import CompanyFacts from "@/components/CompanyFacts";
 import EcosystemCards from "@/components/EcosystemCards";
 import HeroLoop from "@/components/HeroLoop";
 import SiteHeader from "@/components/SiteHeader";
@@ -72,6 +73,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             </div>
           </div>
         </section>
+
+        <CompanyFacts title={t.facts.title} facts={t.facts.items} />
 
         <AboutStatement
           title={t.about.title}
