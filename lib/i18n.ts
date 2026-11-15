@@ -101,13 +101,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
         { title: "Smart City", text: "Easy-to-integrate informational system" },
       ],
     },
-    // About statement (Wassim, 15 Nov 2026). Sources: sales deck "About CITIX" + "Company facts" (UAE, Oman,
-    // Kazakhstan, Turkey), brand book mission ("Smart City, AdTech and design", "We make tomorrow happen today").
+    // About statement (Wassim, 15 Nov 2026). Sources: sales deck "About CITIX", "Smart widget system", "Dynamic
+    // creative optimization" and the eye-tracking slide (+53% conversion vs standard billboards), brand book mission.
+    // Countries are left to the dedicated network section (Wassim); paragraph 2 is written for search and AI
+    // answers: product names, what they do, and one sourced figure.
     about: {
       title: "About CITIX",
       paragraphs: [
         "CITIX is a smart-city and digital out-of-home company that turns street advertising into a living network, where technology, creativity and design work for the city.",
-        "From the UAE to Oman, Kazakhstan and Turkey, our smartboards and giant 3D screens share live city information and put brands exactly where people look.",
+        "Our smartboards and giant 3D screens pair live city widgets with dynamic creative optimization and campaign analytics, delivering 53% higher conversion than standard billboards in a real-traffic eye-tracking study.",
       ],
       ctaLine: "Let’s make tomorrow happen today.",
       cta: "Talk to us",
@@ -176,7 +178,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       title: "عن CITIX",
       paragraphs: [
         "CITIX شركة متخصصة في المدن الذكية والإعلانات الرقمية الخارجية، تحوّل إعلانات الشوارع إلى شبكة رقمية حيّة تجتمع فيها التقنية والإبداع والتصميم لخدمة المدينة.",
-        "من الإمارات إلى عُمان وكازاخستان وتركيا، تعرض لوحاتنا الذكية وشاشاتنا العملاقة ثلاثية الأبعاد معلومات المدينة لحظة بلحظة، وتضع العلامات التجارية حيث ينظر الناس تماماً.",
+        "تجمع لوحاتنا الذكية وشاشاتنا العملاقة ثلاثية الأبعاد بين معلومات المدينة الحيّة والتحسين الديناميكي للمحتوى الإعلاني وتحليلات الحملات، لتحقق معدل تحويل أعلى بنسبة 53% مقارنة باللوحات الإعلانية التقليدية، وفق دراسة لتتبّع حركة العين في حركة مرور حقيقية.",
       ],
       ctaLine: "لنصنع الغد اليوم.",
       cta: "تحدث إلينا",
