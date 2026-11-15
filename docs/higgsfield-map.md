@@ -712,3 +712,11 @@ Wassim: the frame-repeat fix did not remove the camera flicker in the last 2 s o
 
 Wassim: "Yes, do camel". Same method as the perfume: `scripts/orbit_endwipe.py` on `R3_ref_fixed.mp4`, wipe matching the camel's own closing dune (edge slope 0.75, 14 frames) from frame 112 = **4.67 s** (was 6.67 s), its own 18-frame black tail, scene cut to **6.0 s** → `media/hero_orbit/v5/fixed/R3_ref_end6s.mp4`.
 - Loop now **28.0 s** (oasis 0–8, perfume 8–14, camel 14–20, SUV 20–28): `media/web/hero/orbit_16x9.mp4` **5.56 MB**, `orbit_16x9.webm` **3.41 MB**, 672 frames; joins and seam on black. Previous loop in `media/web/hero/_archive_v5c/`. `timing.json` rewritten (SUV dust peak **26.29 s**).
+
+## v5 GATE 3 approved; P4 mobile Option A (no credits, 15 Nov 2026)
+
+Wassim approved the 28 s loop ("Approve loop").
+
+P4 Option A: a plain centre crop misses the glass panel (it sits right of centre, panel + content span ~630 px, a 9:16 window is 404 px). `scripts/orbit_mobile_crop.py` cuts a 404x720 window from `orbit_master_16x9.mp4` and moves it slowly per scene with hand-placed eased keys (panel first, then toward the subject as it comes out; camel keys shifted left so its head stays in frame). Raw YUV, no grading.
+- Master `media/hero_orbit/v5/mobile/orbit_master_9x16.mp4`; web `media/web/hero/orbit_9x16.mp4` (720x1280, 6.36 MB), `orbit_9x16.webm` (4.35 MB), `orbit_9x16_poster.webp` (oasis at 5 s). 28.0 s, same timings; `timing.json` gains a `mobile_9x16` entry.
+- Limits: the source is upscaled from 720 px wide (softer than the desktop loop); in the SUV ending the right edge of the panel leaves the frame. Option B (native 9:16 re-run, ≈ $7) would fix both.
