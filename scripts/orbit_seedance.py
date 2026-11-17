@@ -171,11 +171,49 @@ for _j in V5_SCENES:
     KEYS[_j] = _j
 
 
+# ---------------------------------------------------------------- Kazakhstan Tom orbit (17 Nov 2026)
+# Wassim: the hero orbit idea for the real board in the company PDF (p16). Look still: v5/kz_tom/KZ_tom.png
+# (scripts/orbit_kz_tom_still.py). Camera: the Tom orbit reference (R1), with the R3 lessons (no push-in, no
+# zoom, no pull-back) forbidden by name. Action: the widget tiles lift out of the screen (no burst of matter).
+KZ_STILL = V5 / "kz_tom" / "KZ_tom.png"
+KZ_PROMPT = (
+    "Use the reference video ONLY for the camera: copy its camera path and its framing exactly. In it the camera "
+    "travels along a circle around a tall glowing totem at a fixed radius and a fixed height, always aimed at the "
+    "totem, at one constant speed. The totem stays at exactly the same position in the frame and at exactly the "
+    "same size in every frame; only its angle changes. The camera never moves closer, never moves away and never "
+    "drifts sideways: no push-in at the start, no zoom in the middle, and NO pull-back before the end. Keep the "
+    "timing too: the shot starts in darkness behind a black sand dune close to the lens, the dune slides away, "
+    "and at the end another black dune slides across the lens while the totem is still at full size, and the "
+    "shot ends in darkness. Do not copy the reference video's plain look. "
+    "Use the reference image for the look, the product and the screen content, exactly as in the image: "
+    "photorealistic cinematic night, very dark and low-key, a black void over desert sand dunes, cool slate-blue "
+    "grading; a tall, slim matte black smartboard totem with one tall screen, a plain top band, a low plinth and "
+    "one thin red LED strip lit along its right side edge. On the screen, from the top: a bright blue widget tile "
+    "with a white ATM icon and a round arrow button, two dark navigation rows with a green and a red round arrow "
+    "button, and below them a flat colour-block poster in pink, mint green, red and blue. The screen is the only "
+    "light: a soft shaft of cool light falls from it onto the sand. "
+    "Action, happening WHILE the camera orbits, never after it: the blue ATM tile and the two navigation rows "
+    "slowly lift further out of the screen toward the camera as thick, solid, glowing 3D tiles, floating in the "
+    "air in front of the screen at different depths, each one staying flat, upright and facing the same way as "
+    "the screen, keeping its shape, colour and icon; they turn with the totem as the camera circles and cast "
+    "soft moving shadows on the sand; near the end they glide back toward the screen surface. The poster stays "
+    "flat inside the screen. "
+    "The totem is a rigid, solid object that never changes shape. No slow-down, no pause. No text, letters, "
+    "numbers, logos, people or buildings."
+)
+V5_SCENES_KZ = {"kz_tom": KZ_STILL}
+BUDGET_USD["kz_tom"] = 1.7024   # Wassim: "OK clip $1.7024" (Kazakhstan Tom orbit), 17 Nov 2026
+KEYS["kz_tom"] = "KZ_tom_clip"
+
+
 def jobs() -> dict:
     v5 = {j: (REF, lambda j=j: {"image_urls": [hf.upload(V5 / "stills" / V5_SCENES[j][0])],
                                 "video_urls": [hf.upload(MOTION3)], "prompt": v5_prompt(j), "duration": 8,
                                 "resolution": RES, "aspect_ratio": "16:9", "generate_audio": False})
           for j in V5_SCENES}
+    v5["kz_tom"] = (REF, lambda: {"image_urls": [hf.upload(KZ_STILL)], "video_urls": [hf.upload(MOTION)],
+                                  "prompt": KZ_PROMPT, "duration": 8, "resolution": RES, "aspect_ratio": "16:9",
+                                  "generate_audio": False})
     return {**v5,
         "i2v": (I2V, lambda: {"image_url": hf.upload(oc.plate("16x9")), "end_image_url": hf.upload(STILL),
                               "prompt": oc.prompt("R1", "A"), "duration": 4, "resolution": RES,
@@ -200,8 +238,9 @@ def save(state: dict) -> None:
 
 def spent(state: dict) -> float:
     """Seedance spend plus the v5 look stills (media/hero_orbit/v5/stills/jobs.json)."""
-    f = V5 / "stills" / "jobs.json"
-    other = [j for j in json.loads(f.read_text(encoding="utf-8")).values()] if f.exists() else []
+    other = []
+    for f in (V5 / "stills" / "jobs.json", V5 / "kz_tom" / "jobs.json"):
+        other += list(json.loads(f.read_text(encoding="utf-8")).values()) if f.exists() else []
     return sum(j.get("usd", 0) for j in [*state.values(), *other] if j.get("request_id") and j.get("status") not in ("failed", "nsfw"))
 
 
@@ -250,7 +289,7 @@ def main(argv: list[str]) -> int:
             state[key]["error"] = json.dumps(res)[:300]
             save(state)
             raise hf.HiggsfieldError(f"{key} ended as {res.get('status')}")
-        out = V5 / "clips" if name in V5_SCENES else OUT
+        out = V5 / "kz_tom" if name == "kz_tom" else V5 / "clips" if name in V5_SCENES else OUT
         out.mkdir(parents=True, exist_ok=True)
         f = hf.download(res, out, prefix=key)[0]
         final = f.with_name(f"{key}{f.suffix}")
