@@ -399,8 +399,12 @@ a {
 
 .hero-ctas {
   position: absolute;
-  inset-block-start: 79.5%;
-  inset-inline-end: 5vw;
+  /* one grid (Wassim, 17 Nov 2026): the buttons' bottom sits on the same line as the cards' bottom (the cards end
+     12 px above the "Ecosystem" label, whose top is at 87.8%), and their outer edge on the same gutter as the
+     title and cards on the other side */
+  inset-block-end: calc(12.2% + 12px);
+  inset-inline-end: var(--gutter);
+  align-items: flex-end;
   display: flex;
   gap: 12px;
 }
@@ -649,6 +653,7 @@ a {
      with the "Ecosystem" label on top of the cards (the trusted-by label sits below the buttons) */
   .hero-ctas {
     inset-block-start: 79.4%;
+    inset-block-end: auto;
     inset-inline: var(--gutter);
     flex-wrap: wrap;
   }

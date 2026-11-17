@@ -833,3 +833,6 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 
 ## 17 Nov 2026: no layout jump after the loader
 - The loader hid the page scrollbar (overflow: hidden), so when it came back the page narrowed by ~15 px and jumped. The scrollbar now stays visible the whole time; scrolling under the loader is blocked in JS (wheel/touch) instead. Measured: page width 1009 px during and after the loader.
+
+## 17 Nov 2026: hero alignment
+- One grid: the CTA buttons' bottom now sits on the same line as the Ecosystem cards' bottom (was 22 px higher), and their outer edge on the page gutter like the title and cards on the other side (was 5vw). Measured at 1024 and 1440 wide: title, cards and buttons on the gutter, cards and buttons share the bottom line. Mobile layout unchanged.
