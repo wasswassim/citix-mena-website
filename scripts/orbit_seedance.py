@@ -205,6 +205,27 @@ V5_SCENES_KZ = {"kz_tom": KZ_STILL}
 BUDGET_USD["kz_tom"] = 1.7024   # Wassim: "OK clip $1.7024" (Kazakhstan Tom orbit), 17 Nov 2026
 KEYS["kz_tom"] = "KZ_tom_clip"
 
+# Take 2 (Wassim, 17 Nov 2026): "when the tiles glide back into the screen they should become just like they are
+# displayed by the screen, not just on top of it with thickness, they should blend". Look still = the flat-screen
+# take 2; the action is a full cycle: flat on the screen -> peel out as 3D tiles -> melt back to flat light.
+KZ_STILL_T2 = V5 / "kz_tom" / "KZ_tom_t2.png"
+KZ_ACTION_T1 = KZ_PROMPT[KZ_PROMPT.index("Action, happening"):KZ_PROMPT.index("The totem is a rigid")]
+KZ_ACTION_T2 = (
+    "Action, happening WHILE the camera orbits, never after it: at first everything on the screen is flat light "
+    "displayed by the screen, exactly as in the image. Then the blue ATM tile and the two navigation rows peel "
+    "off the screen surface and float out toward the camera as solid, glowing 3D tiles at different depths, each "
+    "one staying upright and facing the same way as the screen, keeping its shape, colour and icon, casting soft "
+    "moving shadows on the sand; where they left, the screen stays dark. Near the end they glide back to their "
+    "places, and as each tile touches the screen surface it loses all its thickness and melts into the screen, "
+    "becoming flat light pixels displayed by the screen again, flush with the screen glass, with no thickness, "
+    "no raised edges and no shadows, exactly as in the image. By the last visible frame nothing sticks out of "
+    "the screen. The poster stays flat inside the screen the whole time. "
+)
+KZ_PROMPT_T2 = KZ_PROMPT.replace(KZ_ACTION_T1, KZ_ACTION_T2)
+assert KZ_PROMPT_T2 != KZ_PROMPT and KZ_ACTION_T1.startswith("Action")
+BUDGET_USD["kz_tom_t2"] = 1.7024   # Wassim: "OK clip $1.7024" (Kazakhstan Tom take 2, flat screen), 17 Nov 2026
+KEYS["kz_tom_t2"] = "KZ_tom_clip_t2"
+
 
 def jobs() -> dict:
     v5 = {j: (REF, lambda j=j: {"image_urls": [hf.upload(V5 / "stills" / V5_SCENES[j][0])],
@@ -214,6 +235,9 @@ def jobs() -> dict:
     v5["kz_tom"] = (REF, lambda: {"image_urls": [hf.upload(KZ_STILL)], "video_urls": [hf.upload(MOTION)],
                                   "prompt": KZ_PROMPT, "duration": 8, "resolution": RES, "aspect_ratio": "16:9",
                                   "generate_audio": False})
+    v5["kz_tom_t2"] = (REF, lambda: {"image_urls": [hf.upload(KZ_STILL_T2)], "video_urls": [hf.upload(MOTION)],
+                                     "prompt": KZ_PROMPT_T2, "duration": 8, "resolution": RES,
+                                     "aspect_ratio": "16:9", "generate_audio": False})
     return {**v5,
         "i2v": (I2V, lambda: {"image_url": hf.upload(oc.plate("16x9")), "end_image_url": hf.upload(STILL),
                               "prompt": oc.prompt("R1", "A"), "duration": 4, "resolution": RES,
@@ -289,7 +313,7 @@ def main(argv: list[str]) -> int:
             state[key]["error"] = json.dumps(res)[:300]
             save(state)
             raise hf.HiggsfieldError(f"{key} ended as {res.get('status')}")
-        out = V5 / "kz_tom" if name == "kz_tom" else V5 / "clips" if name in V5_SCENES else OUT
+        out = V5 / "kz_tom" if name.startswith("kz_tom") else V5 / "clips" if name in V5_SCENES else OUT
         out.mkdir(parents=True, exist_ok=True)
         f = hf.download(res, out, prefix=key)[0]
         final = f.with_name(f"{key}{f.suffix}")
