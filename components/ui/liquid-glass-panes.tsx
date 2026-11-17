@@ -15,7 +15,8 @@ import { DARK_GLASS, GLSL_COMMON } from "@/lib/liquid-glass";
  * so the CSS glass stays as the fallback when WebGL2 is missing or anything fails.
  */
 const MAX_CARDS = 3;
-const MARGIN = 28; // CSS px around the cards for the drop shadow
+const MARGIN = 28;
+const SQUARE_N = 48; // CSS px around the cards for the drop shadow
 
 const VERT = `#version 300 es
 in vec2 aPos;
@@ -204,7 +205,9 @@ export function LiquidGlassPanes({ cards, frame, onReady, sweepAt }: Props) {
     const G = DARK_GLASS;
     gl.uniform1f(U("uSlab"), 0.3 * G.opticalDepth);
     gl.uniform1f(U("uOptics"), 1);
-    gl.uniform1f(U("uShapeN"), G.corner);
+    // hard square corners (Wassim, 17 Nov 2026): a very high superellipse power is a square to the pixel,
+    // while the rounded glass edge (bevel) still bends the light the same way
+    gl.uniform1f(U("uShapeN"), SQUARE_N);
     gl.uniform1f(U("uBevelW"), G.bevelWidth);
     gl.uniform1f(U("uCornerPull"), G.cornerPull);
     gl.uniform1f(U("uCornerWidth"), G.cornerWidth);

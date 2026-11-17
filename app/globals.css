@@ -511,7 +511,7 @@ a {
   width: var(--card);
   aspect-ratio: 1;
   padding: calc(var(--card) * 0.1);
-  border-radius: calc(var(--card) * 0.13);
+  border-radius: 0; /* hard edges, like the WebGL glass (Wassim, 17 Nov 2026) */
   /* body: light pooling where it enters + a faint tint of the scene's light colour + a cool clear base */
   background:
     radial-gradient(130% 100% at var(--lx) var(--ly), color-mix(in srgb, var(--lc) calc(8% + var(--li) * 26%), transparent), transparent 62%),
