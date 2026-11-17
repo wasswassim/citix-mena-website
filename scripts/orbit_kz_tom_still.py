@@ -40,6 +40,14 @@ BUDGET_USD = 0.126            # Wassim approved "OK still $0.126" (3 refs, re-qu
 W, H = 1920, 1080
 BASE = {"resolution": "2k", "quality": "medium", "enhance_prompt": False, "aspect_ratio": "16:9"}
 KEY = "KZ_tom"
+TAKE = sys.argv[sys.argv.index("--take") + 1] if "--take" in sys.argv else ""
+if TAKE == "2":
+    # Take 2 (Wassim, 17 Nov 2026): in clip 1 the tiles came back as thick slabs on top of the screen because this
+    # still already showed them sticking out. "They should become just like they are displayed by the screen."
+    # So the home state is a flat, real LED screen; the clip makes them peel out and melt back in.
+    KEY = "KZ_tom_t2"
+    SPENT_BEFORE = 30.21      # after the first still ($0.126) and clip 1 ($1.7024)
+    BUDGET_USD = 0.127        # Wassim approved "OK still $0.127" (take 2, flat screen, re-quoted), 17 Nov 2026
 
 # The R3 world, without its last sentence (that one describes a scene spilling out of a glass doorway).
 WORLD = os3.WORLD3.split(" The screen is a doorway")[0]
@@ -79,7 +87,25 @@ AVOID = os3.AVOID.replace(
 assert AVOID != os3.AVOID
 
 
+# Take 2: lighter grey top band and plinth (as in the studio reference), a stronger three-quarter view, and a flat
+# screen with nothing breaking out.
+PRODUCT_T2 = PRODUCT.replace("A low grey band", "A low light-grey metal band").replace(
+    "A plain grey rectangular plinth", "A plain light-grey metal rectangular plinth")
+SCREEN_T2 = SCREEN.replace("as rounded tiles on a black screen", "shown as flat images on a black screen")
+ACTION_T2 = (
+    "The screen is a real flat LED screen seen from an angle: every element on it, the blue ATM tile, the two "
+    "navigation rows and the poster, is flat light displayed by the screen, flush with the screen glass, with no "
+    "thickness, no raised edges, no shadows and no gap between it and the screen, exactly like an image on a "
+    "phone screen. Nothing sticks out of the screen. The screen is the only real light source. The view is a "
+    "strong three-quarter angle: the screen face is turned clearly away from the camera, about 45 degrees, and "
+    "the right side face of the totem with its lit red strip is clearly visible."
+)
+assert PRODUCT_T2 != PRODUCT and SCREEN_T2 != SCREEN
+
+
 def prompt() -> str:
+    if TAKE == "2":
+        return f"{REF} {WORLD} {PRODUCT_T2} {SCREEN_T2} {ACTION_T2}{os3.FRAME3['16:9']} {AVOID}"
     return f"{REF} {WORLD} {PRODUCT} {SCREEN} {ACTION}{os3.FRAME3['16:9']} {AVOID}"
 
 
