@@ -16,7 +16,7 @@ import { DARK_GLASS, GLSL_COMMON } from "@/lib/liquid-glass";
  */
 const MAX_CARDS = 3;
 const MARGIN = 28;
-const SQUARE_N = 48; // CSS px around the cards for the drop shadow
+const CARD_N = 8.8; // CSS px around the cards for the drop shadow
 
 const VERT = `#version 300 es
 in vec2 aPos;
@@ -205,9 +205,9 @@ export function LiquidGlassPanes({ cards, frame, onReady, sweepAt }: Props) {
     const G = DARK_GLASS;
     gl.uniform1f(U("uSlab"), 0.3 * G.opticalDepth);
     gl.uniform1f(U("uOptics"), 1);
-    // hard square corners (Wassim, 17 Nov 2026): a very high superellipse power is a square to the pixel,
-    // while the rounded glass edge (bevel) still bends the light the same way
-    gl.uniform1f(U("uShapeN"), SQUARE_N);
+    // the cards' original corner curve (Wassim, 17 Nov 2026): CSS border-radius 13% of the side. A superellipse of
+    // power 8.8 passes through the same corner point (2^(-1/n) = 1 - r + r/sqrt(2), r = 0.26 in half-side units)
+    gl.uniform1f(U("uShapeN"), CARD_N);
     gl.uniform1f(U("uBevelW"), G.bevelWidth);
     gl.uniform1f(U("uCornerPull"), G.cornerPull);
     gl.uniform1f(U("uCornerWidth"), G.cornerWidth);

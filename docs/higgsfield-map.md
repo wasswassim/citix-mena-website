@@ -820,3 +820,7 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 ## 17 Nov 2026: loader fix + square glass cards
 - Loading screen was black: the reveal's inline position: relative overrode the loader's full-screen CSS, so the glass drew into a 0 px box. Size now passed inline; checked in a fresh browser (glass X visible mid-reveal).
 - Hero glass cards: hard square corners (superellipse power 48 in liquid-glass-panes.tsx, CSS fallback border-radius 0); the bevelled glass edge still refracts the video.
+
+## 17 Nov 2026: loader on every load + card corners restored
+- The loader skipped refreshes because it was once per session; it now plays on every page load (still off with reduced motion). Checked: after a reload it shows full screen.
+- Hero glass cards back to the original CSS corner curve (13% of the side): CSS border-radius restored, WebGL superellipse power 8.8 matched to it.

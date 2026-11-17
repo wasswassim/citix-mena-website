@@ -3,14 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { GlassIconReveal } from "@/components/ui/liquid-glass-logo-reveal";
 import { DARK_GLASS } from "@/lib/liquid-glass";
-import { LOADER_KEY } from "@/lib/loader";
 
 /**
  * Loading screen (Wassim, 17 Nov 2026): the CITIX X (cut from the official logo, media/web/brand/citix-x.png)
  * lands as a drop of liquid glass, spreads into a tile, bends into colour and lets go, then the screen fades
  * to the hero. Same glass maths as the hero cards (lib/liquid-glass.ts).
  *
- * Shown once per browser session, never with reduced motion, never without JavaScript: a pre-paint script in
+ * Shown on every page load (Wassim, 17 Nov 2026), never with reduced motion, never without JavaScript: a pre-paint script in
  * app/[lang]/page.tsx (LOADER_SCRIPT, lib/loader.ts) sets <html data-loader="on"> only when it should play; CSS hides the
  * screen otherwise and also fades it out on its own after a few seconds if this component never runs.
  * Click, tap or any key skips it.
@@ -29,9 +28,6 @@ export default function SiteLoader({ label }: { label: string }) {
   const finish = useCallback(() => {
     if (doneRef.current) return;
     doneRef.current = true;
-    try {
-      sessionStorage.setItem(LOADER_KEY, "1");
-    } catch {}
     setOut(true);
     window.setTimeout(() => {
       document.documentElement.dataset.loader = "off";
