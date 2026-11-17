@@ -827,3 +827,6 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 
 ## 17 Nov 2026: loader logo sharper
 - The X was pixelated: the only CITIX logo file is the 934 x 280 header PNG (X = 128 px), enlarged ~3x by the loader. Now uses media/web/brand/citix-x-1024.png, the same pixels resampled to 1152 px with smoothed edges (nothing redrawn). Best fix still to come: the official vector logo from the company.
+
+## 17 Nov 2026: loader exit slides up
+- The loading screen no longer fades: when the reveal ends (or on skip) the black screen slides up with the X like a curtain, 0.9 s ease-in-out, uncovering the hero. The CSS failsafe slides too.

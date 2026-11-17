@@ -6,15 +6,15 @@ import { DARK_GLASS } from "@/lib/liquid-glass";
 
 /**
  * Loading screen (Wassim, 17 Nov 2026): the CITIX X (cut from the official logo, media/web/brand/citix-x.png)
- * lands as a drop of liquid glass, spreads into a tile, bends into colour and lets go, then the screen fades
- * to the hero. Same glass maths as the hero cards (lib/liquid-glass.ts).
+ * lands as a drop of liquid glass, spreads into a tile, bends into colour and lets go, then the screen slides
+ * up to reveal the hero. Same glass maths as the hero cards (lib/liquid-glass.ts).
  *
  * Shown on every page load (Wassim, 17 Nov 2026), never with reduced motion, never without JavaScript: a pre-paint script in
  * app/[lang]/page.tsx (LOADER_SCRIPT, lib/loader.ts) sets <html data-loader="on"> only when it should play; CSS hides the
- * screen otherwise and also fades it out on its own after a few seconds if this component never runs.
+ * screen otherwise and also slides it away on its own after a few seconds if this component never runs.
  * Click, tap or any key skips it.
  */
-const FADE_MS = 600;
+const FADE_MS = 900; // the slide-up exit in app/globals.css
 
 export default function SiteLoader({ label }: { label: string }) {
   const [active, setActive] = useState(false);

@@ -1413,11 +1413,12 @@ html[data-loader="on"] .site-loader {
   z-index: 2000;
   background: #000;
   cursor: pointer;
-  transition: opacity 0.6s ease, visibility 0s linear 0.6s;
-  animation: site-loader-failsafe 0.6s ease 7s forwards;
+  /* exit (Wassim, 17 Nov 2026): the screen slides up like a curtain to reveal the site */
+  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s linear 0.9s;
+  animation: site-loader-failsafe 0.9s cubic-bezier(0.76, 0, 0.24, 1) 7s forwards;
 }
 html[data-loader="on"] .site-loader.is-out {
-  opacity: 0;
+  transform: translateY(-100%);
   visibility: hidden;
 }
 .site-loader-glass {
@@ -1426,7 +1427,7 @@ html[data-loader="on"] .site-loader.is-out {
 }
 @keyframes site-loader-failsafe {
   to {
-    opacity: 0;
+    transform: translateY(-100%);
     visibility: hidden;
   }
 }
