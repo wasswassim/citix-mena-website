@@ -44,6 +44,14 @@ type Dictionary = {
   ecosystem: { label: string; cards: { title: string; text: string }[] };
   facts: { title: string; items: { value: number; suffix: string; label: string }[] };
   about: { title: string; paragraphs: string[]; ctaLine: string; cta: string };
+  network: {
+    eyebrow: string;
+    title: string;
+    sub: string;
+    hint: string;
+    globeLabel: string;
+    countries: { id: "uae" | "oman" | "kz" | "tr"; name: string; cities: string; stat: string }[];
+  };
   products: {
     title: string;
     sub: string;
@@ -134,14 +142,43 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ctaLine: "Let’s make tomorrow happen today.",
       cta: "Talk to us",
     },
+    // Our network (Wassim, 17 Nov 2026). Sources: "Company facts" slide (sales deck slide 4: cities, smartboard
+    // counts, giant screens, Oman Oil project, 12 global projects) and the company-facts screenshot ("No. 1 in
+    // Kazakhstan"). Country order = west of the Gulf outwards; ids match components/NetworkSection.tsx.
+    network: {
+      eyebrow: "Our network",
+      title: "Where we stand today",
+      sub: "From the Gulf to Central Asia, CITIX smartboards and giant 3D screens already run in four countries, across 12 global projects.",
+      hint: "Point at a country to find it on the globe.",
+      globeLabel: "Globe marking CITIX cities in the UAE, Oman, Kazakhstan and Turkey",
+      countries: [
+        { id: "uae", name: "United Arab Emirates", cities: "Abu Dhabi · Dubai · Sharjah", stat: "40+ smartboards · 2 giant 3D screens" },
+        { id: "oman", name: "Oman", cities: "Muscat", stat: "Project launched with Oman Oil" },
+        { id: "kz", name: "Kazakhstan", cities: "Almaty · Astana", stat: "550+ smartboards · No. 1 in the country" },
+        { id: "tr", name: "Turkey", cities: "Istanbul · Ankara", stat: "50+ smartboards" },
+      ],
+    },
     // Our Products (Wassim, 15 Nov 2026). Subtitle = deck slide 6 word for word; card text from the product slides
-    // (Tom 13, Jerry 15, Baloo 17, Jumbo 19). Card order = cards in components/ProductCards.tsx.
+    // (Tom 13, Jerry 15, Baloo 17, Jumbo 19). Order (Wassim, 17 Nov): big screens first, then Tom and Jerry;
+    // it must match MEDIA in components/ProductCards.tsx.
     products: {
       title: "Our Products",
       sub: "The first generation of innovative city gadgets is here to elevate the urban environment and modern advertising.",
       cta: "Discover",
       all: "All products",
       cards: [
+        {
+          name: "Jumbo",
+          tag: "Largest 3D corner screen",
+          text: "Around 400 m² of corner screen at a premium mall, built for immersive 3D campaigns that adapt in real time.",
+          alt: "Jumbo corner screen on a shopping mall facade, with a 3D perfume bottle floating out of the screen",
+        },
+        {
+          name: "Baloo",
+          tag: "Giant 3D corner screen",
+          text: "A 32 m² digital spire on the corner of Tejara 1, where 3D content wraps around the building’s edge.",
+          alt: "Baloo corner screen on the Tejara 1 building by day, with a red SUV driving out of the screen in 3D",
+        },
         {
           name: "Tom",
           tag: "Roadside smartboard",
@@ -153,18 +190,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
           tag: "Pedestrian smartboard",
           text: "2.6 m tall and made for walkways, Jerry turns public space into a responsive media channel.",
           alt: "Jerry pedestrian smartboard in a concrete hall, with a weather widget above the ad",
-        },
-        {
-          name: "Baloo",
-          tag: "Giant 3D corner screen",
-          text: "A 32 m² digital spire on the corner of Tejara 1, where 3D content wraps around the building’s edge.",
-          alt: "Baloo corner screen on the Tejara 1 building by day, with a red SUV driving out of the screen in 3D",
-        },
-        {
-          name: "Jumbo",
-          tag: "Largest 3D corner screen",
-          text: "Around 400 m² of corner screen at a premium mall, built for immersive 3D campaigns that adapt in real time.",
-          alt: "Jumbo corner screen on a shopping mall facade, with a 3D perfume bottle floating out of the screen",
         },
       ],
     },
@@ -247,12 +272,37 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ctaLine: "لنصنع الغد اليوم.",
       cta: "تحدث إلينا",
     },
+    network: {
+      eyebrow: "شبكتنا",
+      title: "أين نقف اليوم",
+      sub: "من الخليج إلى آسيا الوسطى، تعمل لوحات CITIX الذكية وشاشاتها العملاقة ثلاثية الأبعاد في أربع دول، ضمن 12 مشروعاً عالمياً.",
+      hint: "مرّر المؤشر على دولة لتجدها على الكرة الأرضية.",
+      globeLabel: "كرة أرضية تُظهر مدن CITIX في الإمارات وعُمان وكازاخستان وتركيا",
+      countries: [
+        { id: "uae", name: "الإمارات العربية المتحدة", cities: "أبوظبي · دبي · الشارقة", stat: "أكثر من 40 لوحة ذكية · شاشتان عملاقتان ثلاثيتا الأبعاد" },
+        { id: "oman", name: "عُمان", cities: "مسقط", stat: "مشروع أُطلق مع شركة النفط العُمانية" },
+        { id: "kz", name: "كازاخستان", cities: "ألماتي · أستانا", stat: "أكثر من 550 لوحة ذكية · الأولى في البلاد" },
+        { id: "tr", name: "تركيا", cities: "إسطنبول · أنقرة", stat: "أكثر من 50 لوحة ذكية" },
+      ],
+    },
     products: {
       title: "منتجاتنا",
       sub: "الجيل الأول من أدوات المدينة المبتكرة وصل ليرتقي بالبيئة الحضرية والإعلان الحديث.",
       cta: "اكتشف",
       all: "جميع المنتجات",
       cards: [
+        {
+          name: "Jumbo",
+          tag: "أكبر شاشة زاوية ثلاثية الأبعاد",
+          text: "نحو 400 م² من الشاشات على زاوية مركز تسوق راقٍ، مصممة لحملات ثلاثية الأبعاد غامرة تتكيّف في الوقت الحقيقي.",
+          alt: "شاشة Jumbo على واجهة مركز تسوق مع زجاجة عطر ثلاثية الأبعاد تخرج من الشاشة",
+        },
+        {
+          name: "Baloo",
+          tag: "شاشة زاوية عملاقة ثلاثية الأبعاد",
+          text: "برج رقمي بمساحة 32 م² على زاوية مبنى تجارة 1، يلتف فيه المحتوى ثلاثي الأبعاد حول حافة المبنى.",
+          alt: "شاشة Baloo على زاوية مبنى تجارة 1 نهاراً، مع سيارة SUV حمراء تخرج من الشاشة بتقنية ثلاثية الأبعاد",
+        },
         {
           name: "Tom",
           tag: "لوحة ذكية على الطرق",
@@ -264,18 +314,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
           tag: "لوحة ذكية للمشاة",
           text: "بارتفاع 2.6 م ومصممة لممرات المشاة، تحوّل Jerry المساحات العامة إلى قناة إعلامية تتفاعل مع محيطها.",
           alt: "لوحة Jerry الذكية للمشاة في قاعة خرسانية، مع معلومات الطقس فوق الإعلان",
-        },
-        {
-          name: "Baloo",
-          tag: "شاشة زاوية عملاقة ثلاثية الأبعاد",
-          text: "برج رقمي بمساحة 32 م² على زاوية مبنى تجارة 1، يلتف فيه المحتوى ثلاثي الأبعاد حول حافة المبنى.",
-          alt: "شاشة Baloo على زاوية مبنى تجارة 1 نهاراً، مع سيارة SUV حمراء تخرج من الشاشة بتقنية ثلاثية الأبعاد",
-        },
-        {
-          name: "Jumbo",
-          tag: "أكبر شاشة زاوية ثلاثية الأبعاد",
-          text: "نحو 400 م² من الشاشات على زاوية مركز تسوق راقٍ، مصممة لحملات ثلاثية الأبعاد غامرة تتكيّف في الوقت الحقيقي.",
-          alt: "شاشة Jumbo على واجهة مركز تسوق مع زجاجة عطر ثلاثية الأبعاد تخرج من الشاشة",
         },
       ],
     },

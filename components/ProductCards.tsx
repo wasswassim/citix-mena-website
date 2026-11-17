@@ -28,14 +28,15 @@ const clip = (n: string, poster: [string, string], position?: string): Media => 
   video: { mp4: `${P}${n}.mp4`, webm: `${P}${n}.webm` },
 });
 // Every card is a video (Wassim, 15 Nov 2026); the still underneath is its first frame.
+// Order (Wassim, 17 Nov 2026): the big screens first, then Tom and Jerry. Must match products.cards in lib/i18n.ts.
 const MEDIA: Media[] = [
-  clip("tom-daynight", ["tom-poster-600.webp", "tom-poster-1200.webp"]), // day then night, one clip (9.6 s)
-  clip("jerry", ["jerry-poster-600.webp", "jerry-poster-1200.webp"]),
-  clip("baloo", ["baloo-poster-600.webp", "baloo-poster-1200.webp"]),
   {
     ...clip("jumbo", ["jumbo-poster-800.webp", "jumbo-poster-1600.webp"], "55% 50%"),
     srcSet: `${P}jumbo-poster-800.webp 800w, ${P}jumbo-poster-1600.webp 1600w`,
   },
+  clip("baloo", ["baloo-poster-600.webp", "baloo-poster-1200.webp"]),
+  clip("tom-daynight", ["tom-poster-600.webp", "tom-poster-1200.webp"]), // day then night, one clip (9.6 s)
+  clip("jerry", ["jerry-poster-600.webp", "jerry-poster-1200.webp"]),
 ];
 
 export default function ProductCards({ title, sub, cta, all, href, cards }: Props) {

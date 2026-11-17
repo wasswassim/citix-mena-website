@@ -803,3 +803,8 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 
 ## 15 Nov 2026 (late): Tom card = day + night in one clip (no credits spent)
 - Wassim compared Tom/Jerry alternatives in a local lab page (media/web/products-lab, not committed) and chose: Jerry stays; Tom plays the creative `tom_wate_auto` 0-9.6 s in one piece (daylight heat-alert shot, the creative's own blur-and-cut, then the night seatbelt/car shot). tom-daynight.mp4 1.07 MB / .webm 724 KB. The day-only tom.mp4/webm stay in the repo, unused.
+
+## 17 Nov 2026: "Our network" section with a globe; product cards reordered (no credits spent)
+- New dark section between About and Our Products (components/NetworkSection.tsx): UAE (Abu Dhabi, Dubai, Sharjah: 40+ smartboards, 2 giant 3D screens), Oman (Muscat: project with Oman Oil), Kazakhstan (Almaty, Astana: 550+ smartboards, No. 1 in the country), Turkey (Istanbul, Ankara: 50+ smartboards), 12 global projects. Sources: sales deck slide 4 "Company facts" + Wassim's company-facts screenshot.
+- Globe: the 21st.dev "Globe" component (MIT, built on cobe 2.0.1, ~5 KB), ported to plain CSS in components/ui/globe.tsx (the project has no Tailwind/shadcn). Hover/focus/tap a country -> the globe turns to it and its cities light up in Pulse Red, others go grey. Built only near the viewport, loop paused off-screen, reduced motion = no spin.
+- Product cards now start with the big screens: Jumbo, Baloo, Tom, Jerry (Jumbo opens first).

@@ -5,6 +5,7 @@ import Arrow from "@/components/Arrow";
 import CompanyFacts from "@/components/CompanyFacts";
 import EcosystemCards from "@/components/EcosystemCards";
 import HeroLoop from "@/components/HeroLoop";
+import NetworkSection from "@/components/NetworkSection";
 import ProductCards from "@/components/ProductCards";
 import SiteHeader from "@/components/SiteHeader";
 import { logoStyle, trustedBrands } from "@/lib/brands";
@@ -84,6 +85,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           cta={t.about.cta}
           href={soon}
         />
+
+        <NetworkSection {...t.network} />
 
         <ProductCards
           title={t.products.title}
