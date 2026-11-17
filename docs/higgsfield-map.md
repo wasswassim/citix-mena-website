@@ -808,3 +808,6 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 - New dark section between About and Our Products (components/NetworkSection.tsx): UAE (Abu Dhabi, Dubai, Sharjah: 40+ smartboards, 2 giant 3D screens), Oman (Muscat: project with Oman Oil), Kazakhstan (Almaty, Astana: 550+ smartboards, No. 1 in the country), Turkey (Istanbul, Ankara: 50+ smartboards), 12 global projects. Sources: sales deck slide 4 "Company facts" + Wassim's company-facts screenshot.
 - Globe: the 21st.dev "Globe" component (MIT, built on cobe 2.0.1, ~5 KB), ported to plain CSS in components/ui/globe.tsx (the project has no Tailwind/shadcn). Hover/focus/tap a country -> the globe turns to it and its cities light up in Pulse Red, others go grey. Built only near the viewport, loop paused off-screen, reduced motion = no spin.
 - Product cards now start with the big screens: Jumbo, Baloo, Tom, Jerry (Jumbo opens first).
+
+## 17 Nov 2026: product cards reveal
+- When Our Products first scrolls into view: heading fades up, then the four cards wipe up from the bottom (clip-path + small rise), 120 ms apart, 1.1 s each. Plays once; off with reduced motion or if the section is already on screen at load.

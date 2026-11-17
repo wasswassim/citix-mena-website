@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useId, useRef, useState } from "react";
 import Arrow from "@/components/Arrow";
 
 /**
@@ -60,6 +60,28 @@ export default function ProductCards({ title, sub, cta, all, href, cards }: Prop
     };
   }, []);
 
+  // Reveal (Wassim, 17 Nov 2026): when the row first scrolls into view, the heading fades up and the cards wipe
+  // up from the bottom one after another. Only armed if the section starts below the fold and motion is allowed,
+  // so the cards are never left hidden.
+  const [reveal, setReveal] = useState<"off" | "armed" | "in">("off");
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (el.getBoundingClientRect().top < window.innerHeight * 0.8) return;
+    setReveal("armed");
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setReveal("in");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   // Play only while open + on screen; pausing keeps the current time, so reopening resumes from there.
   useEffect(() => {
     videoRefs.current.forEach((v, i) => {
@@ -70,7 +92,13 @@ export default function ProductCards({ title, sub, cta, all, href, cards }: Prop
   }, [open, inView, reduced]);
 
   return (
-    <section ref={sectionRef} className="products" data-header-theme="light" aria-labelledby="products-title">
+    <section
+      ref={sectionRef}
+      className="products"
+      data-header-theme="light"
+      data-reveal={reveal === "off" ? undefined : reveal}
+      aria-labelledby="products-title"
+    >
       <div className="products-head">
         <h2 id="products-title" className="products-title">
           {title}
@@ -84,7 +112,12 @@ export default function ProductCards({ title, sub, cta, all, href, cards }: Prop
           const isOpen = open === i;
           const contentId = `${uid}-p${i}`;
           return (
-            <li key={c.name} className="prod-card" data-open={isOpen || undefined}>
+            <li
+              key={c.name}
+              className="prod-card"
+              data-open={isOpen || undefined}
+              style={{ "--i": i } as CSSProperties}
+            >
               <div className="prod-media">
                 <img
                   src={m.src}
