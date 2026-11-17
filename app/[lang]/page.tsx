@@ -8,8 +8,10 @@ import HeroLoop from "@/components/HeroLoop";
 import NetworkSection from "@/components/NetworkSection";
 import ProductCards from "@/components/ProductCards";
 import SiteHeader from "@/components/SiteHeader";
+import SiteLoader from "@/components/SiteLoader";
 import { logoStyle, trustedBrands } from "@/lib/brands";
 import { dictionaries, isLocale } from "@/lib/i18n";
+import { LOADER_SCRIPT } from "@/lib/loader";
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -20,6 +22,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
+      {/* Loading screen (17 Nov 2026): the pre-paint script decides whether it plays (once per session). */}
+      <script dangerouslySetInnerHTML={{ __html: LOADER_SCRIPT }} />
+      <SiteLoader label={t.siteName} />
       {/* Intro gate disconnected 14 Nov 2026 (plan v4.2: intro film dropped). components/IntroGate.tsx is kept. */}
       <SiteHeader
         lang={lang}

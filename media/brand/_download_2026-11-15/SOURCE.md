@@ -7,3 +7,5 @@
 
 Originals kept here untouched. Web copies: `media/web/brand/trusted-logos.svg`, `media/web/brand/citix-logo-white.png`.
 The marquee shows each logo through a CSS window onto the official file (nothing traced or redrawn).
+
+- `citix-x.png` (17 Nov 2026): the X cut straight out of `logo_white.png` (pixels copied, nothing redrawn), for the loading screen.

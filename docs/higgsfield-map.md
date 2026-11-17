@@ -811,3 +811,8 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 
 ## 17 Nov 2026: product cards reveal
 - When Our Products first scrolls into view: heading fades up, then the four cards wipe up from the bottom (clip-path + small rise), 120 ms apart, 1.1 s each. Plays once; off with reduced motion or if the section is already on screen at load.
+
+## 17 Nov 2026: liquid glass loading screen + hero glass cards
+- Loading screen (components/SiteLoader.tsx): the CITIX X, cut from the official white logo (media/web/brand/citix-x.png, pixels copied, not redrawn), lands as a drop of liquid glass, spreads into a tile, bends into colour and lets go; then the screen fades to the hero (~3.5 s). Once per browser session, skipped with reduced motion or no JS, click/tap/any key skips, 6 s safety cap, CSS failsafe fade at 7 s.
+- Effect: the 21st.dev "Liquid Glass Logo Reveal" (zanwei/glass-icon-reveal, MIT), ported without Tailwind to components/ui/liquid-glass-logo-reveal.tsx (+ onDone, replayOnClick).
+- Hero Ecosystem cards: the CSS imitation glass is replaced by the same glass in WebGL (components/ui/liquid-glass-panes.tsx): one small canvas behind the cards refracts the live hero video through superellipse glass tiles (same refraction, dispersion, rim light, specular, sheen; shared GLSL in lib/liquid-glass.ts). Frosted face keeps the text legible; a light sweeps across each card as its words change. The CSS glass stays as the fallback (no WebGL2 / context lost). Paused off-screen; reduced motion draws the poster once.

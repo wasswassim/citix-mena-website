@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { LiquidGlassPanes } from "@/components/ui/liquid-glass-panes";
 
 /**
  * CITIX Ecosystem glass cards (Wassim, 15 Nov 2026): 3 cards at a time, bottom-start of the hero; every few seconds
@@ -10,6 +11,10 @@ import { useEffect, useRef, useState } from "react";
  * Apple-style glass that reacts to the scene: ~8 times a second the hero video frame is drawn into a tiny canvas,
  * and for each card the light around it gives --li (strength), --lx/--ly (direction) and --lc (colour), which move
  * the card's highlight, rim light and tint (app/globals.css). The real blur of the video stays underneath.
+ *
+ * Liquid glass (Wassim, 17 Nov 2026): the cards are now drawn in the same WebGL glass as the loading screen
+ * (components/ui/liquid-glass-panes.tsx refracts the hero video). Once it draws, .ecosystem gets .has-liquid, the CSS
+ * glass below switches off and the light tracking stops; without WebGL2 the CSS glass stays as the fallback.
  *
  * All 6 cards are in the HTML as a list for screen readers and crawlers; the animated cards are decorative copies.
  * Reduced motion: no swapping and no light tracking (static glass).
@@ -27,6 +32,11 @@ export default function EcosystemCards({ label, cards }: { label: string; cards:
   const [sets, setSets] = useState([0, 0, 0]); // which set (0 or 1) each of the 3 slots shows
   const [flipping, setFlipping] = useState([false, false, false]);
   const cardRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const sweepRef = useRef<number[]>([-10, -10, -10]);
+  const [liquid, setLiquid] = useState(false);
+  const liquidRef = useRef(false);
+  liquidRef.current = liquid;
 
   // Flip loop
   useEffect(() => {
@@ -37,7 +47,10 @@ export default function EcosystemCards({ label, cards }: { label: string; cards:
       for (let i = 0; i < 3; i++) {
         timers.push(
           window.setTimeout(() => setFlipping((f) => f.map((v, k) => (k === i ? true : v))), i * STAGGER_MS),
-          window.setTimeout(() => setSets((s) => s.map((v, k) => (k === i ? 1 - v : v))), i * STAGGER_MS + HALF_MS),
+          window.setTimeout(() => {
+            setSets((s) => s.map((v, k) => (k === i ? 1 - v : v)));
+            sweepRef.current[i] = performance.now() / 1000; // a light passes over the glass as the words return
+          }, i * STAGGER_MS + HALF_MS),
           window.setTimeout(
             () => setFlipping((f) => f.map((v, k) => (k === i ? false : v))),
             i * STAGGER_MS + 2 * HALF_MS,
@@ -63,6 +76,7 @@ export default function EcosystemCards({ label, cards }: { label: string; cards:
 
     const sample = () => {
       const video = document.querySelector<HTMLVideoElement>(".hero-media video");
+      if (liquidRef.current) return; // the WebGL glass lights itself
       if (!video || document.hidden || video.paused || video.readyState < 2 || !video.videoWidth) return;
       try {
         ctx.drawImage(video, 0, 0, CW, CH);
@@ -129,7 +143,8 @@ export default function EcosystemCards({ label, cards }: { label: string; cards:
   }, []);
 
   return (
-    <div className="ecosystem">
+    <div ref={boxRef} className={liquid ? "ecosystem has-liquid" : "ecosystem"}>
+      <LiquidGlassPanes cards={cardRefs} frame={boxRef} onReady={setLiquid} sweepAt={sweepRef} />
       <ul className="eco-cards" aria-hidden="true">
         {[0, 1, 2].map((i) => {
           const c = cards[sets[i] * 3 + i];

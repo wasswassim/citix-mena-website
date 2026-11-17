@@ -554,6 +554,27 @@ a {
   pointer-events: none;
 }
 
+/* Liquid glass (17 Nov 2026): components/ui/liquid-glass-panes.tsx draws the glass in WebGL behind the cards
+   (same glass as the loading screen). Once it draws, .has-liquid turns the CSS glass above off. */
+.eco-glass {
+  position: absolute;
+  display: block;
+  width: calc(100% + 56px);
+  height: calc(100% + 56px);
+  pointer-events: none;
+}
+.ecosystem.has-liquid .eco-card {
+  background: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.35);
+}
+.ecosystem.has-liquid .eco-card::before,
+.ecosystem.has-liquid .eco-card::after {
+  display: none;
+}
+
 /* Content swap (Wassim, 15 Nov 2026): the card stays still; its words blur out, change at the blurriest
    moment (EcosystemCards HALF_MS), then sharpen in. Duration = 2 × HALF_MS. */
 .eco-card.is-swapping :is(.eco-title, .eco-text) {
@@ -1372,4 +1393,40 @@ main:focus {
 .products[data-reveal="in"] .prod-card {
   clip-path: inset(0 0 0 0);
   translate: none;
+}
+
+/* ---------------------------------------------------------------------------------------------- *
+ * Loading screen (17 Nov 2026, components/SiteLoader.tsx): the CITIX X in liquid glass.
+ * Hidden unless the pre-paint script set html[data-loader="on"] (so no JS = no loader).
+ * Failsafe: if the component never takes over, CSS fades it out on its own after 7 s.
+ * ---------------------------------------------------------------------------------------------- */
+.site-loader {
+  display: none;
+}
+html[data-loader="on"] {
+  overflow: hidden;
+}
+html[data-loader="on"] .site-loader {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: #000;
+  cursor: pointer;
+  transition: opacity 0.6s ease, visibility 0s linear 0.6s;
+  animation: site-loader-failsafe 0.6s ease 7s forwards;
+}
+html[data-loader="on"] .site-loader.is-out {
+  opacity: 0;
+  visibility: hidden;
+}
+.site-loader-glass {
+  position: absolute;
+  inset: 0;
+}
+@keyframes site-loader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
