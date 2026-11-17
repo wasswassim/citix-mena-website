@@ -852,3 +852,12 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 - 9 cards with real projects from the sales deck: Sharjah network, Jumbo, Majaz & Heera Beach, Saltanat Light (Cannes Lions 2025), Al Mamsha, Baloo, 06 Mall, Tom at Yas Island, Chamber of Commerce. Images: `media/source/projects/SOURCE.md`.
 - Reduced motion / no JS: a plain grid of the same cards. rAF runs only while on screen and stops when settled.
 - To confirm: the Arabic copy (native review) and whether the deck's place names/figures can be published.
+
+## 17 Nov 2026: Kazakhstan Tom orbit, look still ($0.126)
+- Wassim: the hero orbit idea for the real product in `Downloads/Citix_about company.pdf` p16 (Kazakhstan Tom: one tall screen, widget tile + 2 navigation rows + ad, red strip on the right edge, grey top band and plinth). Using these photos as Tom refs is Wassim's call (CLAUDE.md had limited Tom prompts to refs 01-02).
+- Choices: hero world; widget tiles pop out; ad "keep the same ads" -> same pop-art style only (no festival name, no real person, no logo: hard rule 6).
+- Refs: R3_16x9_v3 (look) + `refs/tom_kz/ref_kz_tom_studio_clean.png` (p9) + `ref_kz_tom_street_clean.png` (p16), ads and cap text blacked out before upload. Originals and SOURCE.md in `refs/tom_kz/`.
+- Quote: approved "OK still $0.086", but /estimate gave $0.126 (3 refs; 1 ref is now $0.100), so the script refused; re-approved "OK still $0.126".
+- Generated: `media/hero_orbit/v5/kz_tom/KZ_tom.png` (+ `_raw`), script `scripts/orbit_kz_tom_still.py`. **Project $28.51 of $40.** Sheet: `_kz_tom_sheet.jpg`.
+- Differences vs refs: top band and plinth come out dark grey/black (refs: lighter grey); the view is close to front-on (asked for a strong three-quarter); the board fills ~70 % of the frame height (asked ~50 %); the ad is an abstract colour-block poster (no type bars). Correct: slim black body, red strip lit on the right edge, ATM tile with white icon and arrow, green/red arrow rows, no text, logo or person anywhere; the tiles stand out as thick 3D blocks.
+- Next: clip, Seedance 2.0 reference-to-video, camera `lab/orbit_reference_R1_8s.mp4` (Tom orbit), 8 s 720p 16:9 no audio, $1.7024 at the known rate (re-check with /estimate). Waiting for Wassim.
