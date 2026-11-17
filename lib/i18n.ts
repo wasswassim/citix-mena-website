@@ -59,6 +59,13 @@ type Dictionary = {
     all: string;
     cards: { name: string; tag: string; text: string; alt: string }[];
   };
+  projects: {
+    eyebrow: string;
+    title: string;
+    sub: string;
+    hint: string;
+    cards: { place: string; title: string; text: string; alt: string }[];
+  };
   header: {
     nav: { solutions: string; smartboards: string; projects: string; about: string; insights: string; contact: string };
     getInTouch: string;
@@ -194,6 +201,70 @@ export const dictionaries: Record<Locale, Dictionary> = {
         },
       ],
     },
+    // Projects tunnel (17 Nov 2026). Facts from the sales deck (Sharjah network slides 23-27, Jumbo, Baloo, Cannes
+    // Lions slide 56) and the project notes (Yas Island Tom). Order must match IMAGES in components/ProjectTunnel.tsx.
+    projects: {
+      eyebrow: "Our projects",
+      title: "Already part of the city",
+      sub: "From Sharjah’s waterfront to a Cannes Lions stage, CITIX screens are already on the street and already working for brands.",
+      hint: "Scroll to fly through",
+      cards: [
+        {
+          place: "Sharjah · UAE",
+          title: "Sharjah network",
+          text: "5 key areas and 14 landmarks: waterfront, heritage, education, family and retail destinations.",
+          alt: "Sharjah waterfront skyline at dusk, with the Al Qasba wheel lit across the water",
+        },
+        {
+          place: "Abu Dhabi · UAE",
+          title: "Jumbo",
+          text: "Our largest corner screen, about 400 m², at a premium mall surrounded by high-end brands.",
+          alt: "Jumbo corner screen on a shopping mall facade, with a 3D perfume bottle floating out of the screen",
+        },
+        {
+          place: "Sharjah · Network 1",
+          title: "Majaz & Heera Beach",
+          text: "Two locations linking the busy Majaz corridors with the coastal crowd of Heera Beach.",
+          alt: "Map of the Majaz and Heera Beach network with the CITIX screen locations marked",
+        },
+        {
+          place: "Kazakhstan · Cannes Lions 2025",
+          title: "Saltanat Light",
+          text: "CITIX Kazakhstan and GForce Grey won two Cannes Lions for an AI campaign that turns billboards into a live distress signal.",
+          alt: "Saltanat Light campaign board: 22.3 million reach, 522,000 reactions",
+        },
+        {
+          place: "Sharjah · Network 2",
+          title: "Al Mamsha",
+          text: "Two Tom smartboards connecting a growing residential community with its retail and leisure spots.",
+          alt: "Map of the Al Mamsha network with the two Tom locations marked",
+        },
+        {
+          place: "Tejara 1 · UAE",
+          title: "Baloo",
+          text: "Four 8 × 4 m screens wrapping the corner of the Tejara 1 building, right next to a busy highway.",
+          alt: "Baloo corner screens on the Tejara 1 building at night, showing the CITIX X",
+        },
+        {
+          place: "Sharjah · Network 3",
+          title: "06 Mall",
+          text: "Reaching shoppers, families and Al Jurainah residents on the way in and inside the mall.",
+          alt: "Map of 06 Mall with its indoor screens and Jerry smartboard marked",
+        },
+        {
+          place: "Abu Dhabi · UAE",
+          title: "Tom at Yas Island",
+          text: "The first two Tom smartboards stand at the entrances of Yas Island.",
+          alt: "Tom roadside smartboard against a sunlit wall, with an extreme heat alert above a cold drink ad",
+        },
+        {
+          place: "Sharjah · Network 4",
+          title: "Chamber of Commerce",
+          text: "Premium visibility for professionals, decision-makers and commuters on one of Sharjah’s busiest corridors.",
+          alt: "Map of the Sharjah Chamber of Commerce network with the CITIX screen locations marked",
+        },
+      ],
+    },
     header: {
       nav: {
         solutions: "Solutions",
@@ -316,6 +387,68 @@ export const dictionaries: Record<Locale, Dictionary> = {
           tag: "لوحة ذكية للمشاة",
           text: "بارتفاع 2.6 م ومصممة لممرات المشاة، تحوّل Jerry المساحات العامة إلى قناة إعلامية تتفاعل مع محيطها.",
           alt: "لوحة Jerry الذكية للمشاة في قاعة خرسانية، مع معلومات الطقس فوق الإعلان",
+        },
+      ],
+    },
+    projects: {
+      eyebrow: "مشاريعنا",
+      title: "جزء من المدينة اليوم",
+      sub: "من واجهة الشارقة البحرية إلى منصة مهرجان كان ليونز، شاشات CITIX موجودة في الشارع وتعمل للعلامات التجارية الآن.",
+      hint: "مرّر للتنقّل",
+      cards: [
+        {
+          place: "الشارقة · الإمارات",
+          title: "شبكة الشارقة",
+          text: "5 مناطق رئيسية و14 معلمًا: الواجهة البحرية والتراث والتعليم والعائلات ووجهات التسوق.",
+          alt: "أفق الشارقة البحري عند الغروب مع عجلة القصباء المضاءة فوق الماء",
+        },
+        {
+          place: "أبوظبي · الإمارات",
+          title: "Jumbo",
+          text: "أكبر شاشاتنا الزاوية، بمساحة 400 م² تقريبًا، في مركز تسوق فاخر تحيط به العلامات الراقية.",
+          alt: "شاشة جمبو الزاوية على واجهة مركز تسوق، تخرج منها زجاجة عطر ثلاثية الأبعاد",
+        },
+        {
+          place: "الشارقة · الشبكة 1",
+          title: "المجاز وشاطئ الحيرة",
+          text: "موقعان يربطان ممرات المجاز المزدحمة بجمهور شاطئ الحيرة الساحلي.",
+          alt: "خريطة شبكة المجاز وشاطئ الحيرة مع مواقع شاشات CITIX",
+        },
+        {
+          place: "كازاخستان · كان ليونز 2025",
+          title: "سلطنات لايت",
+          text: "فازت CITIX كازاخستان مع GForce Grey بجائزتين في كان ليونز عن حملة بالذكاء الاصطناعي تحوّل اللوحات إلى إشارة استغاثة حيّة.",
+          alt: "لوحة حملة سلطنات لايت: وصول 22.3 مليون و522 ألف تفاعل",
+        },
+        {
+          place: "الشارقة · الشبكة 2",
+          title: "الممشى",
+          text: "لوحتا Tom ذكيتان تربطان مجتمعًا سكنيًا متناميًا بوجهات التسوق والترفيه.",
+          alt: "خريطة شبكة الممشى مع موقعي Tom",
+        },
+        {
+          place: "تجارة 1 · الإمارات",
+          title: "Baloo",
+          text: "أربع شاشات بمقاس 8 × 4 م تلتف حول زاوية مبنى تجارة 1، بجوار طريق سريع مزدحم.",
+          alt: "شاشات Baloo الزاوية على مبنى تجارة 1 ليلًا، تعرض علامة X من CITIX",
+        },
+        {
+          place: "الشارقة · الشبكة 3",
+          title: "06 مول",
+          text: "تصل إلى المتسوقين والعائلات وسكان الجرينة عند الوصول وداخل المول.",
+          alt: "خريطة 06 مول مع شاشاته الداخلية ولوحة Jerry",
+        },
+        {
+          place: "أبوظبي · الإمارات",
+          title: "Tom في جزيرة ياس",
+          text: "أول لوحتين من Tom تقفان عند مداخل جزيرة ياس.",
+          alt: "لوحة Tom الذكية على جانب الطريق أمام جدار مشمس، مع تنبيه حرارة شديدة فوق إعلان مشروب بارد",
+        },
+        {
+          place: "الشارقة · الشبكة 4",
+          title: "غرفة التجارة",
+          text: "حضور مميز أمام المهنيين وصنّاع القرار والمتنقلين على أحد أكثر ممرات الشارقة حركة.",
+          alt: "خريطة شبكة غرفة تجارة وصناعة الشارقة مع مواقع شاشات CITIX",
         },
       ],
     },

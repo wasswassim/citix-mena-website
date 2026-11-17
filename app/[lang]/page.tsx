@@ -6,6 +6,7 @@ import CompanyFacts from "@/components/CompanyFacts";
 import HeroLoop from "@/components/HeroLoop";
 import NetworkSection from "@/components/NetworkSection";
 import ProductCards from "@/components/ProductCards";
+import ProjectTunnel from "@/components/ProjectTunnel";
 import SiteHeader from "@/components/SiteHeader";
 import SiteLoader from "@/components/SiteLoader";
 import { TextWordFlip } from "@/components/ui/text-word-flip";
@@ -116,6 +117,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           href={soon}
           cards={t.products.cards}
         />
+
+        {/* Projects (17 Nov 2026): cards fly out of a tunnel as the page scrolls (idea from the bluesqx experience
+            section, motion from the 21st.dev Perspective Tunnel Hero, both rebuilt in our code). */}
+        <ProjectTunnel {...t.projects} />
       </main>
     </>
   );

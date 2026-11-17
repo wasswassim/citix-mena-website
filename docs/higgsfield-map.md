@@ -844,3 +844,11 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 
 ## 17 Nov 2026: own icon style (A, CITIX chevron)
 - Replaced the bluesqx-style icons: the diagonal arrow in a square box on every button (header, hero, About, products, announcement) is now the chevron of the CITIX logo, no box, sliding 3 px forward on hover (mirrored in Arabic). The mobile "+" menu is now two lines that cross into an X when open. Buttons stay 30 px tall; hero alignment unchanged.
+
+## 17 Nov 2026: Projects tunnel section (no generation, $0)
+- New section after Our Products: `components/ProjectTunnel.tsx` + "Projects tunnel" CSS block in `app/globals.css` + `projects` copy (EN/AR) in `lib/i18n.ts`.
+- Idea from the bluesqx "experience" section (cards floating towards you on scroll); motion from the 21st.dev Perspective Tunnel Hero (daiwiikharihar), rebuilt without framer-motion/Tailwind. The page scrolls normally: a ~4.4-screen section with a sticky stage drives the fly-through (the original hijacked the wheel).
+- Brand look: black, graphite dot grid, low Pulse Red glow, red/dashed depth rings, red eyebrow and place labels.
+- 9 cards with real projects from the sales deck: Sharjah network, Jumbo, Majaz & Heera Beach, Saltanat Light (Cannes Lions 2025), Al Mamsha, Baloo, 06 Mall, Tom at Yas Island, Chamber of Commerce. Images: `media/source/projects/SOURCE.md`.
+- Reduced motion / no JS: a plain grid of the same cards. rAF runs only while on screen and stops when settled.
+- To confirm: the Arabic copy (native review) and whether the deck's place names/figures can be published.

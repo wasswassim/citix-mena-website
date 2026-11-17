@@ -1544,3 +1544,296 @@ html[data-loader="on"] .site-loader.is-out {
     visibility: hidden;
   }
 }
+
+/* ---------- Projects tunnel (17 Nov 2026, components/ProjectTunnel.tsx) ----------
+   Default = a plain grid (no JavaScript, reduced motion). .is-3d turns it into a tall section with a sticky stage
+   where the cards fly out of a golden-angle tunnel towards the camera as the page scrolls. */
+.tunnel {
+  position: relative;
+  background: var(--black);
+  color: var(--snow);
+}
+
+.tunnel-sticky {
+  position: relative;
+  padding: clamp(64px, 7vw, 112px) var(--gutter);
+  overflow: hidden;
+}
+
+.tunnel-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Graphite dot grid, faded out towards the edges */
+.tunnel-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(255 255 255 / 0.13) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 55%, transparent 100%);
+  opacity: 0.6;
+}
+
+/* A low Pulse Red glow at the end of the tunnel (deep brand red, no neon) */
+.tunnel-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgb(253 3 50 / 0.16) 0%, rgb(153 3 50 / 0.07) 32%, transparent 62%),
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgb(0 0 0 / 0.85) 100%);
+}
+
+.tunnel-ring {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  translate: -50% -50%;
+}
+
+.tunnel-ring-1 {
+  width: 48vmin;
+  height: 48vmin;
+  border: 1px solid rgb(253 3 50 / 0.18);
+}
+
+.tunnel-ring-2 {
+  width: 76vmin;
+  height: 76vmin;
+  border: 1px dashed rgb(255 255 255 / 0.1);
+}
+
+.tunnel-head {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto clamp(32px, 4vw, 56px);
+  text-align: center;
+}
+
+.tunnel-eyebrow {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--pulse);
+}
+
+[dir="rtl"] .tunnel-eyebrow {
+  letter-spacing: 0;
+  font-size: 15px;
+}
+
+.tunnel-title {
+  margin: 0;
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  background: linear-gradient(180deg, var(--snow) 0%, var(--snow) 45%, rgb(255 255 255 / 0.45) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+[dir="rtl"] .tunnel-title {
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+.tunnel-sub {
+  max-width: 40ch;
+  margin: 18px auto 0;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.5;
+  color: rgb(224 224 224 / 0.75);
+}
+
+.tunnel-hint {
+  display: none;
+}
+
+.tunnel-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.tunnel-card-in {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--graphite);
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.12),
+    0 24px 60px rgb(0 0 0 / 0.75);
+  transition: box-shadow 0.5s ease;
+}
+
+.tunnel-card-in img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.tunnel-card-in:hover {
+  box-shadow:
+    0 0 0 1px rgb(253 3 50 / 0.7),
+    0 24px 60px rgb(153 3 50 / 0.3);
+}
+
+.tunnel-card-in:hover img {
+  scale: 1.08;
+}
+
+.tunnel-card-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 18px;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.96) 0%, rgb(0 0 0 / 0.86) 34%, rgb(0 0 0 / 0.4) 58%, transparent 78%);
+}
+
+.tunnel-card-place {
+  margin: 0 0 6px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pulse);
+}
+
+[dir="rtl"] .tunnel-card-place {
+  letter-spacing: 0;
+  font-size: 13px;
+}
+
+.tunnel-card-title {
+  margin: 0 0 6px;
+  font-size: 19px;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.tunnel-card-body {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgb(224 224 224 / 0.85);
+}
+
+/* ----- 3D mode: html[data-motion="ok"] is set before paint (lib/loader.ts) unless reduced motion is on ----- */
+html[data-motion="ok"] .tunnel {
+  /* one screen of stage + the travel: about 3.4 screens of scrolling for the whole fly-through */
+  height: calc(100svh + 340vh);
+}
+
+html[data-motion="ok"] .tunnel .tunnel-sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100svh;
+  padding: 0;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+html[data-motion="ok"] .tunnel .tunnel-ring {
+  display: block;
+}
+
+html[data-motion="ok"] .tunnel .tunnel-head {
+  z-index: 0;
+  margin: 0;
+  padding-inline: 24px;
+  transform: scale(0.82);
+  will-change: transform, opacity;
+}
+
+html[data-motion="ok"] .tunnel .tunnel-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  translate: -50% 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgb(224 224 224 / 0.6);
+  white-space: nowrap;
+}
+
+html[data-motion="ok"][dir="rtl"] .tunnel .tunnel-hint {
+  letter-spacing: 0;
+  font-size: 13px;
+}
+
+.tunnel-hint-line {
+  width: 1px;
+  height: 24px;
+  background: linear-gradient(to bottom, var(--pulse), transparent);
+}
+
+html[data-motion="ok"] .tunnel .tunnel-stage {
+  position: absolute;
+  inset: 0;
+  display: block;
+  max-width: none;
+  margin: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+html[data-motion="ok"] .tunnel .tunnel-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(190px, 19vw, 290px);
+  opacity: 0;
+  transform: translate3d(-50%, -50%, -1700px);
+  will-change: transform, opacity;
+  pointer-events: auto;
+}
+
+@media (max-width: 767px) {
+  html[data-motion="ok"] .tunnel .tunnel-sticky {
+    perspective: 900px;
+  }
+
+  html[data-motion="ok"] .tunnel .tunnel-card {
+    width: clamp(150px, 42vw, 190px);
+  }
+
+  .tunnel-card-text {
+    padding: 12px;
+  }
+
+  .tunnel-card-title {
+    font-size: 15px;
+  }
+
+  .tunnel-card-body {
+    font-size: 11px;
+  }
+}
