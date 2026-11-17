@@ -464,6 +464,91 @@ a {
   opacity: 0.7;
 }
 
+/* ---------- Ecosystem word flip (Wassim, 17 Nov 2026): replaces the glass cards ----------
+   One line on the page gutter, level with the CTA buttons (same bottom, same 30 px height, text centred on it).
+   Motion: components/ui/text-word-flip.tsx (after the 21st.dev Text Word Flip by wensity). */
+.hero-flip {
+  position: absolute;
+  inset-inline-start: var(--gutter);
+  inset-block-end: calc(12.2% + 12px);
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  max-width: calc(100% - 2 * var(--gutter));
+}
+.hero-flip-line {
+  margin: 0;
+  font-size: clamp(18px, 1.6vw, 24px);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.hero-flip-lead {
+  font-weight: 300;
+  color: var(--mist);
+}
+.hero-flip-word {
+  font-weight: 800;
+  color: var(--snow);
+}
+
+.word-flip {
+  position: relative;
+  display: inline-block;
+}
+.word-flip-word,
+.word-flip-part,
+.word-flip-ch {
+  display: inline-block;
+  white-space: nowrap;
+}
+/* the incoming word rises with a little spring, its letters blur in one after another */
+.word-flip-word.is-in {
+  animation: wf-rise 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.word-flip-ch {
+  animation: wf-letter 0.2s ease-out var(--d, 0s) both;
+}
+/* the outgoing word leaves up and outward (toward the reading direction), blurring and growing */
+.word-flip-word.is-out {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  transform-origin: left center;
+  pointer-events: none;
+  animation: wf-out 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+[dir="rtl"] .word-flip-word.is-out {
+  transform-origin: right center;
+  animation-name: wf-out-rtl;
+}
+@keyframes wf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+@keyframes wf-letter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(8px);
+  }
+}
+@keyframes wf-out {
+  to {
+    opacity: 0;
+    transform: translate(40px, -40px) scale(2);
+    filter: blur(8px);
+  }
+}
+@keyframes wf-out-rtl {
+  to {
+    opacity: 0;
+    transform: translate(-40px, -40px) scale(2);
+    filter: blur(8px);
+  }
+}
+
 /* ---------- CITIX Ecosystem glass cards (bottom-start; label level with the trusted-by label) ---------- */
 .ecosystem {
   --card: clamp(128px, 10.5vw, 168px);
@@ -656,6 +741,10 @@ a {
     inset-block-end: auto;
     inset-inline: var(--gutter);
     flex-wrap: wrap;
+  }
+  /* phones and tablets: the word flip sits just above the buttons, which start the line below it */
+  .hero-flip {
+    inset-block-end: calc(20.6% + 12px);
   }
   .ecosystem {
     --card: min(168px, calc((100vw - 2 * var(--gutter) - 16px) / 3));

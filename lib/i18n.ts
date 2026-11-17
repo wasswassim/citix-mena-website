@@ -41,7 +41,7 @@ type Dictionary = {
     trusted: string;
     placeholderNote: string;
   };
-  ecosystem: { label: string; cards: { title: string; text: string }[] };
+  ecosystem: { label: string; lead: string; cards: { title: string; text: string }[] };
   facts: { title: string; items: { value: number; suffix: string; label: string }[] };
   about: { title: string; paragraphs: string[]; ctaLine: string; cta: string };
   network: {
@@ -108,6 +108,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     // From the CITIX Ecosystem slide (company deck). "Propriety" on the slide corrected to "Proprietary".
     ecosystem: {
       label: "Ecosystem",
+      lead: "All in one platform:", // hero word flip (Wassim, 17 Nov 2026): the card titles cycle after it
       cards: [
         { title: "Hardware", text: "Self-engineered smartboards and components" },
         { title: "Software", text: "Proprietary solutions" },
@@ -244,6 +245,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     ecosystem: {
       label: "المنظومة",
+      lead: "منصّة واحدة متكاملة:",
       cards: [
         { title: "الأجهزة", text: "لوحات ذكية ومكوّنات من تصميمنا" },
         { title: "البرمجيات", text: "حلول خاصة بنا" },

@@ -3,12 +3,12 @@ import { notFound } from "next/navigation";
 import AboutStatement from "@/components/AboutStatement";
 import Arrow from "@/components/Arrow";
 import CompanyFacts from "@/components/CompanyFacts";
-import EcosystemCards from "@/components/EcosystemCards";
 import HeroLoop from "@/components/HeroLoop";
 import NetworkSection from "@/components/NetworkSection";
 import ProductCards from "@/components/ProductCards";
 import SiteHeader from "@/components/SiteHeader";
 import SiteLoader from "@/components/SiteLoader";
+import { TextWordFlip } from "@/components/ui/text-word-flip";
 import { logoStyle, trustedBrands } from "@/lib/brands";
 import { dictionaries, isLocale } from "@/lib/i18n";
 import { LOADER_SCRIPT } from "@/lib/loader";
@@ -54,7 +54,22 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             </h1>
           </div>
 
-          <EcosystemCards label={t.ecosystem.label} cards={t.ecosystem.cards} />
+          {/* Ecosystem (Wassim, 17 Nov 2026): the glass cards and the "Ecosystem" label are replaced by one line whose
+              last word flips through the platform's parts, level with the buttons. components/EcosystemCards.tsx and
+              the liquid glass panes are kept in the repo. The full list stays in the HTML for readers and crawlers. */}
+          <div className="hero-flip">
+            <p className="hero-flip-line">
+              <span className="hero-flip-lead">{t.ecosystem.lead}</span>{" "}
+              <TextWordFlip words={t.ecosystem.cards.map((c) => c.title)} className="hero-flip-word" />
+            </p>
+            <ul className="sr-only">
+              {t.ecosystem.cards.map((c) => (
+                <li key={c.title}>
+                  {c.title}: {c.text}
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <div className="hero-ctas">
             <Link className="btn-outline" href={soon}>

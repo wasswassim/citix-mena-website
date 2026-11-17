@@ -836,3 +836,8 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 
 ## 17 Nov 2026: hero alignment
 - One grid: the CTA buttons' bottom now sits on the same line as the Ecosystem cards' bottom (was 22 px higher), and their outer edge on the page gutter like the title and cards on the other side (was 5vw). Measured at 1024 and 1440 wide: title, cards and buttons on the gutter, cards and buttons share the bottom line. Mobile layout unchanged.
+
+## 17 Nov 2026: hero word flip replaces the glass cards
+- The three glass cards and the "Ecosystem" label are gone from the hero. In their place, one line on the page gutter, level with the CTA buttons (same 30 px band): "All in one platform:" + a word that flips through Hardware, Software, AI engine, Blockchain, VPN, Smart City (AR mirrored). The full list with descriptions stays in the HTML (sr-only) for readers and crawlers.
+- Motion after the 21st.dev Text Word Flip (wensity), rebuilt in CSS (no framer-motion): letters blur in one by one, the old word leaves up and outward, blurring and growing. Arabic animates word by word so letters stay joined. Pauses off screen; reduced motion = still word.
+- EcosystemCards.tsx and the liquid glass panes stay in the repo, unused. Copy "All in one platform:" / "منصّة واحدة متكاملة:" to review.
