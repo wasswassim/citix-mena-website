@@ -830,3 +830,6 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 
 ## 17 Nov 2026: loader exit slides up
 - The loading screen no longer fades: when the reveal ends (or on skip) the black screen slides up with the X like a curtain, 0.9 s ease-in-out, uncovering the hero. The CSS failsafe slides too.
+
+## 17 Nov 2026: no layout jump after the loader
+- The loader hid the page scrollbar (overflow: hidden), so when it came back the page narrowed by ~15 px and jumped. The scrollbar now stays visible the whole time; scrolling under the loader is blocked in JS (wheel/touch) instead. Measured: page width 1009 px during and after the loader.

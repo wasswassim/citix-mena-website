@@ -39,10 +39,16 @@ export default function SiteLoader({ label }: { label: string }) {
     if (!active) return;
     const skip = () => finish();
     window.addEventListener("keydown", skip);
+    // hold the page still under the loader without hiding the scrollbar (hiding it shifted the layout)
+    const hold = (e: Event) => e.preventDefault();
+    window.addEventListener("wheel", hold, { passive: false });
+    window.addEventListener("touchmove", hold, { passive: false });
     // a safety net: never hold the page for more than 6 s, whatever happens to the animation
     const id = window.setTimeout(finish, 6000);
     return () => {
       window.removeEventListener("keydown", skip);
+      window.removeEventListener("wheel", hold);
+      window.removeEventListener("touchmove", hold);
       window.clearTimeout(id);
     };
   }, [active, finish]);

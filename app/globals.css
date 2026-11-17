@@ -1403,9 +1403,8 @@ main:focus {
 .site-loader {
   display: none;
 }
-html[data-loader="on"] {
-  overflow: hidden;
-}
+/* No overflow: hidden here: hiding the scrollbar made the page jump sideways when it came back. Scrolling is
+   blocked in SiteLoader.tsx instead (wheel / touch), so the scrollbar stays put the whole time. */
 html[data-loader="on"] .site-loader {
   display: block;
   position: fixed;
