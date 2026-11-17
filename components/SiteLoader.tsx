@@ -54,7 +54,7 @@ export default function SiteLoader({ label }: { label: string }) {
           className="site-loader-glass"
           // the component sets position: relative inline, so the full-screen size must be inline too
           style={{ position: "absolute", inset: 0 }}
-          logo="/media/brand/citix-x.png"
+          logo="/media/brand/citix-x-1024.png"
           look="dark"
           originalColors
           loop={false}

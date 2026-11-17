@@ -824,3 +824,6 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 ## 17 Nov 2026: loader on every load + card corners restored
 - The loader skipped refreshes because it was once per session; it now plays on every page load (still off with reduced motion). Checked: after a reload it shows full screen.
 - Hero glass cards back to the original CSS corner curve (13% of the side): CSS border-radius restored, WebGL superellipse power 8.8 matched to it.
+
+## 17 Nov 2026: loader logo sharper
+- The X was pixelated: the only CITIX logo file is the 934 x 280 header PNG (X = 128 px), enlarged ~3x by the loader. Now uses media/web/brand/citix-x-1024.png, the same pixels resampled to 1152 px with smoothed edges (nothing redrawn). Best fix still to come: the official vector logo from the company.
