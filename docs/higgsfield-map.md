@@ -841,3 +841,6 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 - The three glass cards and the "Ecosystem" label are gone from the hero. In their place, one line on the page gutter, level with the CTA buttons (same 30 px band): "All in one platform:" + a word that flips through Hardware, Software, AI engine, Blockchain, VPN, Smart City (AR mirrored). The full list with descriptions stays in the HTML (sr-only) for readers and crawlers.
 - Motion after the 21st.dev Text Word Flip (wensity), rebuilt in CSS (no framer-motion): letters blur in one by one, the old word leaves up and outward, blurring and growing. Arabic animates word by word so letters stay joined. Pauses off screen; reduced motion = still word.
 - EcosystemCards.tsx and the liquid glass panes stay in the repo, unused. Copy "All in one platform:" / "منصّة واحدة متكاملة:" to review.
+
+## 17 Nov 2026: own icon style (A, CITIX chevron)
+- Replaced the bluesqx-style icons: the diagonal arrow in a square box on every button (header, hero, About, products, announcement) is now the chevron of the CITIX logo, no box, sliding 3 px forward on hover (mirrored in Arabic). The mobile "+" menu is now two lines that cross into an X when open. Buttons stay 30 px tall; hero alignment unchanged.

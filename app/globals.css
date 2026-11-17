@@ -48,7 +48,7 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 4px 4px 8px;
+  padding: 4px 10px 4px 12px;
   border: 1px solid rgb(255 255 255 / 0.12);
   border-radius: 4px;
   /* Filled with the calm brand red (Wassim, 15 Nov 2026) */
@@ -63,17 +63,16 @@ a {
 }
 
 [dir="rtl"] .btn-outline {
-  padding: 4px 8px 4px 4px;
+  padding: 4px 12px 4px 10px;
 }
 
+/* Icon style A (Wassim, 17 Nov 2026): the CITIX logo chevron, no box (components/Arrow.tsx) */
 .btn-arrow {
   display: grid;
   place-items: center;
-  width: 20px;
+  width: 12px;
   height: 20px;
-  border-radius: 2px;
-  background: rgb(255 255 255 / 0.2);
-  transition: background-color 0.25s ease;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [dir="rtl"] .btn-arrow svg {
@@ -86,8 +85,11 @@ a {
 }
 
 .btn-outline:hover .btn-arrow {
-  background: rgb(255 255 255 / 0.85);
-  color: #8c0a30;
+  transform: translateX(3px);
+}
+
+[dir="rtl"] .btn-outline:hover .btn-arrow {
+  transform: translateX(-3px);
 }
 
 /* ---------- Fixed header + optional announcement bar ---------- */
@@ -123,7 +125,12 @@ a {
 }
 
 .announce-cta:hover .btn-arrow {
-  background: var(--pulse);
+  color: var(--pulse);
+  transform: translateX(3px);
+}
+
+[dir="rtl"] .announce-cta:hover .btn-arrow {
+  transform: translateX(-3px);
 }
 
 .announce-close {
@@ -211,6 +218,19 @@ a {
   color: var(--snow);
   cursor: pointer;
   transition: background-color 0.2s ease;
+}
+
+/* Menu icon (icon style A): two lines that cross into an X when the menu is open, instead of the bluesqx "+" */
+.menu-btn .menu-line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.menu-btn[aria-expanded="true"] .menu-line-1 {
+  transform: translateY(2.25px) rotate(45deg);
+}
+.menu-btn[aria-expanded="true"] .menu-line-2 {
+  transform: translateY(-2.25px) rotate(-45deg);
 }
 
 .mobile-menu {

@@ -144,8 +144,10 @@ export default function SiteHeader(p: Props) {
             aria-label={open ? p.menuClose : p.menuOpen}
             onClick={() => setOpen((o) => !o)}
           >
-            <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true">
-              <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.5" />
+            {/* icon style A (17 Nov 2026): two lines, crossing into an X when open (app/globals.css) */}
+            <svg viewBox="0 0 16 14" width="16" height="14" aria-hidden="true">
+              <path className="menu-line menu-line-1" d="M1 4.75h14" stroke="currentColor" strokeWidth="1.5" />
+              <path className="menu-line menu-line-2" d="M1 9.25h14" stroke="currentColor" strokeWidth="1.5" />
             </svg>
           </button>
         </div>
