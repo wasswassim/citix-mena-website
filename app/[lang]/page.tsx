@@ -3,10 +3,13 @@ import { notFound } from "next/navigation";
 import AboutStatement from "@/components/AboutStatement";
 import Arrow from "@/components/Arrow";
 import CompanyFacts from "@/components/CompanyFacts";
+import ContactCTA from "@/components/ContactCTA";
 import HeroLoop from "@/components/HeroLoop";
+import HowWeWork from "@/components/HowWeWork";
 import NetworkSection from "@/components/NetworkSection";
 import ProductCards from "@/components/ProductCards";
 import ProjectTunnel from "@/components/ProjectTunnel";
+import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import SiteLoader from "@/components/SiteLoader";
 import { TextWordFlip } from "@/components/ui/text-word-flip";
@@ -121,7 +124,22 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         {/* Projects (17 Nov 2026): cards fly out of a tunnel as the page scrolls (idea from the bluesqx experience
             section, motion from the 21st.dev Perspective Tunnel Hero, both rebuilt in our code). */}
         <ProjectTunnel {...t.projects} />
+
+        {/* How we work (18 Nov 2026): the four steps from the company documents as stacking CITIX widget cards
+            (motion idea from the 21st.dev Stacking Cards pattern). It opens on the white the tunnel lands in. */}
+        <HowWeWork {...t.how} rtl={lang === "ar"} />
+
+        {/* Call to action (18 Nov 2026): contact form, not connected to a backend yet. */}
+        <ContactCTA {...t.cta} />
       </main>
+
+      <SiteFooter
+        lang={lang}
+        siteName={t.siteName}
+        {...t.footer}
+        href={soon}
+        langSwitch={{ ...t.langSwitch, hrefLang: lang === "en" ? "ar" : "en" }}
+      />
     </>
   );
 }

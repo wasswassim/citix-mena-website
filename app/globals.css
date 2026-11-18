@@ -7,10 +7,18 @@
   --pulse-dark: #990332;
   /* Calm red for filled UI (Wassim, 15 Nov 2026: the bright Pulse gradient was too shiny on the dark site):
      the brand's deep red into a dark wine, matt. */
-  --red-calm: linear-gradient(135deg, #8c0a30 0%, #4a0618 100%);
-  --red-calm-hover: linear-gradient(135deg, #a10d38 0%, #5a081f 100%);
+  /* Buttons use the brand book's Pulse Red gradient (#FD0332 -> #990332), kept by Wassim after the manager review
+     (18 Nov 2026). The earlier calm reds were: #8c0a30 -> #4a0618, hover #a10d38 -> #5a081f. */
+  --red-calm: linear-gradient(135deg, #fd0332 0%, #990332 100%);
+  --red-calm-hover: linear-gradient(135deg, #ff2a52 0%, #b0043b 100%);
   /* Brand type is Gilroy (ExtraBold headings, Light body). No licensed font files are in the repo yet,
      so the stack falls back to a geometric sans. Add @font-face here when the files are supplied. */
+  /* One corner curve for the whole site (Wassim, 18 Nov 2026): the buttons' 4 px. Cards, panels, tiles, fields and
+     tags all use it; only true circles (chevron discs, dots, rings) stay round. */
+  --radius: 4px;
+  /* Cards drawn as real CITIX widgets use the widgets' own corner (Figma "Widgest_Citix_Mena": ~14 px outer corner,
+     14 px inner strips), Wassim 18 Nov 2026 */
+  --radius-widget: 14px;
   --font: "Gilroy", "Century Gothic", "Segoe UI", system-ui, -apple-system, "Noto Sans Arabic", "Tahoma", sans-serif;
   /* Page gutter: 4vw = the measured 57 px at 1440 (bluesqx layout), 16 px on phones */
   --gutter: clamp(16px, 4vw, 72px);
@@ -50,7 +58,7 @@ a {
   gap: 8px;
   padding: 4px 10px 4px 12px;
   border: 1px solid rgb(255 255 255 / 0.12);
-  border-radius: 4px;
+  border-radius: var(--radius);
   /* Filled with the calm brand red (Wassim, 15 Nov 2026) */
   background: var(--red-calm);
   color: var(--snow);
@@ -140,7 +148,7 @@ a {
   height: 24px;
   margin-inline-start: auto;
   border: 0;
-  border-radius: 2px;
+  border-radius: var(--radius);
   background: rgb(255 255 255 / 0.15);
   color: var(--snow);
   cursor: pointer;
@@ -182,7 +190,7 @@ a {
   line-height: 20px;
   font-weight: 400;
   text-decoration: none;
-  border-radius: 4px;
+  border-radius: var(--radius);
   transition: background-color 0.2s ease;
 }
 
@@ -213,7 +221,7 @@ a {
   height: 30px;
   padding: 0;
   border: 1px solid rgb(255 255 255 / 0.2);
-  border-radius: 4px;
+  border-radius: var(--radius);
   background: transparent;
   color: var(--snow);
   cursor: pointer;
@@ -237,7 +245,7 @@ a {
   margin: 0 var(--gutter);
   padding: 8px 16px;
   border: 1px solid rgb(255 255 255 / 0.2);
-  border-radius: 4px;
+  border-radius: var(--radius);
   background: rgb(10 10 10 / 0.92);
 }
 
@@ -314,7 +322,7 @@ a {
   display: block;
   margin-inline: -8px;
   padding: 12px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius);
   font-size: 18px;
   font-weight: 400;
   text-decoration: none;
@@ -1083,6 +1091,7 @@ main:focus {
   min-width: 0;
   padding-inline: 2rem;
   overflow: hidden;
+  border-radius: var(--radius);
   background: var(--black);
   color: var(--snow);
   transition: flex-basis 1s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -1210,7 +1219,7 @@ main:focus {
   display: inline-block;
   margin: 0 0 16px;
   padding: 4px 8px;
-  border-radius: 2px;
+  border-radius: var(--radius);
   background: rgb(255 255 255 / 0.16);
   font-size: 12px;
   line-height: 16px;
@@ -1683,7 +1692,7 @@ html[data-loader="on"] .site-loader.is-out {
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: var(--radius);
   background: var(--graphite);
   box-shadow:
     0 0 0 1px rgb(255 255 255 / 0.12),
@@ -1858,5 +1867,618 @@ html[data-motion="ok"] .tunnel .tunnel-card {
 
   .tunnel-card-body {
     font-size: 11px;
+  }
+}
+
+/* ---------- How we work v2 (18 Nov 2026, components/HowWeWork.tsx) ----------
+   Stacking widget cards: the heading and step index stay pinned on the start side while the four CITIX widget cards
+   pin one over the other on the end side; the ones underneath shrink back and dim (--depth, set from scroll). */
+.how {
+  --how-top: 112px; /* clears the fixed header */
+  background: var(--snow);
+  color: var(--black);
+  padding: var(--how-top) var(--gutter) clamp(72px, 10vh, 140px);
+  transition: background-color 0.5s ease;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 6vw, 120px);
+  align-items: start;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.how-head {
+  position: sticky;
+  top: calc(var(--how-top) + 24px);
+  padding-top: 24px;
+}
+
+.how-eyebrow {
+  margin: 0 0 14px;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--pulse);
+}
+
+.how-title {
+  max-width: 14ch;
+  margin: 0;
+  font-size: clamp(34px, 4vw, 60px);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.how-sub {
+  max-width: 40ch;
+  margin: 20px 0 0;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.55;
+  color: rgb(22 22 22 / 0.68);
+}
+
+[dir="rtl"] .how-eyebrow,
+[dir="rtl"] .how-title {
+  letter-spacing: 0;
+}
+
+[dir="rtl"] .how-eyebrow {
+  font-size: 15px;
+}
+
+[dir="rtl"] .how-title {
+  line-height: 1.25;
+}
+
+/* step index: a rail with the four steps; the one on top of the stack is black with a red bar */
+.how-index {
+  display: grid;
+  gap: 2px;
+  margin: clamp(32px, 5vh, 56px) 0 0;
+  padding: 0;
+  list-style: none;
+  max-width: 320px;
+}
+
+.how-index li {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 12px 0 12px 18px;
+  padding-inline: 18px 0;
+  border-inline-start: 2px solid rgb(22 22 22 / 0.12);
+  color: rgb(22 22 22 / 0.4);
+  transition:
+    color 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.how-index li.is-done {
+  color: rgb(22 22 22 / 0.6);
+}
+
+.how-index li.is-active {
+  color: var(--black);
+  border-color: var(--pulse);
+}
+
+.how-index-n {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--pulse);
+}
+
+.how-index-t {
+  font-size: 19px;
+  font-weight: 800;
+}
+
+/* the stack */
+.how-stack {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* room after the last card so it pins like the others and the whole deck rests, fully stacked, before the page
+   moves on (a sticky card can only travel inside its list's content box, padding doesn't count) */
+.how-stack::after {
+  content: "";
+  display: block;
+  height: 50vh;
+}
+
+.how-card {
+  --card-h: min(calc(100svh - var(--how-top) - 64px), 640px);
+  --off: 20px; /* how much of each card peeks above the next */
+  position: sticky;
+  top: calc(var(--how-top) + 24px + var(--i) * var(--off));
+  height: var(--card-h);
+  /* a sticky card is held back by its own bottom margin, so the scroll gap goes above the next card instead, and
+     each card's small bottom margin lines all the cards' ends up: the deck leaves the screen as one */
+  margin-bottom: calc((var(--n) - 1 - var(--i)) * var(--off));
+  transform-origin: 50% 0;
+  transform: scale(calc(1 - var(--depth, 0) * 0.05));
+  filter: brightness(calc(1 - var(--depth, 0) * 0.28));
+  will-change: transform;
+}
+
+.how-card + .how-card {
+  margin-top: 28vh;
+}
+
+/* a CITIX widget screen: black panel, graphite rounded tiles, Pulse Red chevron discs */
+.how-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 14px;
+  border-radius: var(--radius-widget);
+  background: #060606;
+  color: var(--snow);
+  box-shadow:
+    0 30px 60px -30px rgb(0 0 0 / 0.55),
+    0 0 0 1px rgb(255 255 255 / 0.04) inset;
+}
+
+.how-tile {
+  border-radius: var(--radius-widget);
+  background: #1c1c1e;
+}
+
+.how-tile-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  min-height: 0;
+  padding: clamp(18px, 2.4vw, 30px);
+  text-align: center;
+}
+
+.how-tile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+}
+
+.how-num {
+  font-size: clamp(40px, 4vw, 60px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.how-disc {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--pulse);
+  color: var(--snow);
+}
+
+.how-disc svg {
+  width: 20px;
+  height: 20px;
+}
+
+.how-disc-white {
+  width: 48px;
+  height: 48px;
+  background: var(--snow);
+  color: #060606;
+}
+
+.how-icon {
+  width: clamp(54px, 6vh, 76px);
+  height: auto;
+  margin: auto 0 0;
+  color: var(--snow);
+}
+
+.how-card-title {
+  margin: clamp(10px, 2vh, 20px) 0 0;
+  font-size: clamp(28px, 2.6vw, 40px);
+  font-weight: 800;
+}
+
+.how-card-text {
+  max-width: 44ch;
+  margin: 12px 0 auto;
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.55;
+  color: rgb(224 224 224 / 0.78);
+}
+
+.how-rows {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.how-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px 12px 22px;
+  padding-inline: 22px 14px;
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-weight: 700;
+}
+
+@media (max-width: 899px) {
+  .how {
+    --how-top: 88px;
+  }
+
+  .how-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .how-head {
+    position: static;
+    padding-top: 0;
+  }
+
+  .how-index {
+    display: none;
+  }
+
+  .how-card {
+    --card-h: min(calc(100svh - var(--how-top) - 40px), 600px);
+    --off: 12px;
+    top: calc(var(--how-top) + var(--i) * var(--off));
+  }
+
+  .how-card + .how-card {
+    margin-top: 18vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .how-head,
+  .how-card {
+    position: static;
+  }
+
+  .how-stack::after {
+    display: none;
+  }
+
+  .how-card {
+    height: auto;
+    min-height: 0;
+    margin: 0 0 24px;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Reveal: in motion mode the section is pulled up over the tunnel's last, white screen and stays hidden until
+   HowWeWork adds .is-revealed (the dive is nearly white); keyboard focus inside also shows it.
+   The tunnel's run is 500vh (height 100svh + 500vh) and its dive is nearly white at 93 % of it: pulling the
+   section up by one screen plus 7 % of the run (35vh) puts its top at the top of the screen at that moment. */
+html[data-motion="ok"] .tunnel + .how {
+  position: relative;
+  margin-top: calc(-100svh - 35vh);
+}
+
+.how-head,
+.how-stack {
+  transition:
+    opacity 0.7s ease,
+    transform 0.9s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.how-stack {
+  transition-delay: 0.12s;
+}
+
+html[data-motion="ok"] .tunnel + .how:not(.is-revealed):not(:focus-within) {
+  background-color: transparent;
+  pointer-events: none;
+}
+
+html[data-motion="ok"] .tunnel + .how:not(.is-revealed):not(:focus-within) :is(.how-head, .how-stack) {
+  opacity: 0;
+  transform: translateY(40px);
+  transition-delay: 0s;
+}
+
+/* ---------- Call to action (18 Nov 2026, components/ContactCTA.tsx) ---------- */
+.cta {
+  padding: clamp(96px, 14vh, 160px) var(--gutter) clamp(80px, 12vh, 140px);
+  background: var(--black);
+  color: var(--snow);
+}
+
+.cta-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 6vw, 120px);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.cta-eyebrow {
+  margin: 0 0 14px;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--pulse);
+}
+
+.cta-title {
+  max-width: 13ch;
+  margin: 0;
+  font-size: clamp(34px, 4vw, 60px);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.cta-sub {
+  max-width: 40ch;
+  margin: 20px 0 0;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.55;
+  color: rgb(224 224 224 / 0.72);
+}
+
+.cta-slogan {
+  margin: clamp(28px, 6vh, 64px) 0 0;
+  padding-inline-start: 18px;
+  border-inline-start: 2px solid var(--pulse);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+[dir="rtl"] .cta-eyebrow,
+[dir="rtl"] .cta-title {
+  letter-spacing: 0;
+}
+
+[dir="rtl"] .cta-title {
+  line-height: 1.25;
+}
+
+/* the form sits on a graphite panel, fields like the widget tiles */
+.cta-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 16px;
+  padding: clamp(20px, 3vw, 36px);
+  border-radius: var(--radius);
+  background: var(--graphite);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.05);
+}
+
+.cta-wide {
+  grid-column: 1 / -1;
+}
+
+.cta-field {
+  display: grid;
+  gap: 8px;
+}
+
+.cta-field label {
+  font-size: 14px;
+  color: rgb(224 224 224 / 0.8);
+}
+
+.cta-opt {
+  color: rgb(224 224 224 / 0.45);
+}
+
+.cta-field :is(input, select, textarea) {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: var(--radius);
+  background: #1c1c1e;
+  color: var(--snow);
+  font: inherit;
+  font-size: 16px;
+  transition: border-color 0.25s ease;
+}
+
+.cta-field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.cta-field select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--snow) 50%), linear-gradient(135deg, var(--snow) 50%, transparent 50%);
+  background-position:
+    calc(100% - 22px) 50%,
+    calc(100% - 16px) 50%;
+  background-size: 6px 6px;
+  background-repeat: no-repeat;
+}
+
+[dir="rtl"] .cta-field select {
+  background-position:
+    16px 50%,
+    22px 50%;
+}
+
+.cta-field :is(input, select, textarea):focus-visible {
+  outline: none;
+  border-color: var(--pulse);
+}
+
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 6px;
+}
+
+.cta-submit {
+  padding: 12px 18px 12px 22px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+[dir="rtl"] .cta-submit {
+  padding: 12px 22px 12px 18px;
+}
+
+.cta-note {
+  margin: 0;
+  font-size: 14px;
+  color: rgb(224 224 224 / 0.75);
+}
+
+/* ---------- Footer (18 Nov 2026, components/SiteFooter.tsx) ---------- */
+.site-footer {
+  padding: clamp(64px, 10vh, 120px) var(--gutter) clamp(28px, 4vh, 48px);
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+  background: var(--black);
+  color: var(--snow);
+}
+
+.footer-top,
+.footer-bottom {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 2fr);
+  gap: clamp(40px, 6vw, 120px);
+}
+
+.footer-logo img {
+  display: block;
+  width: clamp(150px, 14vw, 210px);
+  height: auto;
+}
+
+.footer-tagline {
+  max-width: 18ch;
+  margin: 24px 0 0;
+  font-size: clamp(22px, 2.2vw, 32px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.footer-nav {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.footer-group-title {
+  margin: 0 0 18px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--pulse);
+}
+
+[dir="rtl"] .footer-group-title {
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+.footer-group ul {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer a {
+  color: rgb(224 224 224 / 0.78);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--snow);
+}
+
+.footer-group a {
+  font-size: 17px;
+}
+
+/* bottom row: legal on the start side, the loading-screen X on its dark tile in the end corner */
+.footer-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: clamp(64px, 12vh, 140px);
+}
+
+.footer-legal {
+  display: grid;
+  gap: 10px;
+  font-size: 14px;
+  color: rgb(224 224 224 / 0.55);
+}
+
+.footer-legal p {
+  margin: 0;
+}
+
+.footer-utils {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-x {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: clamp(120px, 15vw, 230px);
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  background: #05060a;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.08),
+    0 0 60px rgb(255 255 255 / 0.04);
+}
+
+.footer-x img {
+  width: 56%;
+  height: auto;
+}
+
+@media (max-width: 899px) {
+  .cta-grid,
+  .footer-top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .cta-form {
+    grid-template-columns: 1fr;
   }
 }

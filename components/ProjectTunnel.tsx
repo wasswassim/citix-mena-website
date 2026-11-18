@@ -61,7 +61,7 @@ const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) *
 // the heading near its middle until that letter's white fills the screen, which becomes the white page.
 const CARDS_END = 0.7;
 const ZOOM_START = 0.72;
-const ZOOM_END = 0.98;
+const ZOOM_END = 0.98; // HowWeWork's overlap (globals.css) is tuned to this split: keep them in step
 const HEAD_SCALE_END = 1.15; // the heading's slow growth during the fly-through ends here
 
 /**

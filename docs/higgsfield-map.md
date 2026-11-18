@@ -874,3 +874,10 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 - Wassim: replace the heading fade at the end of the tunnel with the 21st.dev "Glyph Portal" zoom (Christian Katzmann, MIT), into a letter from the middle of the phrase, landing on white.
 - Built into `components/ProjectTunnel.tsx` (not the whole component): cards fly over the first 70 % of the scroll, then the camera dives into the thickest letter nearest the middle of "Already part of the city" (EN: "a"/"p" of "part"; AR: "مد" of "المدينة") and hands over to a white layer. The heading gradient turns solid white during the dive so the letter matches. Section 100svh + 500vh. Reduced motion keeps the grid.
 - Checked with headless Chrome stills (desktop and 390 px, EN and AR). Project stays $32.04 of $40.
+
+## 18 Nov 2026: How we work, contact form, footer, corners, Pulse Red (no generation, $0)
+- How we work rebuilt as stacking widget cards (motion idea from 21st.dev "Stacking Cards", rebuilt without its code); the deck rests fully stacked, then leaves as one before the next section.
+- New contact CTA form (no backend yet: it says nothing was sent) and a large footer with every page link and the loading-screen X in the bottom corner (mirrored to bottom-left in Arabic; bottom-right is against the brand book, to confirm with the supervisor).
+- Corners unified: `--radius: 4px` (buttons, forms, product and tunnel cards) and `--radius-widget: 14px` (How we work widget cards, matching the Figma widgets).
+- Buttons back on the brand book Pulse Red gradient (#FD0332 -> #990332), kept by Wassim after the manager review.
+- Mosa AI hero video studied for a similar Higgsfield background; generation planned for 19 Nov (quote first). Project stays $32.04 of $40.

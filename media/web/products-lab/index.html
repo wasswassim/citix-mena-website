@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product card video lab</title>
+<style>
+  :root { --snow:#fff; --graphite:#161616; --red:#fd0332; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 16px 64px; background: var(--snow); color: var(--graphite);
+         font-family: "Century Gothic", "Segoe UI", system-ui, sans-serif; }
+  h1 { margin: 0 0 4px; font-size: 28px; font-weight: 800; }
+  p.lead { margin: 0 0 32px; color: rgb(22 22 22 / .7); max-width: 70ch; }
+  h2 { margin: 40px 0 12px; font-size: 22px; font-weight: 800; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px; }
+  figure { margin: 0; }
+  .card { position: relative; aspect-ratio: 969 / 810; overflow: hidden; background: #000; color: #fff; }
+  .card video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .card::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgb(0 0 0 / .8) 0%, rgb(0 0 0 / .35) 35%, transparent 60%), rgb(0 0 0 / .22); }
+  .card .txt { position: absolute; z-index: 1; inset: 0; padding: 24px; text-align: center; }
+  .card .tag { display: inline-block; padding: 3px 6px; border: 1px solid rgb(255 255 255 / .6);
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+  .card .name { margin: 10px 0 0; font-size: 32px; font-weight: 800; }
+  figcaption { margin-top: 8px; font-size: 14px; line-height: 1.4; }
+  figcaption b { color: var(--red); }
+</style>
+</head>
+<body>
+  <h1>Product card video lab</h1>
+  <p class="lead">Local comparison only (not part of the site). Each box has the same shape and dark top fade as the
+    open card on the homepage (969 × 810). Pick one letter for Tom and one for Jerry.</p>
+
+  <h2>Tom</h2>
+  <div class="grid">
+    <figure><div class="card"><video src="tom-ab.mp4" poster="tom-ab.webp" muted loop autoplay playsinline></video>
+      <div class="txt"><span class="tag">Roadside smartboard</span><p class="name">Tom</p></div></div>
+      <figcaption><b>A + B · day then night</b>: one clip, using the creative's own blur-and-cut between the two shots. 9.6 s, 1.07 MB</figcaption></figure>
+    <figure><div class="card"><video src="tom-a-day.mp4" poster="tom-a-day.webp" muted loop autoplay playsinline></video>
+      <div class="txt"><span class="tag">Roadside smartboard</span><p class="name">Tom</p></div></div>
+      <figcaption><b>A · current</b>: creative pack, daylight, heat alert above a drink ad. 5.9 s, 785 KB</figcaption></figure>
+    <figure><div class="card"><video src="tom-b-night.mp4" poster="tom-b-night.webp" muted loop autoplay playsinline></video>
+      <div class="txt"><span class="tag">Roadside smartboard</span><p class="name">Tom</p></div></div>
+      <figcaption><b>B · night</b>: same creative, dark garage, seatbelt widget above an unbranded car ad. 3.2 s, 223 KB</figcaption></figure>
+    <figure><div class="card"><video src="tom-c-sharjah.mp4" poster="tom-c-sharjah.webp" muted loop autoplay playsinline></video>
+      <div class="txt"><span class="tag">Roadside smartboard</span><p class="name">Tom</p></div></div>
+      <figcaption><b>C · city at night</b>: our generated intro shot, the real old Tom with its red side strip, skyline and light trails. Screens blank. 3 s, 347 KB</figcaption></figure>
+    <figure><div class="card"><video src="tom-d-falcon.mp4" poster="tom-d-falcon.webp" muted loop autoplay playsinline></video>
+      <div class="txt"><span class="tag">Roadside smartboard</span><p class="name">Tom</p></div></div>
+      <figcaption><b>D · falcon</b>: our generated orbit clip (old hero), old Tom in the moonlit desert, a falcon flies out. 8 s, 736 KB</figcaption></figure>
+  </div>
+
+  <h2>Jerry</h2>
+  <div class="grid">
+    <figure><div class="card"><video src="jerry-a-hall.mp4" poster="jerry-a-hall.webp" muted loop autoplay playsinline></video>
+      <div class="txt"><span class="tag">Pedestrian smartboard</span><p class="name">Jerry</p></div></div>
+      <figcaption><b>A · current</b>: creative pack, concrete hall, weather widget above a bottle ad. 3 s, 308 KB</figcaption></figure>
+    <figure><div class="card"><video src="jerry-b-grille.mp4" poster="jerry-b-grille.webp" muted loop autoplay playsinline></video>
+      <div class="txt"><span class="tag">Pedestrian smartboard</span><p class="name">Jerry</p></div></div>
+      <figcaption><b>B · light and shadow</b>: creative pack, steel board with a speaker grille, striped sunlight. 2.4 s, 290 KB</figcaption></figure>
+    <figure><div class="card"><video src="jerry-c-green.mp4" poster="jerry-c-green.webp" muted loop autoplay playsinline></video>
+      <div class="txt"><span class="tag">Pedestrian smartboard</span><p class="name">Jerry</p></div></div>
+      <figcaption><b>C · red stage</b>: creative pack ("digital arch"), headlights widget, red floor. Has small "+" marks and a counter from the original edit. 2.1 s</figcaption></figure>
+  </div>
+</body>
+</html>

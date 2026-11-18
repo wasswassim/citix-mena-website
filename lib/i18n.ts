@@ -66,6 +66,31 @@ type Dictionary = {
     hint: string;
     cards: { place: string; title: string; text: string; alt: string }[];
   };
+  how: {
+    eyebrow: string;
+    title: string;
+    sub: string;
+    steps: { title: string; text: string; rows: [string, string] }[];
+  };
+  cta: {
+    eyebrow: string;
+    title: string;
+    sub: string;
+    slogan: string;
+    fields: { name: string; company: string; email: string; phone: string; interest: string; message: string };
+    optional: string;
+    interests: string[];
+    choose: string;
+    submit: string;
+    sentNote: string;
+  };
+  footer: {
+    tagline: string;
+    groups: { title: string; links: string[] }[];
+    rights: string;
+    top: string;
+    nav: string;
+  };
   header: {
     nav: { solutions: string; smartboards: string; projects: string; about: string; insights: string; contact: string };
     getInTouch: string;
@@ -265,6 +290,61 @@ export const dictionaries: Record<Locale, Dictionary> = {
         },
       ],
     },
+    // How we work (18 Nov 2026): from the sales deck (slides 9-10, 31, 33, 36, 39, 55) and the company profile
+    // (p14, p25). Step 4's +53% is the deck's eye-tracking figure, still to be cleared for publication.
+    how: {
+      eyebrow: "How we work",
+      title: "From the first brief to measurable impact",
+      sub: "One team plans, creates, runs and measures your campaign on CITIX smartboards.",
+      steps: [
+        {
+          title: "Plan",
+          text: "We help you pick the right screen and placement for your goal: standard formats using 50% to 100% of the screen, or custom placements across our Sharjah and Abu Dhabi networks.",
+          rows: ["50–100% of the screen", "Sharjah · Abu Dhabi"],
+        },
+        {
+          title: "Create",
+          text: "Our in-house creative team builds the concept with you, from cinematic video to 3D content made for each screen's shape.",
+          rows: ["In-house creative team", "2D and 3D content"],
+        },
+        {
+          title: "Sync",
+          text: "Your ad runs alongside our smart widgets and adapts by itself to the weather, the time of day, the day of the week or public holidays, all managed from Citix OS.",
+          rows: ["Weather · time of day", "Holidays · events"],
+        },
+        {
+          title: "Measure",
+          text: "Every campaign must deliver a measurable effect. Built-in cameras and sensors read the street, and an eye-tracking study in real traffic measured +53% conversion versus standard billboards.",
+          rows: ["Eye-tracking study", "+53% vs billboards"],
+        },
+      ],
+    },
+    // Call to action (18 Nov 2026). The form is not connected to a backend yet: on submit it says so plainly.
+    cta: {
+      eyebrow: "Get in touch",
+      title: "Put your brand where the city looks",
+      sub: "Tell us about your campaign. Our team comes back with the right screens, placements and a plan.",
+      slogan: "We make tomorrow happen today.",
+      fields: { name: "Full name", company: "Company", email: "Work email", phone: "Phone", interest: "I’m interested in", message: "Tell us about your campaign" },
+      optional: "optional",
+      interests: ["Street smartboards", "Giant 3D screens", "Creative content", "Partnership"],
+      choose: "Choose one",
+      submit: "Send request",
+      sentNote: "Thank you. This preview form is not connected yet, so nothing was sent.",
+    },
+    // Footer (18 Nov 2026): every page of the site; all of them are "coming soon" until the homepage is approved.
+    footer: {
+      tagline: "Smarter cities. Stronger brands.",
+      groups: [
+        { title: "Solutions", links: ["Hardware", "Software", "AI engine", "Smart City"] },
+        { title: "Smartboards", links: ["Tom", "Jerry", "Smart Pillar", "Baloo", "Simba", "Jumbo", "Citix OS"] },
+        { title: "Projects", links: ["Sharjah network", "Jumbo", "Tom at Yas Island", "Saltanat Light"] },
+        { title: "Company", links: ["About", "Insights", "Contact", "Get a quote"] },
+      ],
+      rights: "All rights reserved.",
+      top: "Back to top",
+      nav: "Footer",
+    },
     header: {
       nav: {
         solutions: "Solutions",
@@ -451,6 +531,57 @@ export const dictionaries: Record<Locale, Dictionary> = {
           alt: "خريطة شبكة غرفة تجارة وصناعة الشارقة مع مواقع شاشات CITIX",
         },
       ],
+    },
+    how: {
+      eyebrow: "كيف نعمل",
+      title: "من الفكرة الأولى إلى أثر قابل للقياس",
+      sub: "فريق واحد يخطط لحملتك ويبدعها ويشغّلها ويقيس نتائجها على لوحات CITIX الذكية.",
+      steps: [
+        {
+          title: "التخطيط",
+          text: "نساعدك على اختيار الشاشة والموقع الأنسب لهدفك: صيغ قياسية تشغل من 50% إلى 100% من الشاشة، أو مواقع مخصّصة عبر شبكاتنا في الشارقة وأبوظبي.",
+          rows: ["من 50% إلى 100% من الشاشة", "الشارقة · أبوظبي"],
+        },
+        {
+          title: "الإبداع",
+          text: "يبني فريقنا الإبداعي الداخلي الفكرة معك، من الفيديو السينمائي إلى المحتوى ثلاثي الأبعاد المصمّم لشكل كل شاشة.",
+          rows: ["فريق إبداعي داخلي", "محتوى ثنائي وثلاثي الأبعاد"],
+        },
+        {
+          title: "المزامنة",
+          text: "يُعرض إعلانك إلى جانب أدواتنا الذكية ويتكيّف تلقائياً مع الطقس ووقت اليوم ويوم الأسبوع والعطلات الرسمية، وكل ذلك يُدار من Citix OS.",
+          rows: ["الطقس · وقت اليوم", "العطلات · الفعاليات"],
+        },
+        {
+          title: "القياس",
+          text: "يجب أن تحقق كل حملة أثراً قابلاً للقياس. تقرأ الكاميرات وأجهزة الاستشعار المدمجة حركة الشارع، وقاست دراسة لتتبّع العين في حركة مرور حقيقية زيادة بنسبة 53% في التحويل مقارنة باللوحات الإعلانية التقليدية.",
+          rows: ["دراسة تتبّع العين", "+53% مقارنة باللوحات"],
+        },
+      ],
+    },
+    cta: {
+      eyebrow: "تواصل معنا",
+      title: "ضع علامتك حيث تنظر المدينة",
+      sub: "أخبرنا عن حملتك، وسيعود إليك فريقنا بالشاشات والمواقع المناسبة وخطة واضحة.",
+      slogan: "نصنع الغد اليوم.",
+      fields: { name: "الاسم الكامل", company: "الشركة", email: "البريد الإلكتروني للعمل", phone: "الهاتف", interest: "أهتم بـ", message: "أخبرنا عن حملتك" },
+      optional: "اختياري",
+      interests: ["لوحات الشوارع الذكية", "الشاشات العملاقة ثلاثية الأبعاد", "المحتوى الإبداعي", "الشراكة"],
+      choose: "اختر واحدًا",
+      submit: "أرسل الطلب",
+      sentNote: "شكرًا لك. هذا النموذج تجريبي وغير متصل بعد، لذلك لم يُرسل شيء.",
+    },
+    footer: {
+      tagline: "مدن أذكى. علامات تجارية أقوى.",
+      groups: [
+        { title: "الحلول", links: ["الأجهزة", "البرمجيات", "محرك الذكاء الاصطناعي", "المدينة الذكية"] },
+        { title: "اللوحات الذكية", links: ["Tom", "Jerry", "Smart Pillar", "Baloo", "Simba", "Jumbo", "Citix OS"] },
+        { title: "المشاريع", links: ["شبكة الشارقة", "Jumbo", "Tom في جزيرة ياس", "Saltanat Light"] },
+        { title: "الشركة", links: ["من نحن", "رؤى", "تواصل", "اطلب عرض سعر"] },
+      ],
+      rights: "جميع الحقوق محفوظة.",
+      top: "العودة إلى الأعلى",
+      nav: "تذييل الموقع",
     },
     header: {
       nav: {
