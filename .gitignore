@@ -28,3 +28,5 @@ next-env.d.ts
 # served copy of media/web (see scripts/sync-media.mjs)
 /public/media/
 /media/hero_orbit/
+# Licensed Gilroy web fonts, built locally by scripts/build-fonts.py (commercial font, repo is public)
+/public/fonts/

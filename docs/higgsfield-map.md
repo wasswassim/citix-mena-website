@@ -881,3 +881,8 @@ Our Products section (Wassim, 15 Nov 2026): after About, the bluesqx product acc
 - Corners unified: `--radius: 4px` (buttons, forms, product and tunnel cards) and `--radius-widget: 14px` (How we work widget cards, matching the Figma widgets).
 - Buttons back on the brand book Pulse Red gradient (#FD0332 -> #990332), kept by Wassim after the manager review.
 - Mosa AI hero video studied for a similar Higgsfield background; generation planned for 19 Nov (quote first). Project stays $32.04 of $40.
+
+## 21 Nov 2026: Gilroy brand font applied (no generation, $0)
+- Gilroy from `Internship/01_Brand/Fonts_Gilroy` (Light 300, Regular 400, Medium 500, SemiBold 600, Bold 700, ExtraBold 800) converted to Latin-subset WOFF2 (~29 KB each) by `scripts/build-fonts.py` into `public/fonts/gilroy/`, which is git-ignored because the font is commercial and the repo is public.
+- `@font-face` rules at the top of `app/globals.css`; Light and ExtraBold preloaded in the layout. Arabic falls back to system Arabic fonts (Gilroy has no Arabic).
+- Checked in Chrome: all six weights load (200), EN headings/body/nav/buttons render in Gilroy, AR unchanged. Project stays $32.04 of $40.

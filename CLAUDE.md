@@ -21,7 +21,7 @@ Planning happens in a claude.ai Project ("CitiX MENA Internship"); copies of the
 
 ## Brand guardrails (brand book)
 - Colours: Midnight Black #000000, Graphite Shadow #161616, Pure Snow #FFFFFF, Urban Mist #E0E0E0, **Pulse Red #FD0332** (gradient #FD0332 → #990332).
-- Type: **Gilroy ExtraBold** (headings), **Gilroy Light** (body). No licensed font files in the repo yet (Century Gothic stands in).
+- Type: **Gilroy ExtraBold** (headings), **Gilroy Light** (body). Gilroy is live on the site (21 Nov 2026): 6 weights (300–800) built as WOFF2 by `scripts/build-fonts.py` from `Internship/01_Brand/Fonts_Gilroy` into `public/fonts/` (git-ignored: commercial font, public repo; a fresh clone falls back to Century Gothic). Latin only; Arabic uses system Arabic fonts. A web licence for Gilroy is needed before the site goes live.
 - Look: a *real* city enhanced by CITIX ("the future is already part of the city"). Night: high contrast, light trails, defined artificial light. Day: realistic daylight, clean, minimal noise.
 - **Hero orbit world (v4.2 exception):** dark void over moonlit desert dunes, cool blue grading, volumetric light from the screen. Deserts only under moonlight / blue hour.
 - Avoid: sci-fi, abstract CGI, neon/acid or oversaturated colours, warm/yellowish tones, digital noise, clutter, staged static people (motion-blurred only), competitor-like aesthetics.

@@ -38,6 +38,9 @@ export default async function RootLayout({ children, params }: { children: React
       <head>
         {/* Intro gate disconnected (plan v4.2): the pre-paint script below is kept but not injected,
             so data-intro stays "off". Restore with a script tag using dangerouslySetInnerHTML and introScript. */}
+        {/* Gilroy: the body (Light) and heading (ExtraBold) weights load first; the other four on demand */}
+        <link rel="preload" href="/fonts/gilroy/gilroy-300.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/gilroy/gilroy-800.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body>{children}</body>
     </html>

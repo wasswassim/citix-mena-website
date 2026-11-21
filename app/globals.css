@@ -1,3 +1,55 @@
+/* Brand type: Gilroy (Wassim, 21 Nov 2026). The six weights the site uses, built as WOFF2 by scripts/build-fonts.py
+   into public/fonts/gilroy/ (git-ignored: Gilroy is a commercial font and the repo is public). Latin only; Arabic
+   text falls through to the Arabic fonts in --font. If the files are missing, the stack falls back to Century Gothic. */
+@font-face {
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/gilroy/gilroy-300.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20CF, U+2190-21FF, U+2122, U+2212;
+}
+@font-face {
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/gilroy/gilroy-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20CF, U+2190-21FF, U+2122, U+2212;
+}
+@font-face {
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/gilroy/gilroy-500.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20CF, U+2190-21FF, U+2122, U+2212;
+}
+@font-face {
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/gilroy/gilroy-600.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20CF, U+2190-21FF, U+2122, U+2212;
+}
+@font-face {
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/gilroy/gilroy-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20CF, U+2190-21FF, U+2122, U+2212;
+}
+@font-face {
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/gilroy/gilroy-800.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0100-017F, U+2000-206F, U+20A0-20CF, U+2190-21FF, U+2122, U+2212;
+}
+
 :root {
   --black: #000000;
   --graphite: #161616;
@@ -11,8 +63,7 @@
      (18 Nov 2026). The earlier calm reds were: #8c0a30 -> #4a0618, hover #a10d38 -> #5a081f. */
   --red-calm: linear-gradient(135deg, #fd0332 0%, #990332 100%);
   --red-calm-hover: linear-gradient(135deg, #ff2a52 0%, #b0043b 100%);
-  /* Brand type is Gilroy (ExtraBold headings, Light body). No licensed font files are in the repo yet,
-     so the stack falls back to a geometric sans. Add @font-face here when the files are supplied. */
+  /* Brand type is Gilroy (ExtraBold headings, Light body); see the @font-face rules above */
   /* One corner curve for the whole site (Wassim, 18 Nov 2026): the buttons' 4 px. Cards, panels, tiles, fields and
      tags all use it; only true circles (chevron discs, dots, rings) stay round. */
   --radius: 4px;
