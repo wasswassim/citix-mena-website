@@ -7,41 +7,18 @@ export function isLocale(value: string): value is Locale {
 
 export const dir = (locale: Locale) => (locale === "ar" ? "rtl" : "ltr");
 
-/** Overlay lines of the intro film, timed to the shots (seconds). */
-export const introTimings = [
-  { key: "line1", from: 0, to: 2.5 },
-  { key: "line2", from: 5, to: 8 },
-  { key: "line3", from: 10.5, to: 15 },
-] as const;
-
 type Dictionary = {
   siteName: string;
   meta: { title: string; description: string };
-  gate: {
-    label: string;
-    line1: string;
-    line2: string;
-    line3: string;
-    enter: string;
-    skip: string;
-    unmute: string;
-    mute: string;
-    soundUnavailable: string;
-  };
   hero: {
-    title: string;
-    sub: string;
-    ctaAdvertise: string;
-    ctaPartner: string;
     imageAlt: string;
     line1: string;
     line2: string;
     ctaSolutions: string;
     ctaProject: string;
     trusted: string;
-    placeholderNote: string;
   };
-  ecosystem: { label: string; lead: string; cards: { title: string; text: string }[] };
+  ecosystem: { lead: string; cards: { title: string; text: string }[] };
   facts: { title: string; items: { value: number; suffix: string; label: string }[] };
   about: { title: string; paragraphs: string[]; ctaLine: string; cta: string };
   network: {
@@ -50,7 +27,7 @@ type Dictionary = {
     sub: string;
     hint: string;
     globeLabel: string;
-    countries: { id: "uae" | "oman" | "kz" | "tr"; name: string; cities: string; stat: string }[];
+    countries: { id: "uae" | "oman"; name: string; cities: string; stat: string }[];
   };
   products: {
     title: string;
@@ -98,7 +75,6 @@ type Dictionary = {
     menuClose: string;
     navLabel: string;
   };
-  announcement: { text: string; cta: string; close: string };
   comingSoon: { title: string; body: string; back: string };
   langSwitch: { label: string; href: string };
 };
@@ -112,22 +88,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       description:
         "CITIX MENA builds smart street boards and giant 3D screens that give cities live information and give brands attention where people actually are.",
     },
-    gate: {
-      label: "CITIX MENA intro film",
-      line1: "Smarter cities.",
-      line2: "Stronger brands.",
-      line3: "We make tomorrow happen today",
-      enter: "Enter",
-      skip: "Skip intro",
-      unmute: "Unmute",
-      mute: "Mute",
-      soundUnavailable: "Sound is not available yet",
-    },
     hero: {
-      title: "We make tomorrow happen today",
-      sub: "Smart street boards and giant 3D screens across the UAE. Live city information on top, your brand below.",
-      ctaAdvertise: "Advertise with us",
-      ctaPartner: "Partner with us",
       imageAlt:
         "A frameless glass screen standing on moonlit desert dunes; an oasis, a perfume bottle, a camel and an SUV come out of the glass in turn",
       line1: "Smarter Cities.",
@@ -135,11 +96,9 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ctaSolutions: "Our Solutions",
       ctaProject: "Latest Project",
       trusted: "Global brands that trust us",
-      placeholderNote: "logo placeholder",
     },
     // From the CITIX Ecosystem slide (company deck). "Propriety" on the slide corrected to "Proprietary".
     ecosystem: {
-      label: "Ecosystem",
       lead: "All in one platform:", // hero word flip (Wassim, 17 Nov 2026): the card titles cycle after it
       cards: [
         { title: "Hardware", text: "Self-engineered smartboards and components" },
@@ -151,7 +110,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ],
     },
     // Counters from the "Company facts" slide (company deck; employees added by Wassim). Left out on purpose: revenue and EBITDA (financials,
-    // need the supervisor's OK before going public), countries and "No. 1 in Kazakhstan" (the network section).
+    // need the supervisor's OK before going public), and countries (the network section).
     facts: {
       title: "CITIX MENA in numbers",
       items: [
@@ -175,20 +134,18 @@ export const dictionaries: Record<Locale, Dictionary> = {
       ctaLine: "Let’s make tomorrow happen today.",
       cta: "Talk to us",
     },
-    // Our network (Wassim, 17 Nov 2026). Sources: "Company facts" slide (sales deck slide 4: cities, smartboard
-    // counts, giant screens, Oman Oil project, 12 global projects) and the company-facts screenshot ("No. 1 in
-    // Kazakhstan"). Country order = west of the Gulf outwards; ids match components/NetworkSection.tsx.
+    // Our network (Wassim, 17 Nov 2026). Source: "Company facts" slide (sales deck slide 4: UAE cities, smartboard
+    // count, giant screens, Oman Oil project). 21 Nov 2026: CITIX MENA only (the manager: a separate company from the
+    // CITIX group abroad), so only the UAE and Oman. Ids match components/NetworkSection.tsx.
     network: {
       eyebrow: "Our network",
       title: "Where we stand today",
-      sub: "From the Gulf to Central Asia, CITIX smartboards and giant 3D screens already run in four countries, across 12 global projects.",
+      sub: "Across the UAE and Oman, CITIX MENA smartboards and giant 3D screens already run in the region’s key cities.",
       hint: "Point at a country to find it on the globe.",
-      globeLabel: "Globe marking CITIX cities in the UAE, Oman, Kazakhstan and Turkey",
+      globeLabel: "Globe marking CITIX MENA cities in the UAE and Oman",
       countries: [
         { id: "uae", name: "United Arab Emirates", cities: "Abu Dhabi · Dubai · Sharjah", stat: "40+ smartboards · 2 giant 3D screens" },
         { id: "oman", name: "Oman", cities: "Muscat", stat: "Project launched with Oman Oil" },
-        { id: "kz", name: "Kazakhstan", cities: "Almaty · Astana", stat: "550+ smartboards · No. 1 in the country" },
-        { id: "tr", name: "Turkey", cities: "Istanbul · Ankara", stat: "50+ smartboards" },
       ],
     },
     // Our Products (Wassim, 15 Nov 2026). Subtitle = deck slide 6 word for word; card text from the product slides
@@ -226,12 +183,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
         },
       ],
     },
-    // Projects tunnel (17 Nov 2026). Facts from the sales deck (Sharjah network slides 23-27, Jumbo, Baloo, Cannes
-    // Lions slide 56) and the project notes (Yas Island Tom). Order must match IMAGES in components/ProjectTunnel.tsx.
+    // Projects tunnel (17 Nov 2026). Facts from the sales deck (Sharjah network slides 23-27, Jumbo, Baloo) and
+    // the project notes (Yas Island Tom). CITIX MENA projects only (21 Nov 2026). Order must match IMAGES in components/ProjectTunnel.tsx.
     projects: {
       eyebrow: "Our projects",
       title: "Already part of the city",
-      sub: "From Sharjah’s waterfront to a Cannes Lions stage, CITIX screens are already on the street and already working for brands.",
+      sub: "From Sharjah’s waterfront to Yas Island, our screens are already on the street and already working for brands.",
       hint: "Scroll to fly through",
       cards: [
         {
@@ -250,13 +207,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
           place: "Sharjah · Network 1",
           title: "Majaz & Heera Beach",
           text: "Two locations linking the busy Majaz corridors with the coastal crowd of Heera Beach.",
-          alt: "Map of the Majaz and Heera Beach network with the CITIX screen locations marked",
-        },
-        {
-          place: "Kazakhstan · Cannes Lions 2025",
-          title: "Saltanat Light",
-          text: "CITIX Kazakhstan and GForce Grey won two Cannes Lions for an AI campaign that turns billboards into a live distress signal.",
-          alt: "Saltanat Light campaign board: 22.3 million reach, 522,000 reactions",
+          alt: "Map of the Majaz and Heera Beach network with the CITIX MENA screen locations marked",
         },
         {
           place: "Sharjah · Network 2",
@@ -268,7 +219,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
           place: "Tejara 1 · UAE",
           title: "Baloo",
           text: "Four 8 × 4 m screens wrapping the corner of the Tejara 1 building, right next to a busy highway.",
-          alt: "Baloo corner screens on the Tejara 1 building at night, showing the CITIX X",
+          alt: "Baloo corner screens on the Tejara 1 building at night, showing the CITIX MENA X",
         },
         {
           place: "Sharjah · Network 3",
@@ -286,7 +237,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
           place: "Sharjah · Network 4",
           title: "Chamber of Commerce",
           text: "Premium visibility for professionals, decision-makers and commuters on one of Sharjah’s busiest corridors.",
-          alt: "Map of the Sharjah Chamber of Commerce network with the CITIX screen locations marked",
+          alt: "Map of the Sharjah Chamber of Commerce network with the CITIX MENA screen locations marked",
         },
       ],
     },
@@ -295,7 +246,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     how: {
       eyebrow: "How we work",
       title: "From the first brief to measurable impact",
-      sub: "One team plans, creates, runs and measures your campaign on CITIX smartboards.",
+      sub: "One team plans, creates, runs and measures your campaign on our smartboards.",
       steps: [
         {
           title: "Plan",
@@ -338,7 +289,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       groups: [
         { title: "Solutions", links: ["Hardware", "Software", "AI engine", "Smart City"] },
         { title: "Smartboards", links: ["Tom", "Jerry", "Smart Pillar", "Baloo", "Simba", "Jumbo", "Citix OS"] },
-        { title: "Projects", links: ["Sharjah network", "Jumbo", "Tom at Yas Island", "Saltanat Light"] },
+        { title: "Projects", links: ["Sharjah network", "Jumbo", "Tom at Yas Island"] },
         { title: "Company", links: ["About", "Insights", "Contact", "Get a quote"] },
       ],
       rights: "All rights reserved.",
@@ -359,7 +310,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
       menuClose: "Close menu",
       navLabel: "Main",
     },
-    announcement: { text: "Stay inspired: subscribe for CITIX MENA updates", cta: "Subscribe", close: "Close" },
     comingSoon: { title: "Coming soon", body: "This page is on its way.", back: "Back to the homepage" },
     langSwitch: { label: "العربية", href: "/ar" },
   },
@@ -370,32 +320,15 @@ export const dictionaries: Record<Locale, Dictionary> = {
       description:
         "تبني CITIX MENA لوحات ذكية في الشوارع وشاشات ثلاثية الأبعاد عملاقة تمنح المدن معلومات حيّة وتمنح العلامات التجارية حضوراً حيث يوجد الناس.",
     },
-    gate: {
-      label: "الفيلم التعريفي لـ CITIX MENA",
-      line1: "مدن أذكى.",
-      line2: "علامات أقوى.",
-      line3: "نصنع الغد اليوم",
-      enter: "ادخل",
-      skip: "تخطَّ المقدمة",
-      unmute: "تشغيل الصوت",
-      mute: "كتم الصوت",
-      soundUnavailable: "الصوت غير متوفر بعد",
-    },
     hero: {
-      title: "نصنع الغد اليوم",
-      sub: "لوحات ذكية في الشوارع وشاشات ثلاثية الأبعاد عملاقة في أنحاء الإمارات. معلومات المدينة الحيّة في الأعلى، وعلامتك في الأسفل.",
-      ctaAdvertise: "أعلن معنا",
-      ctaPartner: "كن شريكاً",
       imageAlt: "شاشة زجاجية بلا إطار على كثبان صحراوية تحت ضوء القمر، تخرج منها بالتتابع واحة وزجاجة عطر وجمل وسيارة دفع رباعي",
       line1: "مدن أذكى.",
       line2: "علامات أقوى.",
       ctaSolutions: "حلولنا",
       ctaProject: "أحدث مشاريعنا",
       trusted: "علامات عالمية تثق بنا",
-      placeholderNote: "شعار مؤقت",
     },
     ecosystem: {
-      label: "المنظومة",
       lead: "منصّة واحدة متكاملة:",
       cards: [
         { title: "الأجهزة", text: "لوحات ذكية ومكوّنات من تصميمنا" },
@@ -428,14 +361,12 @@ export const dictionaries: Record<Locale, Dictionary> = {
     network: {
       eyebrow: "شبكتنا",
       title: "أين نقف اليوم",
-      sub: "من الخليج إلى آسيا الوسطى، تعمل لوحات CITIX الذكية وشاشاتها العملاقة ثلاثية الأبعاد في أربع دول، ضمن 12 مشروعاً عالمياً.",
+      sub: "في الإمارات وعُمان، تعمل لوحات CITIX MENA الذكية وشاشاتها العملاقة ثلاثية الأبعاد في أهم مدن المنطقة.",
       hint: "مرّر المؤشر على دولة لتجدها على الكرة الأرضية.",
-      globeLabel: "كرة أرضية تُظهر مدن CITIX في الإمارات وعُمان وكازاخستان وتركيا",
+      globeLabel: "كرة أرضية تُظهر مدن CITIX MENA في الإمارات وعُمان",
       countries: [
         { id: "uae", name: "الإمارات العربية المتحدة", cities: "أبوظبي · دبي · الشارقة", stat: "أكثر من 40 لوحة ذكية · شاشتان عملاقتان ثلاثيتا الأبعاد" },
         { id: "oman", name: "عُمان", cities: "مسقط", stat: "مشروع أُطلق مع شركة النفط العُمانية" },
-        { id: "kz", name: "كازاخستان", cities: "ألماتي · أستانا", stat: "أكثر من 550 لوحة ذكية · الأولى في البلاد" },
-        { id: "tr", name: "تركيا", cities: "إسطنبول · أنقرة", stat: "أكثر من 50 لوحة ذكية" },
       ],
     },
     products: {
@@ -473,7 +404,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     projects: {
       eyebrow: "مشاريعنا",
       title: "جزء من المدينة اليوم",
-      sub: "من واجهة الشارقة البحرية إلى منصة مهرجان كان ليونز، شاشات CITIX موجودة في الشارع وتعمل للعلامات التجارية الآن.",
+      sub: "من واجهة الشارقة البحرية إلى جزيرة ياس، شاشاتنا موجودة في الشارع وتعمل للعلامات التجارية الآن.",
       hint: "مرّر للتنقّل",
       cards: [
         {
@@ -492,13 +423,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
           place: "الشارقة · الشبكة 1",
           title: "المجاز وشاطئ الحيرة",
           text: "موقعان يربطان ممرات المجاز المزدحمة بجمهور شاطئ الحيرة الساحلي.",
-          alt: "خريطة شبكة المجاز وشاطئ الحيرة مع مواقع شاشات CITIX",
-        },
-        {
-          place: "كازاخستان · كان ليونز 2025",
-          title: "سلطنات لايت",
-          text: "فازت CITIX كازاخستان مع GForce Grey بجائزتين في كان ليونز عن حملة بالذكاء الاصطناعي تحوّل اللوحات إلى إشارة استغاثة حيّة.",
-          alt: "لوحة حملة سلطنات لايت: وصول 22.3 مليون و522 ألف تفاعل",
+          alt: "خريطة شبكة المجاز وشاطئ الحيرة مع مواقع شاشات CITIX MENA",
         },
         {
           place: "الشارقة · الشبكة 2",
@@ -510,7 +435,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
           place: "تجارة 1 · الإمارات",
           title: "Baloo",
           text: "أربع شاشات بمقاس 8 × 4 م تلتف حول زاوية مبنى تجارة 1، بجوار طريق سريع مزدحم.",
-          alt: "شاشات Baloo الزاوية على مبنى تجارة 1 ليلًا، تعرض علامة X من CITIX",
+          alt: "شاشات Baloo الزاوية على مبنى تجارة 1 ليلًا، تعرض علامة X من CITIX MENA",
         },
         {
           place: "الشارقة · الشبكة 3",
@@ -528,14 +453,14 @@ export const dictionaries: Record<Locale, Dictionary> = {
           place: "الشارقة · الشبكة 4",
           title: "غرفة التجارة",
           text: "حضور مميز أمام المهنيين وصنّاع القرار والمتنقلين على أحد أكثر ممرات الشارقة حركة.",
-          alt: "خريطة شبكة غرفة تجارة وصناعة الشارقة مع مواقع شاشات CITIX",
+          alt: "خريطة شبكة غرفة تجارة وصناعة الشارقة مع مواقع شاشات CITIX MENA",
         },
       ],
     },
     how: {
       eyebrow: "كيف نعمل",
       title: "من الفكرة الأولى إلى أثر قابل للقياس",
-      sub: "فريق واحد يخطط لحملتك ويبدعها ويشغّلها ويقيس نتائجها على لوحات CITIX الذكية.",
+      sub: "فريق واحد يخطط لحملتك ويبدعها ويشغّلها ويقيس نتائجها على لوحاتنا الذكية.",
       steps: [
         {
           title: "التخطيط",
@@ -576,7 +501,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       groups: [
         { title: "الحلول", links: ["الأجهزة", "البرمجيات", "محرك الذكاء الاصطناعي", "المدينة الذكية"] },
         { title: "اللوحات الذكية", links: ["Tom", "Jerry", "Smart Pillar", "Baloo", "Simba", "Jumbo", "Citix OS"] },
-        { title: "المشاريع", links: ["شبكة الشارقة", "Jumbo", "Tom في جزيرة ياس", "Saltanat Light"] },
+        { title: "المشاريع", links: ["شبكة الشارقة", "Jumbo", "Tom في جزيرة ياس"] },
         { title: "الشركة", links: ["من نحن", "رؤى", "تواصل", "اطلب عرض سعر"] },
       ],
       rights: "جميع الحقوق محفوظة.",
@@ -597,7 +522,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
       menuClose: "إغلاق القائمة",
       navLabel: "الرئيسية",
     },
-    announcement: { text: "ابقَ على اطلاع: اشترك لتصلك أخبار CITIX MENA", cta: "اشترك", close: "إغلاق" },
     comingSoon: { title: "قريباً", body: "هذه الصفحة قيد الإعداد.", back: "العودة إلى الصفحة الرئيسية" },
     langSwitch: { label: "English", href: "/en" },
   },

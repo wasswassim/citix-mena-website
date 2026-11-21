@@ -159,52 +159,6 @@ a {
   z-index: 1000;
 }
 
-.announce {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  min-height: 44px;
-  padding: 8px var(--gutter);
-  background: #1b1e24;
-  font-size: 14px;
-  line-height: 1.3;
-}
-
-.announce p {
-  margin: 0;
-}
-
-.announce-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.announce-cta:hover .btn-arrow {
-  color: var(--pulse);
-  transform: translateX(3px);
-}
-
-[dir="rtl"] .announce-cta:hover .btn-arrow {
-  transform: translateX(-3px);
-}
-
-.announce-close {
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  margin-inline-start: auto;
-  border: 0;
-  border-radius: var(--radius);
-  background: rgb(255 255 255 / 0.15);
-  color: var(--snow);
-  cursor: pointer;
-}
-
 .site-header {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -478,9 +432,8 @@ a {
 
 .hero-ctas {
   position: absolute;
-  /* one grid (Wassim, 17 Nov 2026): the buttons' bottom sits on the same line as the cards' bottom (the cards end
-     12 px above the "Ecosystem" label, whose top is at 87.8%), and their outer edge on the same gutter as the
-     title and cards on the other side */
+  /* one grid (Wassim, 17 Nov 2026): the buttons sit 12 px above the trusted-by label line (its top is at 87.8%),
+     on the same gutter as the title and the word flip on the other side */
   inset-block-end: calc(12.2% + 12px);
   inset-inline-end: var(--gutter);
   align-items: flex-end;
@@ -628,167 +581,6 @@ a {
   }
 }
 
-/* ---------- CITIX Ecosystem glass cards (bottom-start; label level with the trusted-by label) ---------- */
-.ecosystem {
-  --card: clamp(128px, 10.5vw, 168px);
-  position: absolute;
-  inset-inline-start: var(--gutter);
-  /* label top sits at 87.8% (same line as the trusted-by label); its line is 23 px tall */
-  inset-block-end: calc(12.2% - 23px);
-}
-
-.eco-cards {
-  display: flex;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* Apple-style glass that reacts to the video behind it (Wassim, 15 Nov 2026).
-   components/EcosystemCards.tsx samples the frame behind each card ~8×/s and sets:
-   --li light strength 0–1, --lx/--ly where the light comes from (on the card), --lc its colour.
-   Registered so the browser eases between samples instead of stepping. */
-@property --li {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 0.3;
-}
-@property --lx {
-  syntax: "<percentage>";
-  inherits: true;
-  initial-value: 30%;
-}
-@property --ly {
-  syntax: "<percentage>";
-  inherits: true;
-  initial-value: 0%;
-}
-@property --lc {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: rgb(205 215 235);
-}
-
-.eco-card {
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: var(--card);
-  aspect-ratio: 1;
-  padding: calc(var(--card) * 0.1);
-  border-radius: calc(var(--card) * 0.13);
-  /* body: light pooling where it enters + a faint tint of the scene's light colour + a cool clear base */
-  background:
-    radial-gradient(130% 100% at var(--lx) var(--ly), color-mix(in srgb, var(--lc) calc(8% + var(--li) * 26%), transparent), transparent 62%),
-    linear-gradient(160deg, rgb(255 255 255 / 0.13), rgb(255 255 255 / 0.03) 48%, rgb(255 255 255 / 0.06));
-  -webkit-backdrop-filter: blur(22px) saturate(170%) brightness(1.08);
-  backdrop-filter: blur(22px) saturate(170%) brightness(1.08);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.3),
-    inset 0 -1px 0 rgb(255 255 255 / 0.05),
-    0 12px 32px rgb(0 0 0 / 0.38);
-  transition: --li 0.3s linear, --lx 0.3s linear, --ly 0.3s linear, --lc 0.3s linear;
-}
-
-/* Rim light: a 1 px edge that is brightest on the side the light comes from */
-.eco-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  padding: 1px;
-  border-radius: inherit;
-  background:
-    radial-gradient(90% 90% at var(--lx) var(--ly), color-mix(in srgb, white calc(45% + var(--li) * 55%), transparent), transparent 75%),
-    linear-gradient(rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.12));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* Specular sheen across the top, stronger when the scene is bright */
-.eco-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: linear-gradient(118deg, rgb(255 255 255 / 0.2) 0%, rgb(255 255 255 / 0.04) 30%, transparent 46%);
-  opacity: calc(0.45 + var(--li) * 0.55);
-  pointer-events: none;
-}
-
-/* Liquid glass (17 Nov 2026): components/ui/liquid-glass-panes.tsx draws the glass in WebGL behind the cards
-   (same glass as the loading screen). Once it draws, .has-liquid turns the CSS glass above off. */
-.eco-glass {
-  position: absolute;
-  display: block;
-  width: calc(100% + 56px);
-  height: calc(100% + 56px);
-  pointer-events: none;
-}
-.ecosystem.has-liquid .eco-card {
-  background: none;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  box-shadow: none;
-  text-shadow: 0 1px 8px rgb(0 0 0 / 0.35);
-}
-.ecosystem.has-liquid .eco-card::before,
-.ecosystem.has-liquid .eco-card::after {
-  display: none;
-}
-
-/* Content swap (Wassim, 15 Nov 2026): the card stays still; its words blur out, change at the blurriest
-   moment (EcosystemCards HALF_MS), then sharpen in. Duration = 2 × HALF_MS. */
-.eco-card.is-swapping :is(.eco-title, .eco-text) {
-  animation: eco-blur-swap 0.9s cubic-bezier(0.45, 0, 0.55, 1);
-}
-
-@keyframes eco-blur-swap {
-  50% {
-    filter: blur(10px);
-    opacity: 0;
-    transform: scale(0.97);
-  }
-}
-
-.eco-title {
-  padding-inline-end: 18px;
-  font-weight: 800;
-  font-size: max(12px, calc(var(--card) * 0.1));
-  line-height: 1.15;
-}
-
-.eco-dot {
-  position: absolute;
-  inset-block-start: calc(var(--card) * 0.1);
-  inset-inline-end: calc(var(--card) * 0.1);
-  width: calc(var(--card) * 0.085);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--snow);
-  box-shadow: 0 0 10px 3px rgb(255 255 255 / 0.45);
-}
-
-.eco-text {
-  font-size: max(10px, calc(var(--card) * 0.075));
-  line-height: 1.25;
-  color: var(--mist);
-}
-
-.eco-label {
-  margin: 12px 0 0;
-  font-size: 18px;
-  line-height: 23px;
-  font-weight: 400;
-  color: #ecf0f8;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -813,8 +605,7 @@ a {
   .menu-btn {
     display: grid;
   }
-  /* Phones and tablets: buttons start-aligned, the ecosystem cards fill the width just above them,
-     with the "Ecosystem" label on top of the cards (the trusted-by label sits below the buttons) */
+  /* Phones and tablets: buttons start-aligned (the trusted-by label sits below them) */
   .hero-ctas {
     inset-block-start: 79.4%;
     inset-block-end: auto;
@@ -824,20 +615,6 @@ a {
   /* phones and tablets: the word flip sits just above the buttons, which start the line below it */
   .hero-flip {
     inset-block-end: calc(20.6% + 12px);
-  }
-  .ecosystem {
-    --card: min(168px, calc((100vw - 2 * var(--gutter) - 16px) / 3));
-    inset-block-end: calc(20.6% + 12px);
-    display: flex;
-    flex-direction: column-reverse;
-  }
-  .eco-cards {
-    gap: 8px;
-  }
-  .eco-label {
-    margin: 0 0 8px;
-    font-size: 16px;
-    line-height: 20px;
   }
 }
 
@@ -860,9 +637,6 @@ a {
   }
   .trusted-label {
     font-size: 16px;
-  }
-  .announce {
-    font-size: 13px;
   }
 }
 
@@ -896,17 +670,7 @@ a {
   font-size: clamp(2.2rem, 6vw, 4rem);
 }
 
-/* Until the gate has mounted, cover the page so the homepage never flashes before the film.
-   data-intro is set by the inline script in the layout; without JavaScript it stays "off". */
-html[data-intro="on"] body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  background: var(--black);
-}
-
-/* main only takes focus programmatically (after the intro gate closes): no outline needed */
+/* main only takes focus programmatically (skip link): no outline needed */
 main:focus {
   outline: none;
 }
@@ -1366,10 +1130,12 @@ main:focus {
   }
 }
 /* ---------- Our network (between About and Our Products) ----------
-   Dark section: country list + globe (components/NetworkSection.tsx, components/ui/globe.tsx). Hovering, focusing
-   or tapping a country turns the globe to it; the active row gets a Pulse Red line on its start edge. */
+   Dark section (components/NetworkSection.tsx): heading on the start side, country list on the end side, then a large
+   wireframe globe (components/ui/wireframe-globe.tsx) at the bottom middle. Only its top part shows, zoomed on the
+   MENA region, fading into the black. Hovering, focusing or tapping a country turns the globe to it; the active row
+   gets a Pulse Red line on its start edge. */
 .network {
-  padding: clamp(56px, 6vw, 96px) var(--gutter);
+  padding: clamp(56px, 6vw, 96px) var(--gutter) 0;
   background: var(--black);
   color: var(--snow);
   overflow: hidden;
@@ -1377,9 +1143,9 @@ main:focus {
 
 .network-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  align-items: center;
-  gap: clamp(32px, 5vw, 96px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(24px, 5vw, 96px);
   max-width: 1320px;
   margin: 0 auto;
 }
@@ -1401,7 +1167,7 @@ main:focus {
 }
 
 .network-sub {
-  margin: 0 0 clamp(24px, 2.6vw, 40px);
+  margin: 0;
   max-width: 46ch;
   font-size: clamp(16px, 1.25vw, 18px);
   line-height: 1.45;
@@ -1420,7 +1186,7 @@ main:focus {
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 4px 16px;
   width: 100%;
-  padding: 18px 0 18px 0;
+  padding: 18px 0;
   padding-inline-start: 16px;
   border: 0;
   border-block-start: 1px solid rgb(255 255 255 / 0.14);
@@ -1475,41 +1241,57 @@ main:focus {
   color: rgb(255 255 255 / 0.45);
 }
 
+/* the window onto the globe, bottom middle of the section: the top arc of a sphere wider than the window
+   (zoomed on MENA), fading out at the bottom */
 .network-globe {
   position: relative;
-  width: 100%;
-  max-width: 640px;
-  justify-self: center;
+  width: min(1120px, 100%);
+  aspect-ratio: 100 / 46;
+  margin: clamp(32px, 4vw, 64px) auto 0;
+  overflow: hidden;
+  /* fades out at the bottom and at both sides, so the sphere has no hard edge where the window cuts it */
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 62%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to bottom, #000 62%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  mask-composite: intersect;
 }
 
-.globe {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1;
+.wglobe {
+  --wglobe-line: rgb(255 255 255 / 0.34);
+  --wglobe-grid: rgb(255 255 255 / 0.07);
+  --wglobe-rim: rgb(255 255 255 / 0.5);
+  --wglobe-tint: rgb(253 3 50 / 0.22);
+  --wglobe-tint-on: rgb(253 3 50 / 0.5);
+  --wglobe-red: #fd0332;
+  position: absolute;
+  inset: 0;
 }
 
-.globe-canvas {
+.wglobe-canvas {
+  display: block;
   width: 100%;
   height: 100%;
   opacity: 0;
   cursor: grab;
   touch-action: pan-y;
-  contain: layout paint size;
-  transition: opacity 0.8s ease;
+  transition: opacity 1s ease;
 }
 
-.globe-canvas.is-ready {
+.wglobe-canvas:active {
+  cursor: grabbing;
+}
+
+.wglobe-canvas.is-ready {
   opacity: 1;
 }
 
 @media (max-width: 991px) {
   .network-inner {
     grid-template-columns: 1fr;
-  }
-
-  .network-globe {
-    max-width: 480px;
-    grid-row: 2;
   }
 }
 
@@ -1524,11 +1306,18 @@ main:focus {
     max-width: none;
     text-align: start;
   }
+
+  /* phones: a wider window so the region stays large */
+  .network-globe {
+    width: calc(100% + 2 * var(--gutter));
+    margin-inline: calc(-1 * var(--gutter));
+    aspect-ratio: 100 / 72;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .network-country,
-  .globe-canvas {
+  .wglobe-canvas {
     transition: none;
   }
 }
@@ -1922,7 +1711,7 @@ html[data-motion="ok"] .tunnel .tunnel-card {
 }
 
 /* ---------- How we work v2 (18 Nov 2026, components/HowWeWork.tsx) ----------
-   Stacking widget cards: the heading and step index stay pinned on the start side while the four CITIX widget cards
+   Stacking widget cards: the heading and step index stay pinned on the start side while the four CITIX MENA widget cards
    pin one over the other on the end side; the ones underneath shrink back and dim (--depth, set from scroll). */
 .how {
   --how-top: 112px; /* clears the fixed header */

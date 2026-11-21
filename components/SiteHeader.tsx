@@ -3,15 +3,12 @@
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import Arrow from "@/components/Arrow";
-import { SHOW_ANNOUNCEMENT } from "@/lib/flags";
 import type { Locale } from "@/lib/i18n";
 
 /**
  * Fixed, transparent header over the hero (runbook v5 P5, bluesqx layout rebuilt in our stack).
  * Desktop: wordmark left, nav centred, "Get in touch" + EN/AR right. Mobile: wordmark, "Get in touch", "+" menu.
- * Optional announcement bar on top, behind SHOW_ANNOUNCEMENT (preview with ?bar=1); closing it is remembered.
  */
-const BAR_KEY = "citix-announcement-closed";
 
 type Props = {
   lang: Locale;
@@ -22,22 +19,11 @@ type Props = {
   menuOpen: string;
   menuClose: string;
   navLabel: string;
-  announcement: { text: string; cta: string; close: string; href: string };
 };
 
 export default function SiteHeader(p: Props) {
   const [open, setOpen] = useState(false);
-  const [bar, setBar] = useState(false);
   const menuId = useId();
-
-  useEffect(() => {
-    let closed = false;
-    try {
-      closed = localStorage.getItem(BAR_KEY) === "1";
-    } catch {}
-    const forced = new URLSearchParams(location.search).get("bar") === "1";
-    setBar((SHOW_ANNOUNCEMENT || forced) && !closed);
-  }, []);
 
   // Header tone and frosting (Wassim, 15 Nov 2026, like the reference): the tone follows the section 25 px below the
   // top of the screen (light sections are marked data-header-theme="light"; everything else is dark), and after
@@ -78,31 +64,10 @@ export default function SiteHeader(p: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const closeBar = () => {
-    setBar(false);
-    try {
-      localStorage.setItem(BAR_KEY, "1");
-    } catch {}
-  };
-
   return (
     <div ref={topRef} className="site-top" data-open={open || undefined} data-theme={light ? "light" : undefined}
       data-frosted={frosted || undefined}
     >
-      {bar && (
-        <div className="announce">
-          <p>{p.announcement.text}</p>
-          <Link className="announce-cta" href={p.announcement.href}>
-            {p.announcement.cta}
-            <Arrow />
-          </Link>
-          <button type="button" className="announce-close" onClick={closeBar} aria-label={p.announcement.close}>
-            <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
-              <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" strokeWidth="1.4" />
-            </svg>
-          </button>
-        </div>
-      )}
       <header className="site-header">
         {/* Official CITIX › MENA logo from citixmena.com (media/brand/_download_2026-11-15/SOURCE.md).
             Brand rules: never stretched (height set, width follows), never bottom-right, clear space = the X. */}

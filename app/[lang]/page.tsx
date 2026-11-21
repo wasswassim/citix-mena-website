@@ -29,7 +29,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       {/* Loading screen (17 Nov 2026): the pre-paint script decides whether it plays (once per session). */}
       <script dangerouslySetInnerHTML={{ __html: LOADER_SCRIPT }} />
       <SiteLoader label={t.siteName} />
-      {/* Intro gate disconnected 14 Nov 2026 (plan v4.2: intro film dropped). components/IntroGate.tsx is kept. */}
       <SiteHeader
         lang={lang}
         siteName={t.siteName}
@@ -42,7 +41,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         menuOpen={t.header.menuOpen}
         menuClose={t.header.menuClose}
         navLabel={t.header.navLabel}
-        announcement={{ ...t.announcement, href: soon }}
       />
 
       <main id="main" tabIndex={-1}>
@@ -58,9 +56,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             </h1>
           </div>
 
-          {/* Ecosystem (Wassim, 17 Nov 2026): the glass cards and the "Ecosystem" label are replaced by one line whose
-              last word flips through the platform's parts, level with the buttons. components/EcosystemCards.tsx and
-              the liquid glass panes are kept in the repo. The full list stays in the HTML for readers and crawlers. */}
+          {/* Ecosystem (Wassim, 17 Nov 2026): one line whose last word flips through the platform's parts, level with
+              the buttons. The full list stays in the HTML for readers and crawlers. */}
           <div className="hero-flip">
             <p className="hero-flip-line">
               <span className="hero-flip-lead">{t.ecosystem.lead}</span>{" "}

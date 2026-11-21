@@ -28,7 +28,6 @@ const IMAGES = [
   "sharjah-skyline.webp",
   "jumbo.webp",
   "majaz-heera.webp",
-  "saltanat-light.webp",
   "al-mamsha.webp",
   "baloo.webp",
   "06-mall.webp",

@@ -1,54 +1,48 @@
 "use client";
 
-import type { Marker } from "cobe";
 import { useMemo, useState } from "react";
-import { Globe } from "@/components/ui/globe";
+import { WireframeGlobe } from "@/components/ui/wireframe-globe";
 
 /**
- * Our network (Wassim, 17 Nov 2026): where CITIX stands today, between About and Our Products. Dark section,
- * country list on one side and a globe on the other. Hovering, focusing or tapping a country turns the globe to it
- * and lights its cities in Pulse Red; the other cities stay small and grey. Facts: "Company facts" slide (sales deck
- * slide 4) and the company-facts screenshot ("No. 1 in Kazakhstan").
+ * Our network (Wassim, 17 Nov 2026; globe replaced 21 Nov 2026): where CITIX MENA stands today, between About and Our
+ * Products. Heading and country list on top, a large wireframe globe at the bottom middle, zoomed on the MENA region
+ * and swaying slowly. Hovering, focusing or tapping a country turns the globe to it, brightens it and its cities.
+ * Facts: "Company facts" slide (sales deck slide 4). CITIX MENA only: the UAE and Oman.
  */
 type Country = { id: CountryId; name: string; cities: string; stat: string };
 type Props = { eyebrow: string; title: string; sub: string; hint: string; globeLabel: string; countries: Country[] };
-export type CountryId = "uae" | "oman" | "kz" | "tr";
+export type CountryId = "uae" | "oman";
 
-// city coordinates [lat, lng]; the first city of each country is where the globe turns to
-const PLACES: Record<CountryId, [number, number][]> = {
-  uae: [
-    [24.4539, 54.3773], // Abu Dhabi
-    [25.2048, 55.2708], // Dubai
-    [25.3463, 55.4209], // Sharjah
-  ],
-  oman: [[23.588, 58.3829]], // Muscat
-  kz: [
-    [43.222, 76.8512], // Almaty
-    [51.1694, 71.4491], // Astana
-  ],
-  tr: [
-    [41.0082, 28.9784], // Istanbul
-    [39.9334, 32.8597], // Ankara
-  ],
+// ISO 3166 numeric id (world-atlas) and city coordinates [lng, lat]; the first city is where the globe turns to
+const PLACES: Record<CountryId, { iso: string; cities: [number, number][] }> = {
+  uae: {
+    iso: "784",
+    cities: [
+      [54.3773, 24.4539], // Abu Dhabi
+      [55.2708, 25.2048], // Dubai
+      [55.4209, 25.3463], // Sharjah
+    ],
+  },
+  oman: { iso: "512", cities: [[58.3829, 23.588]] }, // Muscat
 };
-
-const RED: [number, number, number] = [253 / 255, 3 / 255, 50 / 255];
-const MIST: [number, number, number] = [0.88, 0.88, 0.88];
+const ISO = Object.values(PLACES).map((p) => p.iso);
+// rest view: the globe is tipped back so the Arabian Peninsula sits in the middle of the window (the canvas shows
+// only the top arc of a sphere ZOOM times its width); a hovered country is shown at the same height
+const CENTER: [number, number] = [50, -27];
+const TILT = 51; // degrees between the view center and the latitude shown mid-window
+const ZOOM = 1.55;
 
 export default function NetworkSection({ eyebrow, title, sub, hint, globeLabel, countries }: Props) {
   const [active, setActive] = useState<CountryId | null>(null);
 
-  const markers = useMemo<Marker[]>(
+  const markers = useMemo(
     () =>
       (Object.keys(PLACES) as CountryId[]).flatMap((id) =>
-        PLACES[id].map((location) => ({
-          location,
-          size: active === id ? 0.09 : active ? 0.035 : 0.05,
-          color: active && active !== id ? MIST : RED,
-        })),
+        PLACES[id].cities.map((location) => ({ location, on: active === id })),
       ),
     [active],
   );
+  const focus = active ? PLACES[active].cities[0] : null;
 
   return (
     <section className="network" aria-labelledby="network-title">
@@ -59,7 +53,9 @@ export default function NetworkSection({ eyebrow, title, sub, hint, globeLabel, 
             {title}
           </h2>
           <p className="network-sub">{sub}</p>
+        </div>
 
+        <div className="network-side">
           <ul className="network-list" onMouseLeave={() => setActive(null)}>
             {countries.map((c) => (
               <li key={c.id}>
@@ -82,17 +78,19 @@ export default function NetworkSection({ eyebrow, title, sub, hint, globeLabel, 
           </ul>
           <p className="network-hint">{hint}</p>
         </div>
+      </div>
 
-        <div className="network-globe">
-          <Globe
-            markers={markers}
-            focus={active ? PLACES[active][0] : null}
-            label={globeLabel}
-            baseColor={[0.16, 0.16, 0.16]}
-            markerColor={RED}
-            glowColor={[0.1, 0.1, 0.1]}
-          />
-        </div>
+      <div className="network-globe">
+        <WireframeGlobe
+          center={CENTER}
+          focus={focus ? [focus[0], focus[1] - TILT] : null}
+          highlight={ISO}
+          active={active ? PLACES[active].iso : null}
+          markers={markers}
+          label={globeLabel}
+          zoom={ZOOM}
+          top={24}
+        />
       </div>
     </section>
   );

@@ -1,8 +1,7 @@
 /**
  * Shared liquid glass (17 Nov 2026). The glass optics of the 21st.dev "Liquid Glass Logo Reveal" component
  * (shader and spring timeline ported from zanwei/glass-icon-reveal, MIT: https://github.com/zanwei/glass-icon-reveal),
- * kept in one place so the loading screen (components/ui/liquid-glass-logo-reveal.tsx) and the hero cards
- * (components/ui/liquid-glass-panes.tsx) bend light exactly the same way.
+ * used by the loading screen (components/ui/liquid-glass-logo-reveal.tsx, components/SiteLoader.tsx).
  *
  * GLSL_COMMON needs, declared before it: `float px;` and the uniforms `uSlab` and `uOptics`.
  */
