@@ -30,10 +30,10 @@ TASKS
 0. Create the project folder and memory:
    - Create C:\Users\wassi\Projects\citix-mena-website (outside the Internship folder) and
      work only there from now on.
-   - Copy C:\Users\wassi\Desktop\DOCS\Internship\claude_code_kit\CLAUDE.md to the repo root,
+   - Copy C:\Users\wassi\Desktop\DOCS\Internship\07_Website_Project_Docs\claude_code_kit\CLAUDE.md to the repo root,
      read it fully and follow it for the whole project.
-   - Copy into /docs/planning/: claude_code_kit\CITIX_intro_ClaudeCode_prompts.md and
-     C:\Users\wassi\Desktop\DOCS\Internship\3D_Animation_Inspiration_Playbook.md.
+   - Copy into /docs/planning/: 07_Website_Project_Docs\claude_code_kit\CITIX_intro_ClaudeCode_prompts.md and
+     C:\Users\wassi\Desktop\DOCS\Internship\07_Website_Project_Docs\3D_Animation_Inspiration_Playbook.md.
    - Check git, Node.js (LTS), Python 3, ffmpeg and GitHub CLI (gh) are installed; install
      missing ones with winget and tell me what you installed.
    - git init, then ask me for my GitHub repo URL (or offer to create a private repo with
@@ -48,10 +48,10 @@ TASKS
    /scripts/             helper scripts
 2. Copy these files from C:\Users\wassi\Desktop\DOCS\Internship\ into /media/source/
    (keep names):
-   - higgsfield_candidates\01_tom_day_photo.jpg … 11_ramadan2_night_mood.png (01–11)
-   - higgsfield_candidates\12_AQI_widget_ui.png (code use only, do NOT upload)
-   - Média1pptx_s18_baloo_3d_video.mp4  → rename baloo_3d_real_4k.mp4
-   - Média1pptx_s20_jumbo_3d_video.mp4  → rename jumbo_3d_real.mp4
+   - 06_Photos_and_AI_References\Higgsfield_candidates\01_tom_day_photo.jpg … 11_ramadan2_night_mood.png (01–11)
+   - 06_Photos_and_AI_References\Higgsfield_candidates\12_AQI_widget_ui.png (code use only, do NOT upload)
+   - 03_Product_Videos\Baloo\Média1pptx_s18_baloo_3d_video.mp4  → rename baloo_3d_real_4k.mp4
+   - 03_Product_Videos\Jumbo\Média1pptx_s20_jumbo_3d_video.mp4  → rename jumbo_3d_real.mp4
 3. Download the two free Pexels clips (Pexels License: free commercial use, modification
    allowed, no attribution required) into /media/stock/, highest resolution available:
    - S1 Flag Island, Sharjah: https://www.pexels.com/video/drone-footage-of-flag-island-8396981/

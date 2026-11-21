@@ -642,7 +642,7 @@ After "OK perfume $1.7024". `s3_perfume` $1.7024 -> `media/hero_orbit/v5/clips/s
 
 ### S3 perfume take 2 — gold floral bottle (prompts, not generated)
 
-Wassim, 14 Nov 2026: the perfume should be the one in the company's Jumbo 3D video (sales deck slide 20, `Desktop/DOCS/Internship/Média1pptx_s20_jumbo_3d_video.mp4`), a Gucci Flora bottle in a pink room with a blossom tree: "Keep the flower designs on the gold bottle, just remove the Gucci label." Bottle described in words only (gold-tinted rectangular glass, rounded shoulders, gold cylindrical cap, cream label with an original painted pink/red flower pattern, no text, letters, logo or brand). The ad frame is not uploaded. The avoid line keeps cool light and grading but allows the gold bottle. Take 1 (`S3_perfume.png`, `s3_perfume.mp4`) is kept.
+Wassim, 14 Nov 2026: the perfume should be the one in the company's Jumbo 3D video (sales deck slide 20, `Desktop/DOCS/Internship/03_Product_Videos/Jumbo/Média1pptx_s20_jumbo_3d_video.mp4`), a Gucci Flora bottle in a pink room with a blossom tree: "Keep the flower designs on the gold bottle, just remove the Gucci label." Bottle described in words only (gold-tinted rectangular glass, rounded shoulders, gold cylindrical cap, cream label with an original painted pink/red flower pattern, no text, letters, logo or brand). The ad frame is not uploaded. The avoid line keeps cool light and grading but allows the gold bottle. Take 1 (`S3_perfume.png`, `s3_perfume.mp4`) is kept.
 
 Quote: still **$0.086** (/estimate) + clip **$1.7024** = **$1.7884** (project $23.19 -> $24.98 of $40). The clip runs only after the still is approved.
 

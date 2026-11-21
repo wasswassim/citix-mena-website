@@ -67,7 +67,7 @@ This file is the single source of truth for the hero build. It replaces the "doc
 
 ## H0 — Setup (no credits)
 1. Copy this runbook into the repo as `docs/planning/HERO_ORBIT_RUNBOOK.md`.
-2. Update the **repo's own** `CLAUDE.md` (do NOT use `claude_code_kit\CLAUDE.md`, which is the outdated original kit version). Edit it in place:
+2. Update the **repo's own** `CLAUDE.md` (do NOT use `07_Website_Project_Docs\claude_code_kit\CLAUDE.md` in the Internship folder, which is the outdated original kit version). Edit it in place:
    - Add a "Current plan: v4.2 (BlueSquareX model)" section at the top with the Plan summary above.
    - **Keep as still valid:** old Tom (refs 01 and 02, red side strip, plain cap; the new calligraphy Tom, refs 03–06, stays on hold), brand rules, hard rules, model routing, scripts, and build standards.
    - **Move to an "Archived: intro film (dropped 14 Nov)" section, not deleted:** the sky-only front-facing end frame, the Shot 2 hard cut, the Shot 5 lower-and-tilt, the intro gate, and the intro budgets. Note that their assets are reusable.
@@ -75,9 +75,9 @@ This file is the single source of truth for the hero build. It replaces the "doc
 3. In `.env`, set `HIGGSFIELD_MAX_SPEND_USD=40`. Do it with a script that edits only that line and prints only "cap updated: 40". Confirm `.env` is still in `.gitignore`.
 4. Build `media/hero_orbit/refs/` (copies only):
    - **Tom:** `media/generated/hero_cutout/tom_night.png` and `tom_day.png` (old Tom, option A 1:3.5), plus Tom refs 01 and 02 from `media/source/`. Do not use refs 03–06.
-   - **Jerry:** the best 2 Jerry images from `C:\Users\wassi\Desktop\DOCS\Internship\Citix_sales_ver2_comments_maria_last.pdf`.
-   - **Baloo:** 3 sharp frames from `C:\Users\wassi\Desktop\DOCS\Internship\Média1pptx_s18_baloo_3d_video.mp4`, with the spire fully visible.
-   - **Jumbo:** 3 sharp frames from `C:\Users\wassi\Desktop\DOCS\Internship\Média1pptx_s20_jumbo_3d_video.mp4`, with both corner faces visible.
+   - **Jerry:** the best 2 Jerry images from `C:\Users\wassi\Desktop\DOCS\Internship\02_Sales_and_Product_Decks\Citix_sales_ver2_comments_maria_last.pdf`.
+   - **Baloo:** 3 sharp frames from `C:\Users\wassi\Desktop\DOCS\Internship\03_Product_Videos\Baloo\Média1pptx_s18_baloo_3d_video.mp4`, with the spire fully visible.
+   - **Jumbo:** 3 sharp frames from `C:\Users\wassi\Desktop\DOCS\Internship\03_Product_Videos\Jumbo\Média1pptx_s20_jumbo_3d_video.mp4`, with both corner faces visible.
    - Exclude anything showing the Burj Khalifa, identifiable people, or third-party logos.
 5. Make a labelled contact sheet `media/hero_orbit/refs/_refs_sheet.jpg` and open it on Wassim's screen.
 6. Commit "hero-orbit: runbook, CLAUDE.md v4.2, spend cap, product refs" (no `.env`).
